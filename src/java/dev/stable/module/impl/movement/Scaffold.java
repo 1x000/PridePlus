@@ -3,6 +3,7 @@ package dev.stable.module.impl.movement;
 import dev.stable.event.impl.game.TickEvent;
 import dev.stable.event.impl.network.PacketSendEvent;
 import dev.stable.event.impl.player.*;
+import dev.stable.event.impl.player.Vector3d;
 import dev.stable.module.Category;
 import dev.stable.module.Module;
 import dev.stable.module.settings.ParentAttribute;
@@ -13,11 +14,14 @@ import dev.stable.utils.animations.Animation;
 import dev.stable.utils.animations.Direction;
 import dev.stable.utils.animations.impl.EaseBackIn;
 import dev.stable.utils.entity.RayCastUtil;
+import dev.stable.utils.math.Rotation;
 import dev.stable.utils.math.Vector2f;
 import dev.stable.utils.misc.MathUtils;
 import dev.stable.utils.movementfix.MovementFix;
 import dev.stable.utils.movementfix.Rise.RotationComponent;
 import dev.stable.utils.movementfix.Rise.VecRotation;
+import dev.stable.utils.objects.PlaceRotation;
+import dev.stable.utils.player.BlockUtils;
 import dev.stable.utils.player.MovementUtils;
 import dev.stable.utils.player.RotationUtils;
 import dev.stable.utils.player.ScaffoldUtils;
@@ -42,11 +46,10 @@ import net.minecraft.network.play.client.C09PacketHeldItemChange;
 import net.minecraft.network.play.client.C0APacketAnimation;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.network.play.client.C0BPacketEntityAction.Action;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MouseFilter;
+import net.minecraft.util.*;
 import org.lwjgl.opengl.GL11;
 
+import static dev.stable.utils.player.ScaffoldUtils.getYLevel;
 
 
 public class Scaffold extends Module {
@@ -64,7 +67,6 @@ public class Scaffold extends Module {
     public static NumberSetting customspeed = new NumberSetting("Speed", 4.32, 5.75, 4.0, 0.01);
     public static final BooleanSetting safewalk = new BooleanSetting("Safewalk", false);
     private ScaffoldUtils.BlockCache blockCache;
-    private ScaffoldUtils.BlockCache lastBlockCache;
     private float y;
     private float speed;
     private final MouseFilter pitchMouseFilter = new MouseFilter();
@@ -135,7 +137,7 @@ public class Scaffold extends Module {
             canPlace = !mc.thePlayer.onGround;
             if (mc.thePlayer.onGround) {
                 RotationComponent.setRotations(new Vector2f(mc.thePlayer.rotationYaw, 76f), 180, MovementFix.NORMAL);
-                mc.thePlayer.setSprinting(true);
+                if (MovementUtils.isMoving() && !mc.thePlayer.isSneaking() && !mc.thePlayer.isUsingItem()) mc.thePlayer.setSprinting(true);
             }
         } else {
             canPlace = true;
@@ -161,6 +163,8 @@ public class Scaffold extends Module {
             mc.timer.timerSpeed = this.timer.getValue().floatValue();
         }
 
+        findBlock();
+
         if (!canPlace) return;
 
         if (this.rotations.isEnabled()) {
@@ -172,11 +176,8 @@ public class Scaffold extends Module {
                     rotations = new float[]{MovementUtils.getMoveYaw(e.getYaw()) - 360.0F, this.y};
                     if (mc.thePlayer.onGround && !MovementUtils.isMoving()) {
                         prevYaw = this.cachedRots[0];
-                        if ((this.blockCache = ScaffoldUtils.getBlockInfo()) == null) {
-                            this.blockCache = this.lastBlockCache;
-                        }
 
-                        if (this.blockCache != null && (mc.thePlayer.ticksExisted % 2 == 0 || mc.theWorld.getBlockState(new BlockPos(e.getX(), ScaffoldUtils.getYLevel(), e.getZ())).getBlock() == Blocks.air)) {
+                        if (this.blockCache != null && (mc.thePlayer.ticksExisted % 2 == 0 || mc.theWorld.getBlockState(new BlockPos(e.getX(), getYLevel(), e.getZ())).getBlock() == Blocks.air)) {
                             this.cachedRots = RotationUtils.getRotations(this.blockCache.getPosition(), this.blockCache.getFacing());
                         }
 
@@ -189,11 +190,8 @@ public class Scaffold extends Module {
                     break;
                 case "NCP":
                     prevYaw = this.cachedRots[0];
-                    if ((this.blockCache = ScaffoldUtils.getBlockInfo()) == null) {
-                        this.blockCache = this.lastBlockCache;
-                    }
 
-                    if (this.blockCache != null && (mc.thePlayer.ticksExisted % 3 == 0 || mc.theWorld.getBlockState(new BlockPos(e.getX(), ScaffoldUtils.getYLevel(), e.getZ())).getBlock() == Blocks.air)) {
+                    if (this.blockCache != null && (mc.thePlayer.ticksExisted % 3 == 0 || mc.theWorld.getBlockState(new BlockPos(e.getX(), getYLevel(), e.getZ())).getBlock() == Blocks.air)) {
                         this.cachedRots = RotationUtils.getRotations(this.blockCache.getPosition(), this.blockCache.getFacing());
                     }
 
@@ -211,11 +209,8 @@ public class Scaffold extends Module {
                     break;
                 case "Telly":
                     prevYaw = this.cachedRots[0];
-                    if ((this.blockCache = ScaffoldUtils.getBlockInfo()) == null) {
-                        this.blockCache = this.lastBlockCache;
-                    }
 
-                    if (this.blockCache != null && (mc.thePlayer.ticksExisted % 3 == 0 || mc.theWorld.getBlockState(new BlockPos(e.getX(), ScaffoldUtils.getYLevel(), e.getZ())).getBlock() == Blocks.air)) {
+                    if (this.blockCache != null && (mc.thePlayer.ticksExisted % 3 == 0 || mc.theWorld.getBlockState(new BlockPos(e.getX(), getYLevel(), e.getZ())).getBlock() == Blocks.air)) {
                         Vector2f vecRotation = RotationUtils.calculate(new Vector3d(blockCache.getPosition().getX(), blockCache.getPosition().getY(), blockCache.getPosition().getZ()), blockCache.getFacing());
                         this.cachedRots = new float[]{vecRotation.x, vecRotation.y};
                     }
@@ -250,8 +245,8 @@ public class Scaffold extends Module {
                     RotationComponent.setRotations(new Vector2f(rotations[0], rotations[1]), 180, MovementFix.NORMAL);
                     break;
                 case "Enum":
-                    if (this.lastBlockCache != null) {
-                        f = RotationUtils.getEnumRotations(this.lastBlockCache.getFacing());
+                    if (this.blockCache != null) {
+                        f = RotationUtils.getEnumRotations(this.blockCache.getFacing());
                         RotationComponent.setRotations(new Vector2f(f, 77f), 180, MovementFix.NORMAL);
                     } else {
                         RotationComponent.setRotations(new Vector2f(mc.thePlayer.rotationYaw + 180.0F, 77.0F), 180, MovementFix.NORMAL);
@@ -286,31 +281,25 @@ public class Scaffold extends Module {
                     ticks = ticks + 1;
                 }
         }
-            if (mc.gameSettings.keyBindJump.isKeyDown()) {
-                double centerX = Math.floor(e.getX()) + 0.5;
-                double centerZ = Math.floor(e.getZ()) + 0.5;
-                switch (towerMode.getMode()) {
-                    case "Vanilla":
-                        mc.thePlayer.motionY = 0.41999998688697815;
-                        break;
-                    case "NCP":
-                        if (!MovementUtils.isMoving() || (double)MovementUtils.getSpeed() < 0.16) {
-                            if (mc.thePlayer.onGround) {
-                                mc.thePlayer.motionY = 0.42;
-                            } else if (mc.thePlayer.motionY < 0.23) {
-                                mc.thePlayer.setPosition(mc.thePlayer.posX, (double)((int)mc.thePlayer.posY), mc.thePlayer.posZ);
-                                mc.thePlayer.motionY = 0.42;
-                            }
+        if (mc.gameSettings.keyBindJump.isKeyDown()) {
+            double centerX = Math.floor(e.getX()) + 0.5;
+            double centerZ = Math.floor(e.getZ()) + 0.5;
+            switch (towerMode.getMode()) {
+                case "Vanilla":
+                    mc.thePlayer.motionY = 0.41999998688697815;
+                    break;
+                case "NCP":
+                    if (!MovementUtils.isMoving() || (double)MovementUtils.getSpeed() < 0.16) {
+                        if (mc.thePlayer.onGround) {
+                            mc.thePlayer.motionY = 0.42;
+                        } else if (mc.thePlayer.motionY < 0.23) {
+                            mc.thePlayer.setPosition(mc.thePlayer.posX, (double)((int)mc.thePlayer.posY), mc.thePlayer.posZ);
+                            mc.thePlayer.motionY = 0.42;
                         }
-                }
+                    }
             }
-
-        this.blockCache = ScaffoldUtils.getBlockInfo();
-        if (this.blockCache == null) {
-            return;
         }
 
-        this.lastBlockCache = ScaffoldUtils.getBlockInfo();
         if (mc.thePlayer.ticksExisted % 4 == 0) {
             this.pre = true;
         }
@@ -341,7 +330,7 @@ public class Scaffold extends Module {
         }
 
         int slot = ScaffoldUtils.getBlockSlot();
-        if (this.blockCache != null && this.lastBlockCache != null && slot != -1) {
+        if (this.blockCache != null && slot != -1) {
             if (this.slot != slot) {
                 this.slot = slot;
                 PacketUtils.sendPacketNoEvent(new C09PacketHeldItemChange(this.slot));
@@ -350,7 +339,7 @@ public class Scaffold extends Module {
             boolean placed = false;
             if (this.delayTimer.hasTimeElapsed(delay.getValue() * 1000.0)) {
                 this.firstJump = false;
-                if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld, mc.thePlayer.inventory.getStackInSlot(this.slot), this.lastBlockCache.getPosition(), this.lastBlockCache.getFacing(), ScaffoldUtils.getHypixelVec3(this.lastBlockCache))) {
+                if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld, mc.thePlayer.inventory.getStackInSlot(this.slot), this.blockCache.getPosition(), this.blockCache.getFacing(), ScaffoldUtils.getHypixelVec3(this.blockCache))) {
                     placed = true;
                     this.y = MathUtils.getRandomInRange(79.5F, 83.5F);
                     PacketUtils.sendPacket(new C0APacketAnimation());
@@ -384,7 +373,6 @@ public class Scaffold extends Module {
 
     @Override
     public void onEnable() {
-        this.lastBlockCache = null;
         if (mc.thePlayer != null) {
             this.prevSlot = mc.thePlayer.inventory.currentItem;
             this.slot = mc.thePlayer.inventory.currentItem;
@@ -559,6 +547,89 @@ public class Scaffold extends Module {
         if (safewalk.isEnabled() || ScaffoldUtils.getBlockCount() == 0) {
             event.setSafe(true);
         }
+
+    }
+
+    private double calcStepSize(double range) {
+        double accuracy = 6;
+        accuracy += accuracy % 2;
+        return Math.max(range / accuracy, 0.01);
+    }
+
+    private boolean search(final BlockPos blockPosition, final boolean checks) {
+        if (BlockUtils.isValidBlock(blockPosition))
+            return false;
+
+        final Vec3 eyesPos = new Vec3(mc.thePlayer.posX, mc.thePlayer.getEntityBoundingBox().minY + mc.thePlayer.getEyeHeight(), mc.thePlayer.posZ);
+
+        PlaceRotation placeRotation = null;
+
+        double xzRV = 1;
+        double yRV = 1;
+        double xzSSV = calcStepSize(xzRV);
+        double ySSV = calcStepSize(xzRV);
+
+        for (final EnumFacing side : EnumFacing.values()) {
+            final BlockPos neighbor = blockPosition.offset(side);
+
+            if (!BlockUtils.isValidBlock(neighbor))
+                continue;
+
+            final Vec3 dirVec = new Vec3(side.getDirectionVec());
+            for (double xSearch = 0.5 - xzRV / 2; xSearch <= 0.5 + xzRV / 2; xSearch += xzSSV) {
+                for (double ySearch = 0.5 - yRV / 2; ySearch <= 0.5 + yRV / 2; ySearch += ySSV) {
+                    for (double zSearch = 0.5 - xzRV / 2; zSearch <= 0.5 + xzRV / 2; zSearch += xzSSV) {
+                        final Vec3 posVec = new Vec3(blockPosition).addVector(xSearch, ySearch, zSearch);
+                        final double distanceSqPosVec = eyesPos.squareDistanceTo(posVec);
+                        final Vec3 hitVec = posVec.add(new Vec3(dirVec.xCoord * 0.5, dirVec.yCoord * 0.5, dirVec.zCoord * 0.5));
+
+                        if (checks && (eyesPos.squareDistanceTo(hitVec) > 18.0 || distanceSqPosVec > eyesPos.squareDistanceTo(posVec.add(dirVec)) || mc.theWorld.rayTraceBlocks(eyesPos, hitVec, false, true, false) != null))
+                            continue;
+
+                        // face block
+                        final double diffX = hitVec.xCoord - eyesPos.xCoord;
+                        final double diffY = hitVec.yCoord - eyesPos.yCoord;
+                        final double diffZ = hitVec.zCoord - eyesPos.zCoord;
+
+                        final double diffXZ = MathHelper.sqrt_double(diffX * diffX + diffZ * diffZ);
+
+                        final Rotation rotation = new Rotation(
+                                MathHelper.wrapAngleTo180_float((float) Math.toDegrees(Math.atan2(diffZ, diffX)) - 90F),
+                                MathHelper.wrapAngleTo180_float((float) -Math.toDegrees(Math.atan2(diffY, diffXZ)))
+                        );
+                        final Vec3 rotationVector = new Vec3(dev.stable.utils.movementfix.Rise.RotationUtils.getVectorForRotation(rotation).xCoord, dev.stable.utils.movementfix.Rise.RotationUtils.getVectorForRotation(rotation).yCoord, dev.stable.utils.movementfix.Rise.RotationUtils.getVectorForRotation(rotation).zCoord);
+                        final Vec3 vector = eyesPos.addVector(rotationVector.xCoord * 4, rotationVector.yCoord * 4, rotationVector.zCoord * 4);
+                        final MovingObjectPosition obj = mc.theWorld.rayTraceBlocks(eyesPos, vector, false, false, true);
+
+                        if (!(obj.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && obj.getBlockPos().equals(neighbor)))
+                            continue;
+
+                        if (placeRotation == null || dev.stable.utils.movementfix.Rise.RotationUtils.getRotationDifference(rotation) < dev.stable.utils.movementfix.Rise.RotationUtils.getRotationDifference(placeRotation.getRotation()))
+                            placeRotation = new PlaceRotation(new ScaffoldUtils.BlockCache(neighbor, side.getOpposite()), rotation);
+                    }
+                }
+            }
+        }
+
+        if (placeRotation == null) return false;
+
+        blockCache = placeRotation.getBlockCache();
+
+        return true;
+    }
+
+    private void findBlock() {
+        // this.blockStack = this.findBlockStack();
+        boolean shouldGoDown = false;
+        final BlockPos blockPosition = new BlockPos(mc.thePlayer.posX, getYLevel(), mc.thePlayer.posZ);
+        if ((BlockUtils.isValidBlock(blockPosition) || search(blockPosition, !shouldGoDown)))
+            return;
+
+
+        for (int x = -1; x <= 1; x++)
+            for (int z = -1; z <= 1; z++)
+                if (search(blockPosition.add(x, 0, z), !shouldGoDown))
+                    return;
 
     }
 }

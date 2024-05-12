@@ -40,8 +40,6 @@ import java.util.Map;
 public class Reflector {
     private static final Logger LOGGER = LogManager.getLogger();
     public static ReflectorMethod ForgeHooksClient_applyTransform;
-    private static final boolean logForge = logEntry("*** Reflector Forge ***");
-    private static final boolean logVanilla = logEntry("*** Reflector Vanilla ***");
     public static ReflectorClass ChunkProviderClient = new ReflectorClass(ChunkProviderClient.class);
     public static ReflectorField ChunkProviderClient_chunkMapping = new ReflectorField(ChunkProviderClient, LongHashMap.class);
     public static ReflectorClass EntityVillager = new ReflectorClass(EntityVillager.class);

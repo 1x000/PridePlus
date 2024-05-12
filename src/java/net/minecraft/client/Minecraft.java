@@ -181,7 +181,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     private RenderManager renderManager;
     private RenderItem renderItem;
     private ItemRenderer itemRenderer;
-    public static EntityPlayerSP thePlayer;
+    public EntityPlayerSP thePlayer;
     private Entity renderViewEntity;
     public Entity pointedEntity;
     public EffectRenderer effectRenderer;
@@ -1856,7 +1856,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 this.rightClickMouse();
             }
 
-            if (Minecraft.thePlayer != null && Minecraft.getMinecraft().theWorld != null) Client.INSTANCE.getEventProtocol().handleEvent(new BlockPlaceableEvent());
+            if (Minecraft.getMinecraft().thePlayer != null && Minecraft.getMinecraft().theWorld != null) Client.INSTANCE.getEventProtocol().handleEvent(new BlockPlaceableEvent());
             this.sendClickBlockToController(this.currentScreen == null && this.gameSettings.keyBindAttack.isKeyDown() && this.inGameHasFocus);
         }
 
