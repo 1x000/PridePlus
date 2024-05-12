@@ -3,6 +3,7 @@ package net.minecraft.client.entity;
 import dev.stable.Client;
 import dev.stable.commands.CommandHandler;
 import dev.stable.event.impl.player.*;
+import dev.stable.module.impl.exploit.Disabler;
 import dev.stable.module.impl.movement.Sprint;
 import dev.stable.ui.notifications.NotificationManager;
 import dev.stable.ui.notifications.NotificationType;
@@ -254,6 +255,10 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                 } else {
                     this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(this.motionX, -999.0D, this.motionZ, rotationYaw, rotationPitch, onGround));
                     flag2 = false;
+                }
+
+                if (mc.thePlayer != null && mc.thePlayer != null) {
+                    Disabler.processPackets();
                 }
 
                 ++this.positionUpdateTicks;

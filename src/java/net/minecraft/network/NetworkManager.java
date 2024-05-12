@@ -2,6 +2,9 @@ package net.minecraft.network;
 
 
 import dev.stable.Client;
+import dev.stable.module.api.events.world.EventPacketReceive;
+import dev.stable.module.api.events.world.EventPacketSend;
+import dev.stable.module.impl.exploit.Disabler;
 import dev.stable.vialoadingbase.ViaLoadingBase;
 import dev.stable.viamcp.MCPVLBPipeline;
 import com.viaversion.viaversion.api.connection.UserConnection;
@@ -31,6 +34,7 @@ import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.util.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
@@ -131,14 +135,38 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
         this.closeChannel(chatcomponenttranslation);
     }
 
-    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, Packet p_channelRead0_2_) throws Exception {
+    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, Packet packetIn) throws Exception {
         if (this.channel.isOpen()) {
             try {
-                PacketReceiveEvent e = new PacketReceiveEvent(p_channelRead0_2_);
-                Client.INSTANCE.getEventProtocol().handleEvent(e);
-                if (e.isCancelled()) return;
-                p_channelRead0_2_.processPacket(this.packetListener);
-            } catch (ThreadQuickExitException ignored) {
+                if (packetIn instanceof S3FPacketCustomPayload) {
+                    final EventPacketReceive event = new EventPacketReceive(packetIn, EnumPacketDirection.CLIENTBOUND, (INetHandler)Disabler.mc.getNetHandler());
+                    final PacketReceiveEvent event2 = new PacketReceiveEvent(packetIn);
+
+                    Client.INSTANCE.getEventProtocol().handleEvent(event);
+                    Client.INSTANCE.getEventProtocol().handleEvent(event2);
+
+                    if (event.isCancelled() || event2.isCancelled()) {
+                        return;
+                    }
+                    packetIn.processPacket(this.packetListener);
+                }else
+                if (Disabler.getGrimPost() && Disabler.grimPostDelay(packetIn)) {
+                    Minecraft.getMinecraft().addScheduledTask(() -> {
+                        Disabler.storedPackets.add(packetIn);
+                    });}
+                else {
+                    final EventPacketReceive event = new EventPacketReceive(packetIn, EnumPacketDirection.CLIENTBOUND, (INetHandler)Disabler.mc.getNetHandler());
+                    final PacketReceiveEvent event2 = new PacketReceiveEvent(packetIn);
+
+                    Client.INSTANCE.getEventProtocol().handleEvent(event);
+                    Client.INSTANCE.getEventProtocol().handleEvent(event2);
+
+                    if (event.isCancelled() || event2.isCancelled()) {
+                        return;
+                    }
+                    packetIn.processPacket(this.packetListener);
+                }
+            } catch (ThreadQuickExitException e) {
             }
         }
     }

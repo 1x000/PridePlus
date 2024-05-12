@@ -6,6 +6,7 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.mojang.authlib.GameProfile;
 import dev.stable.Client;
+import dev.stable.module.impl.exploit.Disabler;
 import dev.stable.module.impl.movement.Flight;
 import dev.stable.event.impl.player.ChatReceivedEvent;
 import dev.stable.utils.misc.Enhancements;
@@ -904,7 +905,12 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         }
 
         if (container != null && !packetIn.func_148888_e()) {
-            this.addToSendQueue(new C0FPacketConfirmTransaction(packetIn.getWindowId(), packetIn.getActionNumber(), true));
+            final C0FPacketConfirmTransaction packet = new C0FPacketConfirmTransaction(packetIn.getWindowId(), packetIn.getActionNumber(), true);
+            if (Disabler.getGrimPost()) {
+                Disabler.fixC0F(packet);
+            } else {
+                addToSendQueue(packet);
+            }
         }
     }
 

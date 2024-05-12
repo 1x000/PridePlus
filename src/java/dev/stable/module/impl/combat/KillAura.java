@@ -175,7 +175,7 @@ public final class KillAura extends Module {
                     case "Watchdog":
                         if (event.isPre()) {
                             PacketUtils.sendPacketNoEvent(new C08PacketPlayerBlockPlacement(new BlockPos(-1, -1, -1), 255, mc.thePlayer.inventory.getCurrentItem(), 0.0F, 0.0F, 0.0F));
-                            PacketWrapper useItem = PacketWrapper.create(29, (ByteBuf) null, (UserConnection) Via.getManager().getConnectionManager().getConnections().iterator().next());
+                            PacketWrapper useItem = PacketWrapper.create(29, null, Via.getManager().getConnectionManager().getConnections().iterator().next());
                             useItem.write(Type.VAR_INT, 1);
                             PacketUtil.sendToServer(useItem, Protocol1_8TO1_9.class, true, true);
                             wasBlocking = true;

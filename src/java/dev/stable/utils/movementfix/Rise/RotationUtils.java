@@ -2,7 +2,7 @@ package dev.stable.utils.movementfix.Rise;
 
 import dev.stable.Client;
 import dev.stable.event.EventHandler;
-import dev.stable.event.impl.world.EventPacketSend;
+import dev.stable.event.impl.network.PacketSendEvent;
 import dev.stable.event.impl.world.EventTick;
 import dev.stable.utils.entity.RaycastUtils;
 import dev.stable.utils.math.Rotation;
@@ -580,7 +580,7 @@ public final class RotationUtils {
 	 * @param event Packet Event
 	 */
 	@EventHandler
-	public void onPacket(final EventPacketSend event) {
+	public void onPacket(final PacketSendEvent event) {
 		final Packet<?> packet = event.getPacket();
 		if (packet instanceof C03PacketPlayer) {
 			final C03PacketPlayer packetPlayer = (C03PacketPlayer) packet;

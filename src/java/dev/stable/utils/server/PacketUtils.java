@@ -29,4 +29,10 @@ public class PacketUtils implements Utils {
         return !(packet instanceof C00PacketLoginStart) && !(packet instanceof C00Handshake) && !(packet instanceof C00PacketServerQuery) && !(packet instanceof C01PacketPing);
     }
 
+    public static void sendPacketC0F() {
+        if (!Disabler.getGrimPost()) {
+            sendPacket(new C0FPacketConfirmTransaction(MathUtil.getRandom(102, 1000024123), (short) MathUtil.getRandom(102, 1000024123), true));
+        }
+
+    }
 }
