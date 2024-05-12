@@ -36,12 +36,12 @@ import net.minecraft.network.play.client.C16PacketClientStatus;
 import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-@NativeObfuscation
+
 public class Manager extends Module {
 
     private BooleanSetting inventoryPackets, onlyWhileNotMoving, inventoryOnly, swapBlocks, dropArchery, moveArrows, dropFood, dropShears;

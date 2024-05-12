@@ -11,13 +11,11 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.Display;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
 import java.awt.*;
 
 import static dev.stable.utils.render.RenderUtil.drawCircle;
 import static org.lwjgl.opengl.GL11.*;
 
-@NativeObfuscation
 public class GuiStart extends GuiScreen {
     public final ShaderProgram menuShader = new ShaderProgram("fragment/load.fsh");
     private int count = 0;
@@ -43,7 +41,7 @@ public class GuiStart extends GuiScreen {
 
         }
         if(count>50){
-            Display.setTitle(Client.NAME + " " + Client.VERSION  + " | "+ "我是"+RegionalAbuseUtil.country+"的"+Client.INSTANCE.username);
+            Display.setTitle(Client.NAME + " " + Client.VERSION  + " | "+ "我是"+RegionalAbuseUtil.country+"的用户");
             FontManager.edit25.drawCenteredString("初始化完毕！", width / 2, height / 2, Color.WHITE.getRGB());
             //FontManager.edit18.drawCenteredString("单击屏幕以进行下一步", width / 2, height / 2+3, Color.WHITE.getRGB());
         }

@@ -5,7 +5,7 @@ import dev.stable.module.Category;
 import dev.stable.module.Module;
 import dev.stable.module.settings.impl.NumberSetting;
 import dev.stable.utils.Utils;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 
 

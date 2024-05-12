@@ -11,7 +11,7 @@ import net.minecraft.network.play.server.S03PacketTimeUpdate;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.util.Random;
 

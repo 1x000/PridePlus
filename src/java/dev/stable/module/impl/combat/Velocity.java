@@ -10,9 +10,9 @@ import dev.stable.utils.Utils;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.network.play.server.S27PacketExplosion;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
 
-@NativeObfuscation
+
+
 public class Velocity extends Module {
 
     private final ModeSetting mode = new ModeSetting("Mode", "Hypixel", "Strict", "Hypixel");

@@ -4,7 +4,7 @@ import dev.stable.event.impl.player.SafeWalkEvent;
 import dev.stable.module.Category;
 import dev.stable.module.Module;
 import dev.stable.utils.Utils;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 
 

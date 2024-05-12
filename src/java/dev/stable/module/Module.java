@@ -23,7 +23,6 @@ import lombok.Setter;
 import org.lwjgl.input.Keyboard;
 import store.intent.intentguard.annotation.Exclude;
 import store.intent.intentguard.annotation.Strategy;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
 
 import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;

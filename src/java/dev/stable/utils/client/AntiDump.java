@@ -4,7 +4,7 @@ import jdk.internal.org.objectweb.asm.ClassWriter;
 import jdk.internal.org.objectweb.asm.tree.*;
 import sun.management.VMManagement;
 import sun.misc.Unsafe;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.lang.management.ManagementFactory;
 import java.lang.reflect.Field;

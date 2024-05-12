@@ -9,7 +9,7 @@ import dev.stable.module.settings.impl.NumberSetting;
 import dev.stable.utils.Utils;
 import dev.stable.utils.time.TimerUtil;
 import net.minecraft.network.play.client.C03PacketPlayer;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 
 

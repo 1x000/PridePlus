@@ -11,7 +11,7 @@ import dev.stable.module.settings.impl.ModeSetting;
 import dev.stable.utils.player.MovementUtils;
 
 import net.minecraft.network.play.client.C0BPacketEntityAction;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 
 

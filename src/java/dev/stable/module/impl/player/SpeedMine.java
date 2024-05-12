@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 
 

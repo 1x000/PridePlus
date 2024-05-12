@@ -5,7 +5,7 @@ import dev.stable.module.Category;
 import dev.stable.module.Module;
 import dev.stable.utils.player.ChatUtil;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 
 

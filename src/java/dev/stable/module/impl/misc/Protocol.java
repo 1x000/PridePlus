@@ -12,11 +12,11 @@ import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-@NativeObfuscation
+
 public class Protocol extends Module {
 
 

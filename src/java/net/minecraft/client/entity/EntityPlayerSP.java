@@ -32,7 +32,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import org.lwjgl.util.vector.Vector2f;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 public class EntityPlayerSP extends AbstractClientPlayer {
     public final NetHandlerPlayClient sendQueue;
@@ -171,7 +171,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     /**
      * Called to update the entity's position/logic.
      */
-    @NativeObfuscation
+    
     public void onUpdate() {
         Client.INSTANCE.getEventProtocol().handleEvent(new UpdateEvent());
 

@@ -21,7 +21,6 @@ import net.minecraft.network.play.client.C09PacketHeldItemChange;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
 
 import java.util.concurrent.ThreadLocalRandom;
 

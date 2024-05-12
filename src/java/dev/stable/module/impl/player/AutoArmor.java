@@ -23,7 +23,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.network.play.client.C0DPacketCloseWindow;
 import net.minecraft.network.play.client.C16PacketClientStatus;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 
 

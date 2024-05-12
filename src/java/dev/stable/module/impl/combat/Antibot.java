@@ -6,7 +6,6 @@ import dev.stable.module.settings.ParentAttribute;
 import dev.stable.module.settings.impl.BooleanSetting;
 import dev.stable.module.settings.impl.NumberSetting;
 import net.minecraft.entity.EntityLivingBase;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
 
 
 

@@ -9,7 +9,7 @@ import dev.stable.ui.notifications.NotificationType;
 import dev.stable.utils.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.StringUtils;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 
 

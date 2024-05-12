@@ -11,7 +11,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.network.play.server.S2DPacketOpenWindow;
 import net.minecraft.network.play.server.S2EPacketCloseWindow;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.util.Arrays;
 import java.util.List;

@@ -197,7 +197,7 @@ public class CustomMainMenu extends GuiScreen {
         //Left
         FontManager.product_sans_regular_18.drawString(Client.NAME+" "+Client.INSTANCE.getVersion(), 6, height - 12, textColor());
         //Right
-        final String text2 = "Welcome , " + Client.INSTANCE.username;
+        final String text2 = "Welcome, User";
         FontManager.product_sans_regular_18.drawString(text2, width - FontManager.product_sans_regular_18.getStringWidth(text2) - 6, height - 12, textColor());
     }
     @Override

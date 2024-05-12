@@ -7,7 +7,7 @@ import dev.stable.module.Category;
 import dev.stable.module.Module;
 import dev.stable.utils.Utils;
 import net.minecraft.network.play.client.C03PacketPlayer;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 
 

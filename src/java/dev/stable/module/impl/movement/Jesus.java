@@ -6,7 +6,7 @@ import dev.stable.event.impl.player.MotionEvent;
 import dev.stable.module.Category;
 import dev.stable.module.Module;
 import net.minecraft.util.AxisAlignedBB;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 
 

@@ -16,7 +16,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 public class AnimatedEntity {
 	public static List<AnimatedEntity> animatedEntities = new ArrayList<>();

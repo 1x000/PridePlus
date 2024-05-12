@@ -33,13 +33,13 @@ import net.minecraft.network.play.server.S2EPacketCloseWindow;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@NativeObfuscation
+
 public class Stealer extends Module {
 
     private final NumberSetting delay = new NumberSetting("Delay", 80, 300, 0, 10);

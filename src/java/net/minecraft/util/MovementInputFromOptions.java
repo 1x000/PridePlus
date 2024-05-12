@@ -1,6 +1,5 @@
 package net.minecraft.util;
 
-import com.sun.javafx.event.EventHandlerManager;
 import dev.stable.Client;
 import dev.stable.event.impl.player.EventMoveInput;
 import dev.stable.module.impl.movement.Speed;

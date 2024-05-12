@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemEgg;
 import net.minecraft.item.ItemSnowball;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 public final class FastPlace extends Module {
 

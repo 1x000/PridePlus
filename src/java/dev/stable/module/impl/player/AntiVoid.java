@@ -13,7 +13,7 @@ import dev.stable.utils.time.TimerUtil;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.AxisAlignedBB;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.util.ArrayList;
 import java.util.List;

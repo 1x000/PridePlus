@@ -313,11 +313,7 @@ public class HUDMod extends Module {
         boolean shadowInfo = infoCustomization.isEnabled("Info Shadow");
         if (infoCustomization.isEnabled("Client Info")) {
             String text;
-            if(Client.username.equals("development")){
-                text = Client.INSTANCE.getVersion() + " | " + (customFont.isEnabled() ? "" : "§l") + "ok" + "§r" + " | " + Client.username;
-            }else{
-                text = Client.INSTANCE.getVersion() + " | "  + "Release" + " | " + Client.username;
-            }
+            text = Client.INSTANCE.getVersion() + " | "  + "Release";
             text = HUDMod.get(text);
             float x = (float)sr.getScaledWidth() - (fr.getStringWidth(text) + 3.0f);
             float y = (float)(sr.getScaledHeight() - (fr.getHeight() + 3)) - yOffset;

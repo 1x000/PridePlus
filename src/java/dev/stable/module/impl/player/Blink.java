@@ -13,7 +13,7 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.Vec3;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.util.ArrayList;
 import java.util.List;

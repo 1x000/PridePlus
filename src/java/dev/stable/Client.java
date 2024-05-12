@@ -20,8 +20,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
-import tech.skidonion.obfuscator.inline.Wrapper;
 
 import java.awt.*;
 import java.io.File;
@@ -30,20 +28,15 @@ import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static tech.skidonion.obfuscator.inline.Wrapper.getUsername;
-
 @Getter
 @Setter
 
-@NativeObfuscation(virtualize = NativeObfuscation.VirtualMachine.TIGER_BLACK)
 public class Client implements Utils {
     public static final Client INSTANCE = new Client();
     public static final String NAME = "PridePlus";
     public static final String VERSION = "1.0.0";
     public static final ReleaseType RELEASE = ReleaseType.RELEASE;
-    public static Long userUID = Wrapper.getUserId().get();
-    public static String username = Wrapper.getUsername().get();
-    public static String userToken = Wrapper.getVerifyToken();
+    public static String username = "PridePlusUser";
 
     public static final Logger LOGGER = LogManager.getLogger(NAME);
     public static final File DIRECTORY = new File(mc.mcDataDir, "PridePlus");

@@ -20,13 +20,13 @@ import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.awt.*;
 
 import static net.minecraft.client.gui.Gui.drawRect;
 
-@NativeObfuscation
+
 public final class SplashScreen
 {
     private static final int DEFAULT_MAX = 14;

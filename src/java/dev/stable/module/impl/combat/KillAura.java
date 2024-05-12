@@ -49,13 +49,13 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.awt.*;
 import java.util.List;
 import java.util.*;
 
-@NativeObfuscation
+
 public final class KillAura extends Module {
     public static boolean attacking;
     public static boolean blocking;

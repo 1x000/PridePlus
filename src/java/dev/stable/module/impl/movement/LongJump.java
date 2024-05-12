@@ -22,7 +22,7 @@ import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.network.play.client.C09PacketHeldItemChange;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.util.ArrayList;
 import java.util.List;

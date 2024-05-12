@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.network.play.client.C09PacketHeldItemChange;
 import net.minecraft.potion.Potion;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
 
 
 

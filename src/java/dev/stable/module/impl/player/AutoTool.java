@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
     public class AutoTool extends Module {
 

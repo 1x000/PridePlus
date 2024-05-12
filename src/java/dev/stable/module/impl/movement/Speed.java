@@ -14,11 +14,11 @@ import net.minecraft.block.BlockStairs;
 import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPos;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 
 import java.util.concurrent.ThreadLocalRandom;
-@NativeObfuscation
+
 
 public final class Speed extends Module {
         private final ModeSetting mode = new ModeSetting("Mode", "Watchdog",

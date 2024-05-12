@@ -6,8 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
-@NativeObfuscation
+
+
 public class RegionalAbuseUtil
 {
     public static String country;

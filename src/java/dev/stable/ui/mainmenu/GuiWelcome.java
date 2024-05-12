@@ -10,12 +10,11 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.Display;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.awt.*;
 import java.util.Random;
 
-@NativeObfuscation
 public class GuiWelcome extends GuiScreen {
     private long startTime;
     private float alpha = 1;
@@ -40,8 +39,8 @@ public class GuiWelcome extends GuiScreen {
         }
         drawRect(0, 0, width, height, RenderUtil.reAlpha(Color.BLACK.getRGB(), Math.abs(alpha)));
         FontManager.product_sans_medium_36.drawCenteredString("Welcome to "+Client.NAME+"!", width / 2, height / 2 - 20, Color.WHITE.getRGB());
-        FontManager.product_sans_regular_20.drawCenteredString("User："+Client.username, width / 2, height / 2+3, Color.WHITE.getRGB());
-        FontManager.edit15.drawCenteredString("轻点以进入主界面("+count+"s)", width / 2, height-15, Color.WHITE.darker().getRGB());
+        FontManager.product_sans_regular_20.drawCenteredString("User: You", width / 2, height / 2+3, Color.WHITE.getRGB());
+        FontManager.edit15.drawCenteredString("轻点以进入主界面 ("+count+"s)", width / 2, height-15, Color.WHITE.darker().getRGB());
         sb++;
         if (needBlack) {
             if (alpha != 1) {

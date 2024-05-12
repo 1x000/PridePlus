@@ -26,13 +26,11 @@ import dev.stable.utils.server.PingerUtils;
 import dev.stable.viamcp.ViaMCP;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ForceUnicodeChat;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 
-@NativeObfuscation
 public class ProtectedLaunch {
 
     private static final HashMap<Object, Module> modules = new HashMap<>();

@@ -28,7 +28,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 import java.util.HashSet;
 import java.util.Set;

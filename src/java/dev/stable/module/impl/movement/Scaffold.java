@@ -46,9 +46,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MouseFilter;
 import org.lwjgl.opengl.GL11;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
 
-@NativeObfuscation
+
+
 public class Scaffold extends Module {
     private final ModeSetting countMode = new ModeSetting("Block Counter", "Stable", "None", "Stable", "Basic", "Polar");
     public static final ModeSetting mode = new ModeSetting("Scaffold Mode", "Normal", "Normal", "Telly");

@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.IFontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
-import tech.skidonion.obfuscator.annotations.NativeObfuscation;
+
 
 
 
