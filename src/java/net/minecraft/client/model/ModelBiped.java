@@ -1,8 +1,8 @@
 package net.minecraft.client.model;
 
-import dev.stable.module.impl.render.Dab;
-import dev.stable.module.impl.render.Loli;
-import dev.stable.module.impl.render.TargetHUDMod;
+import cn.molokymc.prideplus.module.impl.render.Dab;
+import cn.molokymc.prideplus.module.impl.render.Loli;
+import cn.molokymc.prideplus.module.impl.render.TargetHUDMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;

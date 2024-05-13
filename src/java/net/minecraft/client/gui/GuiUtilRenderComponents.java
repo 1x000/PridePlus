@@ -2,12 +2,12 @@ package net.minecraft.client.gui;
 
 
 import com.google.common.collect.Lists;
-import dev.stable.utils.font.AbstractFontRenderer;
+import cn.molokymc.prideplus.utils.font.AbstractFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
-import dev.stable.utils.skidfont.FontDrawer;
+import cn.molokymc.prideplus.utils.skidfont.FontDrawer;
 
 import java.util.List;
 

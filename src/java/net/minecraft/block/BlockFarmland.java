@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import dev.stable.viamcp.ViaMCP;
+import cn.molokymc.prideplus.viamcp.ViaMCP;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;

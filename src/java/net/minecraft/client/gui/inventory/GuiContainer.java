@@ -1,8 +1,8 @@
 package net.minecraft.client.gui.inventory;
 
 import com.google.common.collect.Sets;
-import dev.stable.module.impl.movement.InventoryMove;
-import dev.stable.module.impl.player.Stealer;
+import cn.molokymc.prideplus.module.impl.movement.InventoryMove;
+import cn.molokymc.prideplus.module.impl.player.Stealer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;

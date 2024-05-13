@@ -2,7 +2,7 @@ package net.minecraft.client.gui;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import dev.stable.utils.font.AbstractFontRenderer;
+import cn.molokymc.prideplus.utils.font.AbstractFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;

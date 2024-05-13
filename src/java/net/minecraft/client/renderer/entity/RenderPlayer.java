@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
-import dev.stable.module.impl.combat.KillAura;
-import dev.stable.module.impl.render.CustomModel;
+import cn.molokymc.prideplus.module.impl.combat.KillAura;
+import cn.molokymc.prideplus.module.impl.render.CustomModel;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelPlayer;

@@ -1,14 +1,14 @@
 package net.minecraft.client.gui;
 
-import dev.stable.module.impl.render.HUDMod;
-import dev.stable.utils.animations.Animation;
-import dev.stable.utils.animations.Direction;
-import dev.stable.utils.animations.impl.DecelerateAnimation;
-import dev.stable.utils.render.ColorUtil;
-import dev.stable.utils.render.RenderUtil;
-import dev.stable.utils.render.RoundedUtil;
-import dev.stable.utils.skidfont.FontDrawer;
-import dev.stable.utils.skidfont.FontManager;
+import cn.molokymc.prideplus.module.impl.render.HUDMod;
+import cn.molokymc.prideplus.utils.animations.Animation;
+import cn.molokymc.prideplus.utils.animations.Direction;
+import cn.molokymc.prideplus.utils.animations.impl.DecelerateAnimation;
+import cn.molokymc.prideplus.utils.render.ColorUtil;
+import cn.molokymc.prideplus.utils.render.RenderUtil;
+import cn.molokymc.prideplus.utils.render.RoundedUtil;
+import cn.molokymc.prideplus.utils.skidfont.FontDrawer;
+import cn.molokymc.prideplus.utils.skidfont.FontManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;

@@ -1,11 +1,11 @@
 package net.minecraft.client.gui;
 
-import dev.stable.module.impl.render.HUDMod;
+import cn.molokymc.prideplus.module.impl.render.HUDMod;
 
 import com.google.common.collect.Lists;
-import dev.stable.utils.skidfont.FontManager;
-import dev.stable.utils.render.ColorUtil;
-import dev.stable.utils.render.GLUtil;
+import cn.molokymc.prideplus.utils.skidfont.FontManager;
+import cn.molokymc.prideplus.utils.render.ColorUtil;
+import cn.molokymc.prideplus.utils.render.GLUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +14,7 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import dev.stable.utils.skidfont.FontDrawer;
+import cn.molokymc.prideplus.utils.skidfont.FontDrawer;
 
 import java.awt.*;
 import java.util.Iterator;

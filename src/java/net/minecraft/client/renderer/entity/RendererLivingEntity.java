@@ -1,14 +1,14 @@
 package net.minecraft.client.renderer.entity;
 
 import com.google.common.collect.Lists;
-import dev.stable.Client;
-import dev.stable.module.impl.render.CustomModel;
-import dev.stable.module.impl.render.ESP2D;
-import dev.stable.module.impl.render.TargetHUDMod;
-import dev.stable.module.impl.render.MoBendsMod;
-import dev.stable.event.impl.render.NametagRenderEvent;
-import dev.stable.event.impl.render.RenderModelEvent;
-import dev.stable.event.impl.render.RendererLivingEntityEvent;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.module.impl.render.CustomModel;
+import cn.molokymc.prideplus.module.impl.render.ESP2D;
+import cn.molokymc.prideplus.module.impl.render.TargetHUDMod;
+import cn.molokymc.prideplus.module.impl.render.MoBendsMod;
+import cn.molokymc.prideplus.event.impl.render.NametagRenderEvent;
+import cn.molokymc.prideplus.event.impl.render.RenderModelEvent;
+import cn.molokymc.prideplus.event.impl.render.RendererLivingEntityEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.IFontRenderer;

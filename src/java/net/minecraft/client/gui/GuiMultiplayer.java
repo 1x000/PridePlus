@@ -2,8 +2,8 @@ package net.minecraft.client.gui;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import dev.stable.utils.server.ServerUtils;
-import dev.stable.viamcp.gui.AsyncVersionSlider;
+import cn.molokymc.prideplus.utils.server.ServerUtils;
+import cn.molokymc.prideplus.viamcp.gui.AsyncVersionSlider;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;

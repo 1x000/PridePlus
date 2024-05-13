@@ -1,10 +1,10 @@
 package net.minecraft.client.gui;
 
-import dev.stable.module.impl.render.HUDMod;
-import dev.stable.utils.render.RenderUtil;
-import dev.stable.utils.font.AbstractFontRenderer;
-import dev.stable.utils.font.FontUtil;
-import dev.stable.utils.render.GLUtil;
+import cn.molokymc.prideplus.module.impl.render.HUDMod;
+import cn.molokymc.prideplus.utils.render.RenderUtil;
+import cn.molokymc.prideplus.utils.font.AbstractFontRenderer;
+import cn.molokymc.prideplus.utils.font.FontUtil;
+import cn.molokymc.prideplus.utils.render.GLUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;

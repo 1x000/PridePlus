@@ -1,12 +1,12 @@
 package net.minecraft.entity;
 
-import dev.stable.Client;
-import dev.stable.event.impl.player.PlayerMoveUpdateEvent;
-import dev.stable.event.impl.player.SafeWalkEvent;
-import dev.stable.event.impl.player.StepConfirmEvent;
-import dev.stable.event.impl.player.Vector3d;
-import dev.stable.module.impl.movement.Flight;
-import dev.stable.vialoadingbase.ViaLoadingBase;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.event.impl.player.PlayerMoveUpdateEvent;
+import cn.molokymc.prideplus.event.impl.player.SafeWalkEvent;
+import cn.molokymc.prideplus.event.impl.player.StepConfirmEvent;
+import cn.molokymc.prideplus.event.impl.player.Vector3d;
+import cn.molokymc.prideplus.module.impl.movement.Flight;
+import cn.molokymc.prideplus.vialoadingbase.ViaLoadingBase;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -45,8 +45,8 @@ import java.util.UUID;
 public abstract class Entity implements ICommandSender {
     private static final AxisAlignedBB ZERO_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
     private static int nextEntityID;
-    public dev.stable.event.impl.player.Vector3d getCustomPositionVector() {
-        return new dev.stable.event.impl.player.Vector3d(posX, posY, posZ);
+    public cn.molokymc.prideplus.event.impl.player.Vector3d getCustomPositionVector() {
+        return new cn.molokymc.prideplus.event.impl.player.Vector3d(posX, posY, posZ);
     }
 
     public Vec3 getLookCustom(final float yaw, final float pitch) {
@@ -1427,14 +1427,14 @@ public abstract class Entity implements ICommandSender {
             return new Vec3(d0, d1, d2);
         }
     }
-    public dev.stable.utils.movementfix.Rise.Vec3 getPositionEyes2(float partialTicks) {
+    public cn.molokymc.prideplus.utils.movementfix.Rise.Vec3 getPositionEyes2(float partialTicks) {
         if (partialTicks == 1.0F) {
-            return new dev.stable.utils.movementfix.Rise.Vec3(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ);
+            return new cn.molokymc.prideplus.utils.movementfix.Rise.Vec3(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ);
         } else {
             double d0 = this.prevPosX + (this.posX - this.prevPosX) * (double) partialTicks;
             double d1 = this.prevPosY + (this.posY - this.prevPosY) * (double) partialTicks + (double) this.getEyeHeight();
             double d2 = this.prevPosZ + (this.posZ - this.prevPosZ) * (double) partialTicks;
-            return new dev.stable.utils.movementfix.Rise.Vec3(d0, d1, d2);
+            return new cn.molokymc.prideplus.utils.movementfix.Rise.Vec3(d0, d1, d2);
         }
     }
 

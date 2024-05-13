@@ -6,7 +6,7 @@ import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.properties.PropertyMap.Serializer;
 import an.Checker;
 import an.Progress;
-import dev.stable.utils.client.AntiDump;
+import cn.molokymc.prideplus.utils.client.AntiDump;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;

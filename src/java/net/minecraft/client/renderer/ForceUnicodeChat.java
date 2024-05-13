@@ -1,9 +1,9 @@
 package net.minecraft.client.renderer;
 
-import dev.stable.event.impl.network.PacketEvent;
-import dev.stable.event.impl.network.PacketReceiveEvent;
-import dev.stable.module.Category;
-import dev.stable.module.Module;
+import cn.molokymc.prideplus.event.impl.network.PacketEvent;
+import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
+import cn.molokymc.prideplus.module.Category;
+import cn.molokymc.prideplus.module.Module;
 import net.minecraft.network.play.client.C01PacketChatMessage;
 
 public class ForceUnicodeChat extends Module {

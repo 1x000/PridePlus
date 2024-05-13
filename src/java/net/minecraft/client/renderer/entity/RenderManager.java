@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer.entity;
 
 import com.google.common.collect.Maps;
-import dev.stable.module.impl.render.TargetHUDMod;
-import dev.stable.utils.misc.MathUtils;
+import cn.molokymc.prideplus.module.impl.render.TargetHUDMod;
+import cn.molokymc.prideplus.utils.misc.MathUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.state.IBlockState;

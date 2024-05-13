@@ -2,12 +2,12 @@ package net.minecraft.client.renderer;
 
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
-import dev.stable.Client;
-import dev.stable.event.impl.render.HurtCamEvent;
-import dev.stable.event.impl.render.Render3DEvent;
-import dev.stable.module.impl.player.Stealer;
-import dev.stable.module.impl.render.Ambience;
-import dev.stable.utils.render.EntityCulling;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.event.impl.render.HurtCamEvent;
+import cn.molokymc.prideplus.event.impl.render.Render3DEvent;
+import cn.molokymc.prideplus.module.impl.player.Stealer;
+import cn.molokymc.prideplus.module.impl.render.Ambience;
+import cn.molokymc.prideplus.utils.render.EntityCulling;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.material.Material;

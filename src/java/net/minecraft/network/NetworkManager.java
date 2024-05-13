@@ -1,21 +1,21 @@
 package net.minecraft.network;
 
 
-import dev.stable.Client;
-import dev.stable.module.api.events.world.EventPacketReceive;
-import dev.stable.module.api.events.world.EventPacketSend;
-import dev.stable.module.impl.exploit.Disabler;
-import dev.stable.vialoadingbase.ViaLoadingBase;
-import dev.stable.viamcp.MCPVLBPipeline;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.module.api.events.world.EventPacketReceive;
+import cn.molokymc.prideplus.module.api.events.world.EventPacketSend;
+import cn.molokymc.prideplus.module.impl.exploit.Disabler;
+import cn.molokymc.prideplus.vialoadingbase.ViaLoadingBase;
+import cn.molokymc.prideplus.viamcp.MCPVLBPipeline;
 import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.connection.UserConnectionImpl;
 import com.viaversion.viaversion.protocol.ProtocolPipelineImpl;
 
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import dev.stable.event.impl.network.PacketReceiveEvent;
-import dev.stable.event.impl.network.PacketSendEvent;
-import dev.stable.vialoadingbase.netty.event.CompressionReorderEvent;
+import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
+import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
+import cn.molokymc.prideplus.vialoadingbase.netty.event.CompressionReorderEvent;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.epoll.Epoll;

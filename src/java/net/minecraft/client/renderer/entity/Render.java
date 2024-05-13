@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
-import dev.stable.module.impl.render.TargetHUDMod;
+import cn.molokymc.prideplus.module.impl.render.TargetHUDMod;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.IFontRenderer;

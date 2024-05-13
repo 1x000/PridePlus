@@ -1,9 +1,9 @@
 package net.minecraft.client.entity;
 
 import com.mojang.authlib.GameProfile;
-import dev.stable.Client;
-import dev.stable.event.impl.player.EventLook;
-import dev.stable.utils.math.Vector2f;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.event.impl.player.EventLook;
+import cn.molokymc.prideplus.utils.math.Vector2f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.ImageBufferDownload;

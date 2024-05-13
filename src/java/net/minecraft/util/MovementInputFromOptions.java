@@ -1,8 +1,8 @@
 package net.minecraft.util;
 
-import dev.stable.Client;
-import dev.stable.event.impl.player.EventMoveInput;
-import dev.stable.module.impl.movement.Speed;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.event.impl.player.EventMoveInput;
+import cn.molokymc.prideplus.module.impl.movement.Speed;
 import net.minecraft.client.settings.GameSettings;
 
 public class MovementInputFromOptions extends MovementInput {

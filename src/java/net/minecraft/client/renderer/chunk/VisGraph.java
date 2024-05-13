@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.chunk;
 
-import dev.stable.module.impl.render.XRay;
+import cn.molokymc.prideplus.module.impl.render.XRay;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IntegerCache;

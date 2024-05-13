@@ -1,6 +1,6 @@
 package net.minecraft.item;
 
-import dev.stable.viamcp.fixes.FixedSoundEngine;
+import cn.molokymc.prideplus.viamcp.fixes.FixedSoundEngine;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;

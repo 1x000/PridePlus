@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import dev.stable.module.impl.render.XRay;
+import cn.molokymc.prideplus.module.impl.render.XRay;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;

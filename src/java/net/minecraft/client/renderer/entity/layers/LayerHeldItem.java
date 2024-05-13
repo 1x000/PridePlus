@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.entity.layers;
 
-import dev.stable.module.impl.render.CustomModel;
+import cn.molokymc.prideplus.module.impl.render.CustomModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;

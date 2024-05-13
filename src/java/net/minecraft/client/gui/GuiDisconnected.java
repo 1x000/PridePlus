@@ -1,11 +1,11 @@
 package net.minecraft.client.gui;
 
-import dev.stable.Client;
-import dev.stable.module.impl.render.NotificationsMod;
-import dev.stable.ui.altmanager.helpers.Alt;
-import dev.stable.ui.mainmenu.CustomMainMenu;
-import dev.stable.utils.server.ServerUtils;
-import dev.stable.utils.server.ban.BanUtils;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.module.impl.render.NotificationsMod;
+import cn.molokymc.prideplus.ui.altmanager.helpers.Alt;
+import cn.molokymc.prideplus.ui.mainmenu.CustomMainMenu;
+import cn.molokymc.prideplus.utils.server.ServerUtils;
+import cn.molokymc.prideplus.utils.server.ban.BanUtils;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IChatComponent;

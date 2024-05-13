@@ -1,12 +1,12 @@
 package net.minecraft.client.entity;
 
-import dev.stable.Client;
-import dev.stable.commands.CommandHandler;
-import dev.stable.event.impl.player.*;
-import dev.stable.module.impl.exploit.Disabler;
-import dev.stable.module.impl.movement.Sprint;
-import dev.stable.ui.notifications.NotificationManager;
-import dev.stable.ui.notifications.NotificationType;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.commands.CommandHandler;
+import cn.molokymc.prideplus.event.impl.player.*;
+import cn.molokymc.prideplus.module.impl.exploit.Disabler;
+import cn.molokymc.prideplus.module.impl.movement.Sprint;
+import cn.molokymc.prideplus.ui.notifications.NotificationManager;
+import cn.molokymc.prideplus.ui.notifications.NotificationType;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;

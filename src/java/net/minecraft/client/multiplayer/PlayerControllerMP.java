@@ -1,9 +1,9 @@
 package net.minecraft.client.multiplayer;
 
-import dev.stable.Client;
-import dev.stable.module.impl.combat.KillAura;
-import dev.stable.module.impl.movement.Flight;
-import dev.stable.event.impl.player.AttackEvent;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.module.impl.combat.KillAura;
+import cn.molokymc.prideplus.module.impl.movement.Flight;
+import cn.molokymc.prideplus.event.impl.player.AttackEvent;
 import lombok.Setter;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

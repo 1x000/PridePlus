@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import dev.stable.module.impl.render.XRay;
+import cn.molokymc.prideplus.module.impl.render.XRay;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.EnumWorldBlockLayer;

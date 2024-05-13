@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.tileentity;
 
-import dev.stable.Client;
-import dev.stable.event.impl.render.RenderChestEvent;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.event.impl.render.RenderChestEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.client.model.ModelChest;

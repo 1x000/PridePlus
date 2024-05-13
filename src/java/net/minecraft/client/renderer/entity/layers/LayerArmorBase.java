@@ -1,11 +1,11 @@
 package net.minecraft.client.renderer.entity.layers;
 
 import com.google.common.collect.Maps;
-import dev.stable.Client;
-import dev.stable.module.impl.render.Animations;
-import dev.stable.module.impl.render.CustomModel;
-import dev.stable.module.impl.render.Glint;
-import dev.stable.utils.render.RenderUtil;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.module.impl.render.Animations;
+import cn.molokymc.prideplus.module.impl.render.CustomModel;
+import cn.molokymc.prideplus.module.impl.render.Glint;
+import cn.molokymc.prideplus.utils.render.RenderUtil;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;

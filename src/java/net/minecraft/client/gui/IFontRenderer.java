@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
-import dev.stable.module.impl.render.Streamer;
-import dev.stable.utils.font.AbstractFontRenderer;
+import cn.molokymc.prideplus.module.impl.render.Streamer;
+import cn.molokymc.prideplus.utils.font.AbstractFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;

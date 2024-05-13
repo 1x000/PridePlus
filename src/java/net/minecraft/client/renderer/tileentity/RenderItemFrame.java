@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.tileentity;
 
-import dev.stable.utils.render.EntityCulling;
+import cn.molokymc.prideplus.utils.render.EntityCulling;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.IFontRenderer;
 import net.minecraft.client.renderer.*;

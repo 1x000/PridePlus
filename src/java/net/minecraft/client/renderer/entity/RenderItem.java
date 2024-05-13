@@ -1,9 +1,9 @@
 package net.minecraft.client.renderer.entity;
 
-import dev.stable.Client;
-import dev.stable.module.impl.combat.KillAura;
-import dev.stable.module.impl.render.Glint;
-import dev.stable.utils.render.GLUtil;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.module.impl.combat.KillAura;
+import cn.molokymc.prideplus.module.impl.render.Glint;
+import cn.molokymc.prideplus.utils.render.GLUtil;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer;
 
-import dev.stable.module.impl.movement.Flight;
-import dev.stable.module.impl.render.XRay;
+import cn.molokymc.prideplus.module.impl.movement.Flight;
+import cn.molokymc.prideplus.module.impl.render.XRay;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

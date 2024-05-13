@@ -1,8 +1,8 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-import dev.stable.Client;
-import dev.stable.ui.mainmenu.CustomMainMenu;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.ui.mainmenu.CustomMainMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;

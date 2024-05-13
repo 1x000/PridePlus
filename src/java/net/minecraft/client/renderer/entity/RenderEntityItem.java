@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer.entity;
 
-import dev.stable.Client;
-import dev.stable.module.impl.render.ItemPhysics;
-import dev.stable.utils.render.EntityCulling;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.module.impl.render.ItemPhysics;
+import cn.molokymc.prideplus.utils.render.EntityCulling;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

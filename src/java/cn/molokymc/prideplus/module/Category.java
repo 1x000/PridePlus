@@ -1,0 +1,40 @@
+package cn.molokymc.prideplus.module;
+
+import cn.molokymc.prideplus.utils.font.FontUtil;
+import cn.molokymc.prideplus.utils.objects.Drag;
+import cn.molokymc.prideplus.utils.objects.Scroll;
+import lombok.Getter;
+
+public enum Category {
+
+    COMBAT("Combat", FontUtil.BOMB),
+    MOVEMENT("Movement", FontUtil.WHEELCHAIR),
+    RENDER("Render", FontUtil.EYE),
+    DISPLAY("Display", FontUtil.EYE),
+    PLAYER("Player", FontUtil.PERSON),
+    MISC("Misc", FontUtil.LIST),
+    EXPLOIT("Exploit", FontUtil.BUG),
+    SCRIPTS("Scripts", FontUtil.SCRIPT);
+
+    public final String name;
+    public final String icon;
+    public final int posX;
+    public final boolean expanded;
+
+    @Getter
+    private final Scroll scroll = new Scroll();
+
+    @Getter
+    private final Drag drag;
+    public int posY = 20;
+
+    Category(String name, String icon) {
+        this.name = name;
+        this.icon = icon;
+        posX = 20 + (Module.categoryCount * 120);
+        drag = new Drag(posX, posY);
+        expanded = true;
+        Module.categoryCount++;
+    }
+
+}

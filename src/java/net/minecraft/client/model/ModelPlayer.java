@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
-import dev.stable.module.impl.render.CustomModel;
-import dev.stable.utils.render.RenderUtil;
+import cn.molokymc.prideplus.module.impl.render.CustomModel;
+import cn.molokymc.prideplus.utils.render.RenderUtil;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;

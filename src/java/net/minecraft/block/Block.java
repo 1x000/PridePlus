@@ -1,10 +1,10 @@
 package net.minecraft.block;
 
-import dev.stable.Client;
-import dev.stable.module.impl.movement.Flight;
-import dev.stable.module.impl.render.XRay;
-import dev.stable.utils.player.BlockUtils;
-import dev.stable.event.impl.player.BoundingBoxEvent;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.module.impl.movement.Flight;
+import cn.molokymc.prideplus.module.impl.render.XRay;
+import cn.molokymc.prideplus.utils.player.BlockUtils;
+import cn.molokymc.prideplus.event.impl.player.BoundingBoxEvent;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;

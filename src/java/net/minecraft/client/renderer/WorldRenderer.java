@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer;
 
 import com.google.common.primitives.Floats;
-import dev.stable.module.impl.render.XRay;
-import dev.stable.utils.render.ColorUtil;
+import cn.molokymc.prideplus.module.impl.render.XRay;
+import cn.molokymc.prideplus.utils.render.ColorUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;

@@ -1,11 +1,11 @@
 package net.minecraft.client.renderer;
 
 
-import dev.stable.Client;
-import dev.stable.module.impl.combat.KillAura;
-import dev.stable.module.impl.render.Animations;
-import dev.stable.module.impl.render.RemoveEffects;
-import dev.stable.utils.player.InventoryUtils;
+import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.module.impl.combat.KillAura;
+import cn.molokymc.prideplus.module.impl.render.Animations;
+import cn.molokymc.prideplus.module.impl.render.RemoveEffects;
+import cn.molokymc.prideplus.utils.player.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import dev.stable.vialoadingbase.ViaLoadingBase;
+import cn.molokymc.prideplus.vialoadingbase.ViaLoadingBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
