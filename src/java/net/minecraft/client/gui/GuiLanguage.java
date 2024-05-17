@@ -7,6 +7,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.Language;
 import net.minecraft.client.resources.LanguageManager;
 import net.minecraft.client.settings.GameSettings;
+import net.optifine.Log;
 
 import java.io.IOException;
 import java.util.Map;
@@ -133,7 +134,37 @@ public class GuiLanguage extends GuiScreen
             Language language = (Language)this.languageMap.get(this.langCodeList.get(slotIndex));
             GuiLanguage.this.languageManager.setCurrentLanguage(language);
             GuiLanguage.this.game_settings_3.language = language.getLanguageCode();
-            this.mc.refreshResources();
+
+            Minecraft mc = Minecraft.getMinecraft();
+            mc.getLanguageManager().onResourceManagerReload(mc.getResourceManager());
+
+            // Latest Optifine is using net.optifine.Lang, but older versions are using Lang
+            final String[] optifineLangClassNames = {
+                    "net.optifine.Lang",
+                    "Lang"};
+
+            // Optifine
+            try {
+                Class<?> optifineLangClass = null;
+
+                for (String optifineLangClassName : optifineLangClassNames) {
+                    try {
+                        optifineLangClass = Class.forName(optifineLangClassName);
+                        break;
+                    } catch (ClassNotFoundException ignored) {
+                    }
+                }
+
+                if (optifineLangClass == null) {
+                    return;
+                }
+
+                optifineLangClass.getMethod("resourcesReloaded").invoke(null);
+            } catch (Exception e) {
+                Log.error("Failed to reload Optifine!", e);
+            }
+
+            //this.mc.refreshResources();
             GuiLanguage.this.fontRendererObj.setUnicodeFlag(GuiLanguage.this.languageManager.isCurrentLocaleUnicode() || GuiLanguage.this.game_settings_3.forceUnicodeFont);
             GuiLanguage.this.fontRendererObj.setBidiFlag(GuiLanguage.this.languageManager.isCurrentLanguageBidirectional());
             GuiLanguage.this.confirmSettingsBtn.displayString = I18n.format("gui.done", new Object[0]);

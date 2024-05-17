@@ -1,12 +1,11 @@
 package cn.molokymc.prideplus.module.impl.combat;
 
-
+import cn.molokymc.prideplus.viamcp.ViaMCP;
+import com.viaversion.viarewind.protocol.protocol1_8to1_9.Protocol1_8To1_9;
 import com.viaversion.viaversion.api.Via;
-import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.api.protocol.packet.PacketWrapper;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import com.viaversion.viaversion.api.type.Type;
-import de.gerrygames.viarewind.protocol.protocol1_8to1_9.Protocol1_8TO1_9;
-import de.gerrygames.viarewind.utils.PacketUtil;
 import cn.molokymc.prideplus.Client;
 import cn.molokymc.prideplus.commands.impl.FriendCommand;
 import cn.molokymc.prideplus.event.impl.player.*;
@@ -20,20 +19,16 @@ import cn.molokymc.prideplus.module.settings.impl.*;
 import cn.molokymc.prideplus.utils.animations.Animation;
 import cn.molokymc.prideplus.utils.animations.Direction;
 import cn.molokymc.prideplus.utils.animations.impl.DecelerateAnimation;
-import cn.molokymc.prideplus.utils.entity.RayCastUtil;
 import cn.molokymc.prideplus.utils.math.MathUtil;
 import cn.molokymc.prideplus.utils.math.Vector2f;
 import cn.molokymc.prideplus.utils.misc.MathUtils;
 import cn.molokymc.prideplus.utils.movementfix.MovementFix;
 import cn.molokymc.prideplus.utils.movementfix.Rise.RotationComponent;
-import cn.molokymc.prideplus.utils.movementfix.Rise.RotationRise;
 import cn.molokymc.prideplus.utils.player.InventoryUtils;
 import cn.molokymc.prideplus.utils.player.RotationUtils;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
 import cn.molokymc.prideplus.utils.server.PacketUtils;
 import cn.molokymc.prideplus.utils.time.TimerUtil;
-import cn.molokymc.prideplus.viamcp.fixes.AttackOrder;
-import io.netty.buffer.ByteBuf;
 import lombok.SneakyThrows;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -48,7 +43,6 @@ import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
 
 
 import java.awt.*;
@@ -65,7 +59,6 @@ public final class KillAura extends Module {
     public static EntityLivingBase target;
 
     public static final List<EntityLivingBase> targets = new ArrayList();
-    public static float[] KaRotation;
     private final TimerUtil attackTimer = new TimerUtil();
     private final TimerUtil switchTimer = new TimerUtil();
     private final MultipleBoolSetting targetsSetting = new MultipleBoolSetting("Targets",
@@ -79,7 +72,7 @@ public final class KillAura extends Module {
     private final NumberSetting maxTargetAmount = new NumberSetting("Max Target Amount", 3.0, 50.0, 2.0, 1.0);
     private final NumberSetting minCPS = new NumberSetting("Min CPS", 10.0, 20.0, 1.0, 1.0);
     private final NumberSetting maxCPS = new NumberSetting("Max CPS", 10.0, 20.0, 1.0, 1.0);
-    private final NumberSetting reach = new NumberSetting("Reach", 4.0, 6.0, 3.0, 0.1);
+    public final NumberSetting reach = new NumberSetting("Reach", 4.0, 6.0, 3.0, 0.1);
     private final NumberSetting maxrotationspeed = new NumberSetting("Max Rotation Speed", 100.0, 100.0, 1.0, 1.0);
     private final NumberSetting minrotationspeed = new NumberSetting("Min Rotation Speed", 100.0, 100.0, 1.0, 1.0);
     private final BooleanSetting strafefix = new BooleanSetting("Strafe Fix", true);
@@ -142,7 +135,14 @@ public final class KillAura extends Module {
         }
     }
     private void attackEntity(final Entity target) {
-        AttackOrder.sendFixedAttack((EntityPlayer) KillAura.mc.thePlayer, target);
+        if (ViaMCP.getInstance().getVersion() <= ProtocolVersion.v1_8.getVersion()) {
+            mc.thePlayer.swingItem();
+            mc.playerController.attackEntity(mc.thePlayer, mc.objectMouseOver.entityHit);
+        } else {
+            mc.playerController.attackEntity(mc.thePlayer, mc.objectMouseOver.entityHit);
+            mc.thePlayer.swingItem();
+        }
+        //AttackOrder.sendFixedAttack((EntityPlayer) KillAura.mc.thePlayer, target);
         this.attackTimer.reset();
     }
     public void onDisable() {
@@ -177,7 +177,7 @@ public final class KillAura extends Module {
                             PacketUtils.sendPacketNoEvent(new C08PacketPlayerBlockPlacement(new BlockPos(-1, -1, -1), 255, mc.thePlayer.inventory.getCurrentItem(), 0.0F, 0.0F, 0.0F));
                             PacketWrapper useItem = PacketWrapper.create(29, null, Via.getManager().getConnectionManager().getConnections().iterator().next());
                             useItem.write(Type.VAR_INT, 1);
-                            PacketUtil.sendToServer(useItem, Protocol1_8TO1_9.class, true, true);
+                            useItem.sendToServer(Protocol1_8To1_9.class, true);
                             wasBlocking = true;
                         }
                         break;
@@ -188,12 +188,12 @@ public final class KillAura extends Module {
                             PacketWrapper use_0 = PacketWrapper.create(29, null,
                                     Via.getManager().getConnectionManager().getConnections().iterator().next());
                             use_0.write(Type.VAR_INT, 0);
-                            de.gerrygames.viarewind.utils.PacketUtil.sendToServer(use_0, Protocol1_8TO1_9.class, true, true);
+                            use_0.sendToServer(Protocol1_8To1_9.class, true);
 
                             PacketWrapper use_1 = PacketWrapper.create(29, null,
                                     Via.getManager().getConnectionManager().getConnections().iterator().next());
                             use_1.write(Type.VAR_INT, 1);
-                            PacketUtil.sendToServer(use_1, Protocol1_8TO1_9.class, true, true);
+                            use_0.sendToServer(Protocol1_8To1_9.class, true);
                             mc.gameSettings.keyBindUseItem.pressed = true;
                             wasBlocking = true;
                         }
@@ -218,7 +218,7 @@ public final class KillAura extends Module {
                 final float rotationSpeed = (float) MathUtil.getRandom(minRotationSpeed, maxRotationSpeed);
                 switch (rotationMode.getMode()) {
                     case "HvH":
-                        KillAura.KaRotation = RotationUtils.getHVHRotation((Entity) target, this.reach.getValue() + 0.1);
+                        rotations = RotationUtils.getHVHRotation(target, this.reach.getValue() + 0.1);
                         break;
                     case "Vanilla":
                         rotations = RotationUtils.getRotationsNeeded(KillAura.target);
@@ -227,11 +227,8 @@ public final class KillAura extends Module {
                         rotations = RotationUtils.getSmoothRotations(KillAura.target);
                         break;
                 }
-                if (!strafefix.get()) {
-                    RotationComponent.setRotations(new Vector2f(RotationRise.calculate((Entity) KillAura.target, false, this.reach.getValue()).getX(), Math.min(RotationRise.calculate((Entity) KillAura.target, false, this.reach.getValue()).getY(), 90.0f)), 10.0, MovementFix.TRADITIONAL);
-                } else {
-                    RotationComponent.setRotations(new Vector2f(RotationRise.calculate((Entity) KillAura.target, false, this.reach.getValue()).getX(), Math.min(RotationRise.calculate((Entity) KillAura.target, false, this.reach.getValue()).getY(), 90.0f)), 10.0, MovementFix.NORMAL);
-                }
+
+                RotationComponent.setRotations(new Vector2f(rotations[0], rotations[1]), rotationSpeed, addons.getSetting("Movement Fix").getValue() ? MovementFix.NORMAL : MovementFix.OFF);
             }
             if (addons.getSetting("Ray Cast").isEnabled() && !RotationUtils.isMouseOver(event.getYaw(), event.getPitch(), KillAura.target, reach.getValue().floatValue()))
                 return;
@@ -244,7 +241,14 @@ public final class KillAura extends Module {
                     Client.INSTANCE.getEventProtocol().handleEvent(attackEvent);
 
                     if (!attackEvent.isCancelled()) {
-                        AttackOrder.sendFixedAttack(mc.thePlayer, entityLivingBase);
+                        //AttackOrder.sendFixedAttack(mc.thePlayer, entityLivingBase);
+                        if (ViaMCP.getInstance().getVersion() <= ProtocolVersion.v1_8.getVersion()) {
+                            mc.thePlayer.swingItem();
+                            mc.playerController.attackEntity(mc.thePlayer, mc.objectMouseOver.entityHit);
+                        } else {
+                            mc.playerController.attackEntity(mc.thePlayer, mc.objectMouseOver.entityHit);
+                            mc.thePlayer.swingItem();
+                        }
                     }
                 }
             } else {
@@ -331,20 +335,6 @@ public final class KillAura extends Module {
         }
 
         return Math.toRadians((double)rotationYaw);
-    }
-
-    public void onPlayerMoveUpdateEvent(PlayerMoveUpdateEvent event) {
-        if (this.addons.getSetting("Movement Fix").isEnabled() && target != null) {
-            event.setYaw(yaw);
-        }
-
-    }
-
-    public void onJumpFixEvent(JumpFixEvent event) {
-        if (this.addons.getSetting("Movement Fix").isEnabled() && target != null) {
-            event.setYaw(yaw);
-        }
-
     }
 
     public void onKeepSprintEvent(KeepSprintEvent event) {

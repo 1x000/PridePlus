@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
+import org.lwjgl.input.Keyboard;
 
 public class ScaffoldUtils implements Utils {
 
@@ -34,6 +35,14 @@ public class ScaffoldUtils implements Utils {
     }
 
     public static double getYLevel() {
+        if (Scaffold.mode.is("Telly")) {
+            if (Keyboard.isKeyDown(mc.gameSettings.keyBindJump.getKeyCode())) {
+                return mc.thePlayer.posY - 1.0;
+            } else {
+                return !MoveUtil.isMoving() ? mc.thePlayer.posY - 1.0 : Scaffold.keepYCoord;
+            }
+        }
+
         if(Scaffold.sprintMode.is("Watchdog")) {
             if(mc.thePlayer.ticksExisted % 6 == 0) {
                 mc.thePlayer.motionX *= 0.97;

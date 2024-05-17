@@ -5,7 +5,6 @@ import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
 import cn.molokymc.prideplus.event.impl.player.*;
 import cn.molokymc.prideplus.event.impl.render.*;
-import cn.molokymc.prideplus.event.impl.world.EventStrafe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +21,7 @@ public abstract class ListenerAdapter implements EventListener {
     public void onKeyPressEvent(KeyPressEvent event) {}
     public void onRenderTickEvent(RenderTickEvent event) {}
     public void onTickEvent(TickEvent event) {}
+    public void onLegitTickEvent(LegitTickEvent event) {}
     public void onWorldEvent(WorldEvent event) {}
 
     // Network
@@ -53,8 +53,8 @@ public abstract class ListenerAdapter implements EventListener {
     public void onSafeWalkEvent(SafeWalkEvent event) {}
     public void onSlowDownEvent(SlowDownEvent event) {}
     public void onStepConfirmEvent(StepConfirmEvent event) {}
-    public void onStrafe(EventStrafe event) {}
     public void onUpdateEvent(UpdateEvent event) {}
+    public void onLegitUpdateEvent(LegitUpdateEvent event) {}
 
     // Render
     public void onHurtCamEvent(HurtCamEvent event) {}
@@ -91,6 +91,7 @@ public abstract class ListenerAdapter implements EventListener {
         registerEvent(KeyPressEvent.class, this::onKeyPressEvent);
         registerEvent(RenderTickEvent.class, this::onRenderTickEvent);
         registerEvent(TickEvent.class, this::onTickEvent);
+        registerEvent(LegitTickEvent.class, this::onLegitTickEvent);
         registerEvent(WorldEvent.Load.class, this::onWorldEvent);
         registerEvent(WorldEvent.Unload.class, this::onWorldEvent);
         registerEvent(WorldEvent.class, this::onWorldEvent);
@@ -99,7 +100,6 @@ public abstract class ListenerAdapter implements EventListener {
 
         // Player
         registerEvent(EventLook.class, this::onLook);
-        registerEvent(EventStrafe.class, this::onStrafe);
         registerEvent(AttackEvent.class, this::onAttackEvent);
         registerEvent(BlockEvent.class, this::onBlockEvent);
         registerEvent(BlockPlaceableEvent.class, this::onBlockPlaceable);
@@ -122,6 +122,7 @@ public abstract class ListenerAdapter implements EventListener {
         registerEvent(SlowDownEvent.class, this::onSlowDownEvent);
         registerEvent(StepConfirmEvent.class, this::onStepConfirmEvent);
         registerEvent(UpdateEvent.class, this::onUpdateEvent);
+        registerEvent(LegitUpdateEvent.class, this::onLegitUpdateEvent);
 
         // Render
         registerEvent(HurtCamEvent.class, this::onHurtCamEvent);

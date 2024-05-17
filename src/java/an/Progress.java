@@ -27,7 +27,7 @@ public class Progress extends JFrame {
             bottomPanel.add(this.statusLabel);*/
           //  this.add(bottomPanel, "South");
             this.setVisible(true);
-            for (int i = 0; i <= 100; i++) {
+            for (int i = 0; i <= 50; i++) {
                   try {
                         Thread.sleep(20);
                   } catch (InterruptedException e) {

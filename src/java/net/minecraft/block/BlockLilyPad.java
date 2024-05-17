@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import cn.molokymc.prideplus.vialoadingbase.ViaLoadingBase;
+import cn.molokymc.prideplus.viamcp.ViaMCP;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -29,7 +29,7 @@ public class BlockLilyPad extends BlockBush {
     }
 
     public AxisAlignedBB getCollisionBoundingBox(final World worldIn, final BlockPos pos, final IBlockState state) {
-        if (ViaLoadingBase.getInstance().getTargetVersion().getVersion() <= 47) {
+        if (ViaMCP.getInstance().getVersion() <= 47) {
             return new AxisAlignedBB((double) pos.getX() + this.minX, (double) pos.getY() + this.minY, (double) pos.getZ() + this.minZ, (double) pos.getX() + this.maxX, (double) pos.getY() + this.maxY, (double) pos.getZ() + this.maxZ);
         } else {
             return new AxisAlignedBB((double) pos.getX() + 0.0625D, (double) pos.getY(), (double) pos.getZ() + 0.0625D, (double) pos.getX() + 0.9375D, (double) pos.getY() + 0.09375D, (double) pos.getZ() + 0.9375D);

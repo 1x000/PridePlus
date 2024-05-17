@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.utils.math;
 
-import cn.molokymc.prideplus.event.impl.world.EventStrafe;
+import cn.molokymc.prideplus.event.impl.player.PlayerMoveUpdateEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -55,7 +55,7 @@ public final class Rotation {
     }
 
 
-    public void applyStrafeToPlayer(EventStrafe event) {
+    public void applyStrafeToPlayer(PlayerMoveUpdateEvent event) {
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         int dif = (int) ((MathHelper.wrapAngleTo180_float(player.rotationYaw - this.yaw
                 - 23.5f - 135)

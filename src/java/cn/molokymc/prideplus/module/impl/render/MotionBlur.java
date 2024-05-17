@@ -1,21 +1,11 @@
 package cn.molokymc.prideplus.module.impl.render;
 
+import cn.molokymc.prideplus.module.Module;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import cn.molokymc.prideplus.event.impl.render.Render2DEvent;
-import cn.molokymc.prideplus.module.api.EventHandler;
 import cn.molokymc.prideplus.module.settings.impl.NumberSetting;
 import cn.molokymc.prideplus.module.*;
-import cn.molokymc.prideplus.utils.Utils;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.shader.Framebuffer;
-import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
 import java.util.Locale;
 
 public class MotionBlur extends Module

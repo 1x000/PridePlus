@@ -2,6 +2,7 @@ package net.minecraft.client.entity;
 
 import cn.molokymc.prideplus.Client;
 import cn.molokymc.prideplus.commands.CommandHandler;
+import cn.molokymc.prideplus.event.impl.game.LegitUpdateEvent;
 import cn.molokymc.prideplus.event.impl.player.*;
 import cn.molokymc.prideplus.module.impl.exploit.Disabler;
 import cn.molokymc.prideplus.module.impl.movement.Sprint;
@@ -192,6 +193,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      * called every tick when the player is on foot. Performs all the things that normally happen during movement.
      */
     public void onUpdateWalkingPlayer() {
+        LegitUpdateEvent event = new LegitUpdateEvent(false);
+        Client.INSTANCE.getEventProtocol().handleEvent(event);
+
         boolean flag = this.isSprinting();
 
         if (this.onGround) {
@@ -257,7 +261,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                     flag2 = false;
                 }
 
-                if (mc.thePlayer != null && mc.thePlayer != null) {
+                if (mc.thePlayer != null && mc.theWorld != null) {
                     Disabler.processPackets();
                 }
 
@@ -282,6 +286,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             Client.INSTANCE.getEventProtocol().handleEvent(motionEvent);
             this.rotationPitchHead = motionEvent.getPitch();
         }
+
+        LegitUpdateEvent event2 = new LegitUpdateEvent(true);
+        Client.INSTANCE.getEventProtocol().handleEvent(event2);
     }
 
     /**

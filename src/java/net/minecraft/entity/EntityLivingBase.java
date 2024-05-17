@@ -7,7 +7,6 @@ import cn.molokymc.prideplus.Client;
 import cn.molokymc.prideplus.event.impl.player.JumpFixEvent;
 import cn.molokymc.prideplus.event.impl.player.LivingDeathEvent;
 import cn.molokymc.prideplus.module.impl.render.Animations;
-import cn.molokymc.prideplus.vialoadingbase.ViaLoadingBase;
 import cn.molokymc.prideplus.viamcp.ViaMCP;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -1736,12 +1735,6 @@ public abstract class EntityLivingBase extends Entity {
         if (this.jumpTicks > 0) {
             --this.jumpTicks;
         }
-        double minimumMotion;
-        if (ViaMCP.INSTANCE.getAsyncVersionSlider().id > 47) {
-            minimumMotion = 0.003D;
-        } else {
-            minimumMotion = 0.003D;
-        }
 
         if (this.newPosRotationIncrements > 0) {
             double d0 = this.posX + (this.newPosX - this.posX) / (double) this.newPosRotationIncrements;
@@ -1758,17 +1751,17 @@ public abstract class EntityLivingBase extends Entity {
             this.motionY *= 0.98D;
             this.motionZ *= 0.98D;
         }
-        double minMotion = ViaLoadingBase.getInstance().getTargetVersion().getVersion() <= 47 ? 0.003D : 0.003D;
+        double minMotion = ViaMCP.getInstance().getVersion() <= 47 ? 0.005D : 0.003D;
 
-        if (Math.abs(this.motionX) < minimumMotion) {
+        if (Math.abs(this.motionX) < minMotion) {
             this.motionX = 0.0D;
         }
 
-        if (Math.abs(this.motionY) < minimumMotion) {
+        if (Math.abs(this.motionY) < minMotion) {
             this.motionY = 0.0D;
         }
 
-        if (Math.abs(this.motionZ) < minimumMotion) {
+        if (Math.abs(this.motionZ) < minMotion) {
             this.motionZ = 0.0D;
         }
 

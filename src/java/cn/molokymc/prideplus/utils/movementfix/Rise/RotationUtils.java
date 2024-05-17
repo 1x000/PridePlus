@@ -2,8 +2,8 @@ package cn.molokymc.prideplus.utils.movementfix.Rise;
 
 import cn.molokymc.prideplus.Client;
 import cn.molokymc.prideplus.event.EventHandler;
+import cn.molokymc.prideplus.event.impl.game.TickEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
-import cn.molokymc.prideplus.event.impl.world.EventTick;
 import cn.molokymc.prideplus.utils.entity.RaycastUtils;
 import cn.molokymc.prideplus.utils.math.Rotation;
 import net.minecraft.client.Minecraft;
@@ -538,7 +538,7 @@ public final class RotationUtils {
 	 * @param event Tick event
 	 */
 	@EventHandler
-	public void onTick(final EventTick event) {
+	public void onTick(final TickEvent event) {
 		if(targetRotation != null) {
 			keepLength--;
 

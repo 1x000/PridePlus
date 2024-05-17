@@ -11,7 +11,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.optifine.util.TextureUtils;
-import org.apache.logging.log4j.core.pattern.NotANumber;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.ArrayList;
@@ -180,12 +179,6 @@ public final class PlayerUtil {
 
     public static boolean isOnGround(Entity entity, double height) {
         return !Utils.mc.theWorld.getCollidingBoundingBoxes(entity, entity.getEntityBoundingBox().offset(0.0d, -height, 0.0d)).isEmpty();
-    }
-
-    public static boolean colorTeam(EntityPlayer sb) {
-        String targetName = sb.getDisplayName().getFormattedText().replace("��r", "");
-        String clientName = Utils.mc.thePlayer.getDisplayName().getFormattedText().replace("��r", "");
-        return targetName.startsWith(NotANumber.VALUE + clientName.charAt(1));
     }
 
     public static boolean armorTeam(EntityPlayer entityPlayer) {

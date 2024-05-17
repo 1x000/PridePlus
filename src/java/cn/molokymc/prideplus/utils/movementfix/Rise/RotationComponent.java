@@ -16,8 +16,6 @@ public final class RotationComponent extends ListenerAdapter {
     public static Vector2f lastServerRotations;
     private static double rotationSpeed;
     private static MovementFix correctMovement;
-    Object playerYaw = null;
-
 
 
     /*
@@ -47,7 +45,7 @@ public final class RotationComponent extends ListenerAdapter {
     }
 
     @Override
-    public void onMoveInput (EventMoveInput event) {
+    public void onMoveInput(EventMoveInput event) {
         if (active && correctMovement == MovementFix.NORMAL && rotations != null) {
             /*
              * Calculating movement fix

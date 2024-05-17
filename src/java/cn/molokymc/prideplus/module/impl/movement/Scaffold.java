@@ -19,7 +19,6 @@ import cn.molokymc.prideplus.utils.math.Vector2f;
 import cn.molokymc.prideplus.utils.misc.MathUtils;
 import cn.molokymc.prideplus.utils.movementfix.MovementFix;
 import cn.molokymc.prideplus.utils.movementfix.Rise.RotationComponent;
-import cn.molokymc.prideplus.utils.movementfix.Rise.VecRotation;
 import cn.molokymc.prideplus.utils.objects.PlaceRotation;
 import cn.molokymc.prideplus.utils.player.BlockUtils;
 import cn.molokymc.prideplus.utils.player.MovementUtils;
@@ -47,6 +46,7 @@ import net.minecraft.network.play.client.C0APacketAnimation;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.network.play.client.C0BPacketEntityAction.Action;
 import net.minecraft.util.*;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import static cn.molokymc.prideplus.utils.player.ScaffoldUtils.getYLevel;
@@ -95,8 +95,7 @@ public class Scaffold extends Module {
         super("ScaffoldWalk","脚手架", Category.MOVEMENT, "Automatically places blocks under you");
         this.addSettings(mode, this.countMode, this.rotations, this.rotationMode, sprintMode, this.JumpStrafe, towerMode, delay, this.timer, safewalk,swing);
         this.rotationMode.addParent(this.rotations, ParentAttribute.BOOLEAN_CONDITION);
-        this.JumpStrafe.addParent(sprintMode, (sprintMode) -> {return sprintMode.is("Watchdog");
-        });
+        this.JumpStrafe.addParent(sprintMode, (sprintMode) -> sprintMode.is("Watchdog"));
     }
 
 
@@ -125,11 +124,19 @@ public class Scaffold extends Module {
             mc.thePlayer.jump();
         }
 
-        if (!mc.gameSettings.keyBindJump.isKeyDown()) {
+        boolean jump;
+
+        if (mode.is("Telly")) {
+            jump = Keyboard.isKeyDown(mc.gameSettings.keyBindJump.getKeyCode());
+        } else {
+            jump = mc.gameSettings.keyBindJump.isKeyDown();
+        }
+
+        if (!jump) {
             mc.timer.timerSpeed = this.timer.getValue().floatValue();
         }
 
-        if (mc.gameSettings.keyBindJump.pressed) {
+        if (jump) {
             keepYCoord = mc.thePlayer.posY - 1.0;
         }
 
@@ -137,11 +144,13 @@ public class Scaffold extends Module {
             canPlace = !mc.thePlayer.onGround;
             if (mc.thePlayer.onGround) {
                 RotationComponent.setRotations(new Vector2f(mc.thePlayer.rotationYaw, 76f), 180, MovementFix.NORMAL);
-                if (MovementUtils.isMoving() && !mc.thePlayer.isSneaking() && !mc.thePlayer.isUsingItem()) mc.thePlayer.setSprinting(true);
+                if (mc.thePlayer.isSprinting() && MovementUtils.isMoving() && !jump) mc.gameSettings.keyBindJump.pressed = true;
             }
         } else {
             canPlace = true;
         }
+
+
 
         if (sprintMode.is("Legit")) {
             if (Math.abs(MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw) - MathHelper.wrapAngleTo180_float(RotationComponent.rotations.x)) > 90.0F) {
@@ -149,17 +158,17 @@ public class Scaffold extends Module {
                 mc.thePlayer.setSprinting(false);
             } else {
                 mc.gameSettings.keyBindSprint.pressed = true;
-                mc.thePlayer.setSprinting(true);
+                if (MovementUtils.isMoving() && !mc.thePlayer.isSneaking() && !mc.thePlayer.isUsingItem()) mc.thePlayer.setSprinting(true);
             }
         } else if (sprintMode.is("None")) {
             mc.gameSettings.keyBindSprint.pressed = false;
             mc.thePlayer.setSprinting(false);
         } else {
-            mc.gameSettings.keyBindSprint.pressed = true;
-            mc.thePlayer.setSprinting(true);
+            mc.gameSettings.keyBindSprint.pressed = false;
+            mc.thePlayer.setSprinting(false);
         }
 
-        if (!mc.gameSettings.keyBindJump.isKeyDown()) {
+        if (!jump) {
             mc.timer.timerSpeed = this.timer.getValue().floatValue();
         }
 
@@ -322,10 +331,10 @@ public class Scaffold extends Module {
 
     }
 
-    private boolean place() {
-        if (rotationMode.is("Telly") || mode.is("Telly")) {
+    private void place() {
+        if ((rotationMode.is("Telly") || mode.is("Telly")) && RotationComponent.rotations != null && blockCache != null) {
             if (!canPlace || !RayCastUtil.overBlock(RotationComponent.rotations, blockCache.getFacing(), blockCache.getPosition(), false)) {
-                return false;
+                return;
             }
         }
 
@@ -336,11 +345,9 @@ public class Scaffold extends Module {
                 PacketUtils.sendPacketNoEvent(new C09PacketHeldItemChange(this.slot));
             }
 
-            boolean placed = false;
             if (this.delayTimer.hasTimeElapsed(delay.getValue() * 1000.0)) {
                 this.firstJump = false;
                 if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld, mc.thePlayer.inventory.getStackInSlot(this.slot), this.blockCache.getPosition(), this.blockCache.getFacing(), ScaffoldUtils.getHypixelVec3(this.blockCache))) {
-                    placed = true;
                     this.y = MathUtils.getRandomInRange(79.5F, 83.5F);
                     PacketUtils.sendPacket(new C0APacketAnimation());
                 }
@@ -351,9 +358,6 @@ public class Scaffold extends Module {
             if (swing.get()) {
                 mc.thePlayer.swingItem();
             }
-            return placed;
-        } else {
-            return false;
         }
     }
 

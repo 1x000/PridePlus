@@ -26,6 +26,7 @@ import cn.molokymc.prideplus.utils.server.PingerUtils;
 import cn.molokymc.prideplus.viamcp.ViaMCP;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ForceUnicodeChat;
+import org.apache.logging.log4j.core.appender.FileManager;
 
 import java.io.File;
 import java.util.Arrays;
@@ -165,8 +166,10 @@ public class ProtectedLaunch {
         Client.INSTANCE.setAltManager(new GuiAltManager());
 
         try {
-            ViaMCP.create();
-            ViaMCP.INSTANCE.initAsyncSlider();
+            delete(Minecraft.getMinecraft().mcDataDir + "/ViaMCP");
+
+            ViaMCP.getInstance().start();
+            ViaMCP.getInstance().initAsyncSlider();
 
             // In case you want a version slider like in the Minecraft options, you can use this code here, please choose one of those:
             // For top left aligned slider
@@ -174,6 +177,24 @@ public class ProtectedLaunch {
             e.printStackTrace();
         }
 
+    }
+
+
+    public static void delete(String folderPath) {
+        File folder = new File(folderPath);
+        if (folder.exists()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        delete(file.getAbsolutePath());
+                    } else {
+                        file.delete();
+                    }
+                }
+            }
+            folder.delete();
+        }
     }
 
     @SafeVarargs

@@ -1,10 +1,10 @@
 package cn.molokymc.prideplus.module.impl.misc;
 
 import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
 import cn.molokymc.prideplus.event.impl.player.ChatReceivedEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
-import cn.molokymc.prideplus.module.api.events.world.EventPacketReceive;
 import cn.molokymc.prideplus.module.impl.combat.KillAura;
 import cn.molokymc.prideplus.module.impl.exploit.Disabler;
 import cn.molokymc.prideplus.module.impl.player.Manager;
@@ -45,7 +45,8 @@ public class AutoHypixel extends Module {
         this.addSettings(autoGG, autoGGMessage, autoPlay, autoPlayDelay, autoHubOnBan,music);
     }
 
-    public void onPacketReceiveEvent(final EventPacketReceive event) {
+    @Override
+    public void onPacketReceiveEvent(final PacketReceiveEvent event) {
         if (event.getPacket() instanceof S02PacketChat) {
             final S02PacketChat packet2 = (S02PacketChat)event.getPacket();
             final String text = packet2.getChatComponent().getUnformattedText();

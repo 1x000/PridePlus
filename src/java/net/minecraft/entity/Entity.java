@@ -6,7 +6,7 @@ import cn.molokymc.prideplus.event.impl.player.SafeWalkEvent;
 import cn.molokymc.prideplus.event.impl.player.StepConfirmEvent;
 import cn.molokymc.prideplus.event.impl.player.Vector3d;
 import cn.molokymc.prideplus.module.impl.movement.Flight;
-import cn.molokymc.prideplus.vialoadingbase.ViaLoadingBase;
+import cn.molokymc.prideplus.viamcp.ViaMCP;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -1894,7 +1894,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public float getCollisionBorderSize() {
-        return ViaLoadingBase.getInstance().getTargetVersion().getVersion() <= 47 ? 0.1F : 0.0F;
+        return ViaMCP.getInstance().getVersion() <= 47 ? 0.1F : 0.0F;
 
     }
 

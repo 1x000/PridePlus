@@ -2,11 +2,12 @@ package net.minecraft.network;
 
 
 import cn.molokymc.prideplus.Client;
-import cn.molokymc.prideplus.module.api.events.world.EventPacketReceive;
-import cn.molokymc.prideplus.module.api.events.world.EventPacketSend;
 import cn.molokymc.prideplus.module.impl.exploit.Disabler;
-import cn.molokymc.prideplus.vialoadingbase.ViaLoadingBase;
-import cn.molokymc.prideplus.viamcp.MCPVLBPipeline;
+import cn.molokymc.prideplus.viamcp.ViaMCP;
+import cn.molokymc.prideplus.viamcp.handler.CommonTransformer;
+import cn.molokymc.prideplus.viamcp.handler.MCPDecodeHandler;
+import cn.molokymc.prideplus.viamcp.handler.MCPEncodeHandler;
+import com.viaversion.viaversion.api.Via;
 import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.connection.UserConnectionImpl;
 import com.viaversion.viaversion.protocol.ProtocolPipelineImpl;
@@ -15,7 +16,6 @@ import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
-import cn.molokymc.prideplus.vialoadingbase.netty.event.CompressionReorderEvent;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.epoll.Epoll;
@@ -139,29 +139,24 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
         if (this.channel.isOpen()) {
             try {
                 if (packetIn instanceof S3FPacketCustomPayload) {
-                    final EventPacketReceive event = new EventPacketReceive(packetIn, EnumPacketDirection.CLIENTBOUND, (INetHandler)Disabler.mc.getNetHandler());
-                    final PacketReceiveEvent event2 = new PacketReceiveEvent(packetIn);
+                    final PacketReceiveEvent event = new PacketReceiveEvent(packetIn, EnumPacketDirection.CLIENTBOUND, Disabler.mc.getNetHandler());
 
                     Client.INSTANCE.getEventProtocol().handleEvent(event);
-                    Client.INSTANCE.getEventProtocol().handleEvent(event2);
 
-                    if (event.isCancelled() || event2.isCancelled()) {
+                    if (event.isCancelled()) {
                         return;
                     }
                     packetIn.processPacket(this.packetListener);
-                }else
-                if (Disabler.getGrimPost() && Disabler.grimPostDelay(packetIn)) {
+                } else if (Disabler.getGrimPost() && Disabler.grimPostDelay(packetIn)) {
                     Minecraft.getMinecraft().addScheduledTask(() -> {
                         Disabler.storedPackets.add(packetIn);
-                    });}
-                else {
-                    final EventPacketReceive event = new EventPacketReceive(packetIn, EnumPacketDirection.CLIENTBOUND, (INetHandler)Disabler.mc.getNetHandler());
-                    final PacketReceiveEvent event2 = new PacketReceiveEvent(packetIn);
+                    });
+                } else {
+                    final PacketReceiveEvent event = new PacketReceiveEvent(packetIn, EnumPacketDirection.CLIENTBOUND, Disabler.mc.getNetHandler());
 
                     Client.INSTANCE.getEventProtocol().handleEvent(event);
-                    Client.INSTANCE.getEventProtocol().handleEvent(event2);
 
-                    if (event.isCancelled() || event2.isCancelled()) {
+                    if (event.isCancelled()) {
                         return;
                     }
                     packetIn.processPacket(this.packetListener);
@@ -346,7 +341,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
             lazyloadbase = CLIENT_NIO_EVENTLOOP;
         }
 
-        ((Bootstrap)((Bootstrap)((Bootstrap)(new Bootstrap()).group((EventLoopGroup)lazyloadbase.getValue())).handler(new ChannelInitializer<Channel>() {
+        new Bootstrap().group((EventLoopGroup)lazyloadbase.getValue()).handler(new ChannelInitializer<Channel>() {
             protected void initChannel(Channel p_initChannel_1_) throws Exception {
                 try {
                     p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, true);
@@ -354,14 +349,14 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
                 }
 
                 p_initChannel_1_.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(EnumPacketDirection.CLIENTBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(EnumPacketDirection.SERVERBOUND)).addLast("packet_handler", networkmanager);
-                if (p_initChannel_1_ instanceof SocketChannel && ViaLoadingBase.getInstance().getTargetVersion().getVersion() != 47) {
+                if (p_initChannel_1_ instanceof SocketChannel && ViaMCP.getInstance().getVersion() != ViaMCP.PROTOCOL_VERSION) {
                     UserConnection user = new UserConnectionImpl(p_initChannel_1_, true);
                     new ProtocolPipelineImpl(user);
-                    p_initChannel_1_.pipeline().addLast(new ChannelHandler[]{new MCPVLBPipeline(user)});
+                    p_initChannel_1_.pipeline().addBefore("encoder", CommonTransformer.HANDLER_ENCODER_NAME, new MCPEncodeHandler(user)).addBefore("decoder", CommonTransformer.HANDLER_DECODER_NAME, new MCPDecodeHandler(user));
                 }
 
             }
-        })).channel(oclass)).connect(address, serverPort).syncUninterruptibly();
+        }).channel(oclass).connect(address, serverPort).syncUninterruptibly();
         return networkmanager;
     }
 
@@ -446,8 +441,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
                 this.channel.pipeline().remove("compress");
             }
         }
-
-        this.channel.pipeline().fireUserEventTriggered(new CompressionReorderEvent());
     }
 
     public void checkDisconnected() {

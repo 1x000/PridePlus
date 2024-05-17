@@ -1,8 +1,8 @@
 package cn.molokymc.prideplus.ui.altmanager.helpers;
 
-import com.altening.auth.SSLController;
-import com.altening.auth.TheAlteningAuthentication;
-import com.altening.auth.service.AlteningServiceType;
+import com.thealtening.auth.SSLController;
+import com.thealtening.auth.TheAlteningAuthentication;
+import com.thealtening.auth.service.AlteningServiceType;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

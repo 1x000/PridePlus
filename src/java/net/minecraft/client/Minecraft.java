@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import cn.molokymc.prideplus.viamcp.ViaMCP;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
@@ -24,7 +25,7 @@ import cn.molokymc.prideplus.ui.clickguis.dropdown.DropdownClickGUI;
 import cn.molokymc.prideplus.ui.mainmenu.GuiStart;
 import cn.molokymc.prideplus.utils.font.FontUtil;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
-import cn.molokymc.prideplus.viamcp.fixes.AttackOrder;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.audio.MusicTicker;
@@ -1294,8 +1295,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
             Client.INSTANCE.getEventProtocol().handleEvent(e);
 
+            if (this.objectMouseOver != null && this.objectMouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.ENTITY) {
+                this.thePlayer.swingItem();
+            }
 //            this.thePlayer.swingItem();
-            AttackOrder.sendConditionalSwing(this.objectMouseOver);
+            //AttackOrder.sendConditionalSwing(this.objectMouseOver);
 
             if (this.objectMouseOver == null) {
                 logger.error("Null returned as 'hitResult', this shouldn't happen!");
@@ -1307,7 +1311,14 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 switch (this.objectMouseOver.typeOfHit) {
                     case ENTITY:
 //                        this.playerController.attackEntity(this.thePlayer, this.objectMouseOver.entityHit);
-                        AttackOrder.sendFixedAttack(this.thePlayer, this.objectMouseOver.entityHit);
+                        if (ViaMCP.getInstance().getVersion() <= ProtocolVersion.v1_8.getVersion()) {
+                            this.thePlayer.swingItem();
+                            this.playerController.attackEntity(this.thePlayer, this.objectMouseOver.entityHit);
+                        } else {
+                            this.playerController.attackEntity(this.thePlayer, this.objectMouseOver.entityHit);
+                            this.thePlayer.swingItem();
+                        }
+                        //AttackOrder.sendFixedAttack(this.thePlayer, this.objectMouseOver.entityHit);
                         break;
 
                     case BLOCK:
@@ -1861,6 +1872,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         }
 
         if (this.theWorld != null) {
+            LegitTickEvent event = new LegitTickEvent();
+            Client.INSTANCE.getEventProtocol().handleEvent(event);
             if (this.thePlayer != null) {
                 ++this.joinPlayerCounter;
 

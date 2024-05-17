@@ -1,7 +1,5 @@
 package cn.molokymc.prideplus.ui.altmanager.helpers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import cn.molokymc.prideplus.Client;
 import cn.molokymc.prideplus.microsoft.MicrosoftLogin;
 import cn.molokymc.prideplus.ui.notifications.NotificationManager;
@@ -10,6 +8,7 @@ import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.misc.Multithreading;
 import cn.molokymc.prideplus.utils.objects.TextField;
 import cn.molokymc.prideplus.utils.time.TimerUtil;
+import com.alibaba.fastjson2.JSON;
 import lombok.Getter;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.util.Session;
@@ -22,9 +21,10 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
+import static com.alibaba.fastjson2.JSONWriter.Feature.*;
 
 public class AltManagerUtils implements Utils {
 
@@ -45,7 +45,7 @@ public class AltManagerUtils implements Utils {
         }
         try {
             byte[] content = Files.readAllBytes(altsFile.toPath());
-            alts = new ArrayList<>(Arrays.asList(new Gson().fromJson(new String(content), Alt[].class)));
+            alts = JSON.parseArray(new String(content), Alt.class);
             alts.forEach(this::getHead);
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,7 +61,9 @@ public class AltManagerUtils implements Utils {
                             altsFile.createNewFile();
                         }
                     }
-                    Files.write(altsFile.toPath(), new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create().toJson(alts.toArray(new Alt[0])).getBytes(StandardCharsets.UTF_8));
+                    String json = JSON.toJSONString(alts, PrettyFormat, IgnoreNonFieldGetter);
+                    Files.write(altsFile.toPath(), json.getBytes(StandardCharsets.UTF_8));
+                    //Files.write(altsFile.toPath(), new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create().toJson(alts.toArray(new Alt[0])).getBytes(StandardCharsets.UTF_8));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -78,7 +80,9 @@ public class AltManagerUtils implements Utils {
     public static void writeAlts() {
         Multithreading.runAsync(() -> {
             try {
-                Files.write(altsFile.toPath(), new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create().toJson(alts.toArray(new Alt[0])).getBytes(StandardCharsets.UTF_8));
+                String json = JSON.toJSONString(alts, PrettyFormat, WriteNullStringAsEmpty);
+                Files.write(altsFile.toPath(), json.getBytes(StandardCharsets.UTF_8));
+                //Files.write(altsFile.toPath(), new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create().toJson(alts.toArray(new Alt[0])).getBytes(StandardCharsets.UTF_8));
                 //Show success message
             } catch (IOException e) {
                 e.printStackTrace();

@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import cn.molokymc.prideplus.vialoadingbase.ViaLoadingBase;
+import cn.molokymc.prideplus.viamcp.ViaMCP;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -39,7 +39,7 @@ public class BlockLadder extends Block {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
         float needMinus = 0.125f;
-        if (ViaLoadingBase.getInstance().getTargetVersion().getVersion() > 47) {
+        if (ViaMCP.getInstance().getVersion() > 47) {
             needMinus = 0.1875F;
         }
 

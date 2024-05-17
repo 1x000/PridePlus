@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.properties.PropertyMap.Serializer;
-import an.Checker;
 import an.Progress;
-import cn.molokymc.prideplus.utils.client.AntiDump;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
@@ -29,8 +27,6 @@ public class Main {
     private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] p_main_0_)  {
-        AntiDump.check();
-        Checker.check();
         new Progress();
 
         System.setProperty("java.net.preferIPv4Stack", "true");

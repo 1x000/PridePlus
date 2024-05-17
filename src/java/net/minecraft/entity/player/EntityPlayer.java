@@ -1504,8 +1504,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
      */
     public void jump() {
         super.jump();
-        float f = ViaMCP.INSTANCE.getAsyncVersionSlider().id <= 47 ? 0.8F : 0.2F;
-        float f2 = ViaMCP.INSTANCE.getAsyncVersionSlider().id <= 47 ? 0.2F : 0.05F;
+        float f = ViaMCP.getInstance().getVersion() <= 47 ? 0.8F : 0.2F;
+        float f2 = ViaMCP.getInstance().getVersion() <= 47 ? 0.2F : 0.05F;
         this.triggerAchievement(StatList.jumpStat);
 
         if (this.isSprinting()) {

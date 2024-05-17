@@ -14,7 +14,7 @@ public class MovingObjectPosition
     public Vec3 hitVec;
 
     /** The hit entity */
-    public static Entity entityHit;
+    public Entity entityHit;
 
     public MovingObjectPosition(Vec3 hitVecIn, EnumFacing facing, BlockPos blockPosIn)
     {

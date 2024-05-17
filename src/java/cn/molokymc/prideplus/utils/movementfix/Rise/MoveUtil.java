@@ -3,7 +3,6 @@ package cn.molokymc.prideplus.utils.movementfix.Rise;
 
 import cn.molokymc.prideplus.event.impl.player.EventMoveInput;
 import cn.molokymc.prideplus.event.impl.player.MoveEvent;
-import cn.molokymc.prideplus.event.impl.world.EventMove;
 import cn.molokymc.prideplus.utils.misc.MobEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -34,7 +33,7 @@ public class MoveUtil {
         }
     }
 
-    public static void jump(EventMove event) {
+    public static void jump(MoveEvent event) {
         double jumpY = (double) mc.thePlayer.getJumpUpwardsMotion();
 
         if(mc.thePlayer.isPotionActive(MobEffects.JUMP_BOOST)) {
@@ -212,9 +211,7 @@ public class MoveUtil {
 
         final double angle = MathHelper.wrapAngleTo180_double(Math.toDegrees(direction(mc.thePlayer.rotationYaw, forward, strafe)));
 
-        if (forward == 0 && strafe == 0) {
-            return;
-        }
+        if (forward == 0 && strafe == 0) return;
 
         float closestForward = 0, closestStrafe = 0, closestDifference = Float.MAX_VALUE;
 
@@ -276,7 +273,7 @@ public class MoveUtil {
         strafe(getSpeed());
     }
 
-    public static void strafe(EventMove eventMove) {
+    public static void strafe(MoveEvent eventMove) {
         strafe(eventMove, getSpeed());
     }
 
@@ -289,7 +286,7 @@ public class MoveUtil {
         mc.thePlayer.motionZ = Math.cos(yaw) * speed;
     }
 
-    public static void strafe(EventMove eventMove, final double speed) {
+    public static void strafe(MoveEvent eventMove, final double speed) {
         if (!isMoving())
             return;
 
@@ -312,7 +309,7 @@ public class MoveUtil {
         setMotion(speed, mc.thePlayer.rotationYaw);
     }
 
-    public static void setMotion(EventMove e, double speed, float yaw) {
+    public static void setMotion(MoveEvent e, double speed, float yaw) {
         double forward = mc.thePlayer.movementInput.moveForward;
         double strafe = mc.thePlayer.movementInput.moveStrafe;
         if ((forward == 0.0D) && (strafe == 0.0D)) {
@@ -337,7 +334,7 @@ public class MoveUtil {
         }
     }
 
-    public static void setMotion(EventMove e, double speed) {
+    public static void setMotion(MoveEvent e, double speed) {
         setMotion(e, speed, mc.thePlayer.rotationYaw);
     }
 

@@ -181,16 +181,14 @@ public class CustomMainMenu extends GuiScreen {
         drawChangelog();
     }
     public void drawChangelog() {
-        String[] Changelog = {"Changelog" , "[+]AutoPlay音乐盒","[~]改进NameTags","[~]改进GuiChat","[/]改进ClickGUI","[+]Minecraft,Exhi WaterMark","[+]Arraylist字体切换","[~]改进SplashScreen"};
+        FontManager.edit13.drawString("Changelog", 1.5, 1, Colors.getColor(255, 255, 255, 200));
+        String[] Changelog = {
+                "[+]第一次推送",
+        };
+        int i = 0;
         for (String s : Changelog) {
-            FontManager.edit13.drawString(Changelog[0], 1.5, 1, Colors.getColor(255, 255, 255, 40));
-            FontManager.edit13.drawString(Changelog[1], 1.5, 9, Colors.getColor(255, 255, 255, 20));
-            FontManager.edit13.drawString(Changelog[2], 1.5, 17, Colors.getColor(255, 255, 255, 20));
-            FontManager.edit13.drawString(Changelog[3], 1.5, 25, Colors.getColor(255, 255, 255, 20));
-            FontManager.edit13.drawString(Changelog[4], 1.5, 33, Colors.getColor(255, 255, 255, 20));
-            FontManager.edit13.drawString(Changelog[5], 1.5, 41, Colors.getColor(255, 255, 255, 20));
-            //FontManager.edit13.drawString(Changelog[6], 1.5, 49, Colors.getColor(255, 255, 255, 20));
-            //FontManager.edit13.drawString(Changelog[7], 1.5, 57, Colors.getColor(255, 255, 255, 20));
+            FontManager.edit13.drawString(s, 1.5, 9 + i, Colors.getColor(255, 255, 255, 120));
+            i += 8;
         }
     }
     public void drawMainMenu() {
