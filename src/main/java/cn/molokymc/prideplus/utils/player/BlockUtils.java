@@ -42,6 +42,30 @@ public class BlockUtils implements Utils {
         return (block.getMaterial().isSolid() || !block.isTranslucent() || block.isFullBlock());
     }
 
+    public static boolean isInteractBlock(Block block) {
+        return block instanceof BlockFence ||
+                block instanceof BlockFenceGate ||
+                block instanceof BlockDoor ||
+                block instanceof BlockChest ||
+                block instanceof BlockEnderChest ||
+                block instanceof BlockEnchantmentTable ||
+                block instanceof BlockFurnace ||
+                block instanceof BlockAnvil ||
+                block instanceof BlockBed ||
+                block instanceof BlockWorkbench ||
+                block instanceof BlockNote ||
+                block instanceof BlockTrapDoor ||
+                block instanceof BlockHopper ||
+                block instanceof BlockDispenser ||
+                block instanceof BlockDaylightDetector ||
+                block instanceof BlockRedstoneRepeater ||
+                block instanceof BlockRedstoneComparator ||
+                block instanceof BlockButton ||
+                block instanceof BlockBeacon ||
+                block instanceof BlockBrewingStand ||
+                block instanceof BlockSign;
+    }
+
     public static boolean isInLiquid() {
         if (mc.thePlayer == null) return false;
         for (int x = MathHelper.floor_double(mc.thePlayer.getEntityBoundingBox().minX); x < MathHelper.floor_double(mc.thePlayer.getEntityBoundingBox().maxX) + 1; x++) {

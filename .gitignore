@@ -2,3 +2,5 @@
 /run/
 /.idea/
 /.vscode/
+/build/
+/.gradle/
