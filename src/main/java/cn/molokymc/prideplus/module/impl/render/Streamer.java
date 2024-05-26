@@ -57,7 +57,7 @@ public class Streamer extends Module {
                 if (hideIP.isEnabled() && ServerUtils.isOnHypixel() && text.startsWith("§ewww.")) {
                     text = StringUtils.stripControlCodes(text)
                             .replaceAll("[^A-Za-z0-9 .]", "")
-                            .replace("§eStable.today", "§eStable.today");
+                            .replace("§ePridePlus.gg", "§ePridePlus.gg");
                 }
                 if (hideServerId.isEnabled() && text.startsWith("§7") && text.contains("/") && text.contains("  §8")) {
                     text = text.replace("§8", "§8§k");

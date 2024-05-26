@@ -1,14 +1,18 @@
 package cn.molokymc.prideplus.utils.math;
 
 import cn.molokymc.prideplus.event.impl.player.PlayerMoveUpdateEvent;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 
+@Setter
+@Getter
 public final class Rotation {
-    private float yaw;
-    private float pitch;
+    public float yaw;
+    public float pitch;
 
     public void toPlayer(EntityPlayer player) {
         float var2 = this.yaw;
@@ -27,22 +31,6 @@ public final class Rotation {
         float gcd = f * f * f * 1.2f;
         this.yaw -= this.yaw % gcd;
         this.pitch -= this.pitch % gcd;
-    }
-
-    public float getYaw() {
-        return this.yaw;
-    }
-
-    public void setYaw(float var1) {
-        this.yaw = var1;
-    }
-
-    public float getPitch() {
-        return this.pitch;
-    }
-
-    public void setPitch(float var1) {
-        this.pitch = var1;
     }
 
     public Rotation(float yaw, float pitch) {

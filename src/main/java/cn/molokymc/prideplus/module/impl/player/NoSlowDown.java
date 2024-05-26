@@ -46,6 +46,8 @@ public class NoSlowDown extends Module {
     }
 
     public void onMotionEvent(MotionEvent e) {
+        if (mc.thePlayer == null) return;
+
         setSuffix(mode.getMode());
         switch (this.mode.getMode()) {
             case "Hypixel":

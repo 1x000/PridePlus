@@ -15,7 +15,7 @@ public class MCPViaConfig extends AbstractViaConfig
     public MCPViaConfig(File configFile)
     {
         super(configFile);
-        reload();
+        reloadConfig();
     }
 
     @Override
@@ -34,6 +34,12 @@ public class MCPViaConfig extends AbstractViaConfig
     public List<String> getUnsupportedOptions()
     {
         return UNSUPPORTED;
+    }
+
+    @Override
+    public boolean isAntiXRay()
+    {
+        return false;
     }
 
     @Override

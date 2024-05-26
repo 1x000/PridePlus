@@ -19,6 +19,7 @@ import cn.molokymc.prideplus.module.impl.render.killeffects.KillEffects;
 import cn.molokymc.prideplus.scripting.api.ScriptManager;
 import cn.molokymc.prideplus.ui.altmanager.GuiAltManager;
 import cn.molokymc.prideplus.utils.movementfix.BadPacketsComponent;
+import cn.molokymc.prideplus.utils.movementfix.FallDistanceComponent;
 import cn.molokymc.prideplus.utils.movementfix.Rise.RotationComponent;
 import cn.molokymc.prideplus.utils.movementfix.SlotComponent;
 import cn.molokymc.prideplus.utils.render.Theme;
@@ -87,6 +88,7 @@ public class ProtectedLaunch {
         modules.put(AutoTool.class, new AutoTool());
         modules.put(AntiVoid.class, new AntiVoid());
         modules.put(KillEffects.class, new KillEffects());
+        modules.put(Stuck.class, new Stuck());
         //modules.put(Breaker.class, new Breaker());
 
         // Render
@@ -136,6 +138,9 @@ public class ProtectedLaunch {
         Client.INSTANCE.setPingerUtils(new PingerUtils());
 
         Client.INSTANCE.setScriptManager(new ScriptManager());
+
+        Client.INSTANCE.setFallDistanceComponent(new FallDistanceComponent());
+        Client.INSTANCE.getFallDistanceComponent().register();
 
         CommandHandler commandHandler = new CommandHandler();
         commandHandler.commands.addAll(Arrays.asList(

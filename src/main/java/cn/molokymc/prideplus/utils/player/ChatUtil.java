@@ -1,5 +1,6 @@
 package cn.molokymc.prideplus.utils.player;
 
+import cn.molokymc.prideplus.Client;
 import cn.molokymc.prideplus.scripting.api.ScriptModule;
 import cn.molokymc.prideplus.utils.Utils;
 import net.minecraft.util.ChatComponentText;
@@ -11,7 +12,7 @@ public class ChatUtil implements Utils {
 
     public static void print(boolean prefix, String message) {
         if (mc.thePlayer != null) {
-            if (prefix) message = "§7[§d§SStable§r§7] " + message;
+            if (prefix) message = "§7[§d§S" + Client.NAME + "§r§7] " + message;
             mc.thePlayer.addChatMessage(new ChatComponentText(message));
         }
     }

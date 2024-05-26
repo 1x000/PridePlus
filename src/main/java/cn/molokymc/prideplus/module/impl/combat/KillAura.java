@@ -1,7 +1,6 @@
 package cn.molokymc.prideplus.module.impl.combat;
 
 import cn.molokymc.prideplus.viamcp.ViaMCP;
-import com.viaversion.viarewind.protocol.protocol1_8to1_9.Protocol1_8To1_9;
 import com.viaversion.viaversion.api.Via;
 import com.viaversion.viaversion.api.protocol.packet.PacketWrapper;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
@@ -29,6 +28,8 @@ import cn.molokymc.prideplus.utils.player.RotationUtils;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
 import cn.molokymc.prideplus.utils.server.PacketUtils;
 import cn.molokymc.prideplus.utils.time.TimerUtil;
+import de.gerrygames.viarewind.protocol.protocol1_8to1_9.Protocol1_8TO1_9;
+import de.gerrygames.viarewind.utils.PacketUtil;
 import lombok.SneakyThrows;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -77,7 +78,7 @@ public final class KillAura extends Module {
     private final NumberSetting minrotationspeed = new NumberSetting("Min Rotation Speed", 100.0, 100.0, 1.0, 1.0);
     private final BooleanSetting strafefix = new BooleanSetting("Strafe Fix", true);
     private final BooleanSetting autoblock = new BooleanSetting("Autoblock", false);
-    private final ModeSetting autoblockMode = new ModeSetting("Autoblock Mode", "Watchdog","Fake", "Watchdog");
+    private final ModeSetting autoblockMode = new ModeSetting("Autoblock Mode", "Watchdog","Fake", "Watchdog", "Grim");
     private final BooleanSetting rotations = new BooleanSetting("Rotations", true);
     private final NumberSetting rotationSpeed = new NumberSetting("Rotation speed", 5, 10, 5, 1);
     private final ModeSetting rotationMode = new ModeSetting("Rotation Mode", "HvH","HvH", "Vanilla", "Custom");
@@ -177,7 +178,7 @@ public final class KillAura extends Module {
                             PacketUtils.sendPacketNoEvent(new C08PacketPlayerBlockPlacement(new BlockPos(-1, -1, -1), 255, mc.thePlayer.inventory.getCurrentItem(), 0.0F, 0.0F, 0.0F));
                             PacketWrapper useItem = PacketWrapper.create(29, null, Via.getManager().getConnectionManager().getConnections().iterator().next());
                             useItem.write(Type.VAR_INT, 1);
-                            useItem.sendToServer(Protocol1_8To1_9.class, true);
+                            PacketUtil.sendToServer(useItem, Protocol1_8TO1_9.class, true, true);
                             wasBlocking = true;
                         }
                         break;
@@ -188,12 +189,12 @@ public final class KillAura extends Module {
                             PacketWrapper use_0 = PacketWrapper.create(29, null,
                                     Via.getManager().getConnectionManager().getConnections().iterator().next());
                             use_0.write(Type.VAR_INT, 0);
-                            use_0.sendToServer(Protocol1_8To1_9.class, true);
+                            PacketUtil.sendToServer(use_0, Protocol1_8TO1_9.class, true, true);
 
                             PacketWrapper use_1 = PacketWrapper.create(29, null,
                                     Via.getManager().getConnectionManager().getConnections().iterator().next());
                             use_1.write(Type.VAR_INT, 1);
-                            use_0.sendToServer(Protocol1_8To1_9.class, true);
+                            PacketUtil.sendToServer(use_1, Protocol1_8TO1_9.class, true, true);
                             mc.gameSettings.keyBindUseItem.pressed = true;
                             wasBlocking = true;
                         }

@@ -139,42 +139,6 @@
       },
       "name": "com.neovisionaries:nv-i18n:1.27"
     },
-    {
-      "downloads": {
-        "artifact": {
-          "path": "org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar",
-          "url": "https://repo1.maven.org/maven2/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar"
-        }
-      },
-      "name": "org.yaml:snakeyaml:2.2"
-    },
-    {
-      "downloads": {
-        "artifact": {
-          "path": "com/viaversion/viabackwards/4.10.1-SNAPSHOT/viabackwards-4.10.1-20240505.113203-12.jar",
-          "url": "https://repo.viaversion.com/everything/com/viaversion/viabackwards/4.10.1-SNAPSHOT/viabackwards-4.10.1-20240505.113203-12.jar"
-        }
-      },
-      "name": "com.viaversion:viabackwards:4.10.1-SNAPSHOT"
-    },
-    {
-      "downloads": {
-        "artifact": {
-          "path": "com/viaversion/viarewind/3.1.2-SNAPSHOT/viarewind-3.1.2-20240509.223012-7.jar",
-          "url": "https://repo.viaversion.com/everything/com/viaversion/viarewind/3.1.2-SNAPSHOT/viarewind-3.1.2-20240509.223012-7.jar"
-        }
-      },
-      "name": "com.viaversion:viarewind:3.1.2-SNAPSHOT"
-    },
-    {
-      "downloads": {
-        "artifact": {
-          "path": "com/viaversion/viaversion/4.10.1-SNAPSHOT/viaversion-4.10.1-20240505.124211-22.jar",
-          "url": "https://repo.viaversion.com/everything/com/viaversion/viaversion/4.10.1-SNAPSHOT/viaversion-4.10.1-20240505.124211-22.jar"
-        }
-      },
-      "name": "com.viaversion:viaversion:4.10.1-SNAPSHOT"
-    },
 
 
     {
@@ -790,8 +754,8 @@
   "mainClass": "net.minecraft.client.main.Main",
   "minecraftArguments": "--username ${auth_player_name} --version ${version_name} --gameDir ${game_directory} --assetsDir ${assets_root} --assetIndex ${assets_index_name} --uuid ${auth_uuid} --accessToken ${auth_access_token} --userProperties ${user_properties} --userType ${user_type}",
   "minimumLauncherVersion": 14,
-  "releaseTime": "2015-12-03T17:24:39+08:00",
-  "time": "2015-12-03T17:24:39+08:00",
+  "releaseTime": "2024-05-26T14:24:39+12:00",
+  "time": "2015-12-03T14:24:39+12:00",
   "type": "release",
-  "clientVersion": "1.8.9"
+  "clientVersion": "PridePlus"
 }

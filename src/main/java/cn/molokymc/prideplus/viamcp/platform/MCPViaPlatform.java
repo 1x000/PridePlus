@@ -1,5 +1,8 @@
 package cn.molokymc.prideplus.viamcp.platform;
 
+import cn.molokymc.prideplus.viamcp.ViaMCP;
+import cn.molokymc.prideplus.viamcp.utils.FutureTaskId;
+import cn.molokymc.prideplus.viamcp.utils.JLoggerToLog4j;
 import com.viaversion.viaversion.api.ViaAPI;
 import com.viaversion.viaversion.api.command.ViaCommandSender;
 import com.viaversion.viaversion.api.configuration.ConfigurationProvider;
@@ -12,9 +15,6 @@ import com.viaversion.viaversion.libs.gson.JsonObject;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import org.apache.logging.log4j.LogManager;
-import cn.molokymc.prideplus.viamcp.ViaMCP;
-import cn.molokymc.prideplus.viamcp.utils.FutureTaskId;
-import cn.molokymc.prideplus.viamcp.utils.JLoggerToLog4j;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -84,11 +84,6 @@ public class MCPViaPlatform implements ViaPlatform<UUID>
                 return null;
             })
         );
-    }
-
-    @Override
-    public PlatformTask runRepeatingAsync(Runnable runnable, long l) {
-        return null;
     }
 
     @Override
@@ -162,11 +157,11 @@ public class MCPViaPlatform implements ViaPlatform<UUID>
         return config;
     }
 
-    //@Override
-    //public ConfigurationProvider getConfigurationProvider()
-    //{
-    //    return config;
-    //}
+    @Override
+    public ConfigurationProvider getConfigurationProvider()
+    {
+        return config;
+    }
 
     @Override
     public File getDataFolder()

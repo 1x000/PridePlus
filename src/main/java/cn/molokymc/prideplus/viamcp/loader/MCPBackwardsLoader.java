@@ -18,7 +18,7 @@ public class MCPBackwardsLoader implements ViaBackwardsPlatform
     @Override
     public Logger getLogger()
     {
-        return ViaMCP.getInstance().getjLogger();
+        return ViaMCP.getInstance().getJLogger();
     }
 
     @Override

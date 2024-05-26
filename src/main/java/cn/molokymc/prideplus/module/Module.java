@@ -137,9 +137,9 @@ public class Module extends ListenerAdapter implements Utils {
     }
 
     public void onDisable() {
-            Multithreading.schedule(() -> Client.INSTANCE.getEventProtocol().unregister(this), 250, TimeUnit.MILLISECONDS);
-            Client.INSTANCE.getEventProtocol().unregister(this);
-        }
+        Multithreading.schedule(() -> Client.INSTANCE.getEventProtocol().unregister(this), 250, TimeUnit.MILLISECONDS);
+        Client.INSTANCE.getEventProtocol().unregister(this);
+    }
 
     @Exclude(Strategy.NAME_REMAPPING)
     public void setKey(int code) {

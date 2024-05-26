@@ -234,7 +234,7 @@ public class HUDMod extends Module {
                 int color3 = color333.getRGB();
                 int ping = mc.getNetHandler().getPlayerInfo(mc.thePlayer.getUniqueID()).getResponseTime();
                 String pings = ping + " ms";
-                String testtext = "Stable§2sense§f | " + this.df.format(new Date()) + " | " + pings + " | Edited 0.1 | " + mc.thePlayer.getName();
+                String testtext = Client.NAME + "§2sense§f | " + this.df.format(new Date()) + " | " + pings + " | Edited 0.1 | " + mc.thePlayer.getName();
                 RenderUtil.drawNewRect(4.0, 4.0, Utils.fr.getStringWidth(testtext) + 11, 20.0, 1.0, color33.getRGB(), color332.getRGB(), color333.getRGB());
                 fr.drawCenteredStringWithShadow(testtext, (double)fr.getStringWidth(testtext) / 2.0 + 8.0, 14.25 - (double)fr.getStringHeight(testtext) / 2.0 - 0.75, new Color(255, 255, 255).getRGB());
                 break;
@@ -313,7 +313,7 @@ public class HUDMod extends Module {
         boolean shadowInfo = infoCustomization.isEnabled("Info Shadow");
         if (infoCustomization.isEnabled("Client Info")) {
             String text;
-            text = Client.INSTANCE.getVersion() + " | "  + "Release";
+            text = Client.INSTANCE.getVersion();
             text = HUDMod.get(text);
             float x = (float)sr.getScaledWidth() - (fr.getStringWidth(text) + 3.0f);
             float y = (float)(sr.getScaledHeight() - (fr.getHeight() + 3)) - yOffset;

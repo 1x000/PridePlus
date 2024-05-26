@@ -6,6 +6,8 @@ import com.viaversion.viaversion.api.Via;
 import com.viaversion.viaversion.api.data.MappingDataLoader;
 import io.netty.channel.EventLoop;
 import io.netty.channel.local.LocalEventLoopGroup;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import cn.molokymc.prideplus.viamcp.gui.AsyncVersionSlider;
 import cn.molokymc.prideplus.viamcp.loader.MCPBackwardsLoader;
@@ -25,21 +27,24 @@ import java.util.logging.Logger;
 public class ViaMCP
 {
     public final static int PROTOCOL_VERSION = 47;
+    @Getter
     private static final ViaMCP instance = new ViaMCP();
 
-    public static ViaMCP getInstance()
-    {
-        return instance;
-    }
-
+    @Getter
     private final Logger jLogger = new JLoggerToLog4j(LogManager.getLogger("ViaMCP"));
     private final CompletableFuture<Void> INIT_FUTURE = new CompletableFuture<>();
 
     private ExecutorService ASYNC_EXEC;
     private EventLoop EVENT_LOOP;
 
+    @Setter
+    @Getter
     private File file;
+    @Setter
+    @Getter
     private int version;
+    @Setter
+    @Getter
     private String lastServer;
 
     /**
@@ -60,12 +65,12 @@ public class ViaMCP
         this.file = new File("ViaMCP");
         if (this.file.mkdir())
         {
-            this.getjLogger().info("Creating ViaMCP Folder");
+            this.getJLogger().info("Creating ViaMCP Folder");
         }
 
         Via.init(ViaManagerImpl.builder().injector(new MCPViaInjector()).loader(new MCPViaLoader()).platform(new MCPViaPlatform(file)).build());
 
-        //MappingDataLoader.enableMappingsCache();
+        MappingDataLoader.enableMappingsCache();
         ((ViaManagerImpl) Via.getManager()).init();
 
         new MCPBackwardsLoader(file);
@@ -84,11 +89,6 @@ public class ViaMCP
         asyncSlider = new AsyncVersionSlider(-1, x, y, Math.max(width, 110), height);
     }
 
-    public Logger getjLogger()
-    {
-        return jLogger;
-    }
-
     public ExecutorService getAsyncExecutor()
     {
         return ASYNC_EXEC;
@@ -99,33 +99,4 @@ public class ViaMCP
         return EVENT_LOOP;
     }
 
-    public File getFile()
-    {
-        return file;
-    }
-
-    public String getLastServer()
-    {
-        return lastServer;
-    }
-
-    public int getVersion()
-    {
-        return version;
-    }
-
-    public void setVersion(int version)
-    {
-        this.version = version;
-    }
-
-    public void setFile(File file)
-    {
-        this.file = file;
-    }
-
-    public void setLastServer(String lastServer)
-    {
-        this.lastServer = lastServer;
-    }
 }

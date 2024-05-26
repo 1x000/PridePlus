@@ -1,10 +1,9 @@
 package cn.molokymc.prideplus.viamcp.platform;
 
-import com.viaversion.viaversion.api.platform.ViaInjector;
-import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
-import com.viaversion.viaversion.libs.gson.JsonObject;
 import cn.molokymc.prideplus.viamcp.ViaMCP;
 import cn.molokymc.prideplus.viamcp.handler.CommonTransformer;
+import com.viaversion.viaversion.api.platform.ViaInjector;
+import com.viaversion.viaversion.libs.gson.JsonObject;
 
 public class MCPViaInjector implements ViaInjector
 {
@@ -21,9 +20,9 @@ public class MCPViaInjector implements ViaInjector
     }
 
     @Override
-    public ProtocolVersion getServerProtocolVersion()
+    public int getServerProtocolVersion()
     {
-        return ProtocolVersion.getProtocol(ViaMCP.PROTOCOL_VERSION);
+        return ViaMCP.PROTOCOL_VERSION;
     }
 
     @Override

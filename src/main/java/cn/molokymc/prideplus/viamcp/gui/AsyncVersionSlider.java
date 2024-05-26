@@ -1,11 +1,11 @@
 package cn.molokymc.prideplus.viamcp.gui;
 
+import cn.molokymc.prideplus.viamcp.ViaMCP;
+import cn.molokymc.prideplus.viamcp.protocols.ProtocolCollection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.MathHelper;
-import cn.molokymc.prideplus.viamcp.ViaMCP;
-import cn.molokymc.prideplus.viamcp.protocols.ProtocolCollection;
 
 import java.util.Arrays;
 import java.util.Collections;

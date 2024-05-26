@@ -130,7 +130,7 @@ public class DiscordRPC {
 
             // Large image
             activity.assets().setLargeImage("mc");
-            activity.assets().setLargeText("stable " + Client.INSTANCE.getVersion() + " @ intent.store");
+            activity.assets().setLargeText(Client.NAME + " " + Client.INSTANCE.getVersion() + " @ by MolokyMC");
 
             // Finally, update the current activity to our activity
             core.activityManager().updateActivity(activity);

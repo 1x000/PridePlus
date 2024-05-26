@@ -7,6 +7,7 @@ import cn.molokymc.prideplus.utils.client.RegionalAbuseUtil;
 import cn.molokymc.prideplus.utils.misc.SoundUtils;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
 import cn.molokymc.prideplus.utils.skidfont.FontManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
@@ -34,15 +35,15 @@ public class GuiStart extends GuiScreen {
         if(count<=50){
             for (int i = 0; i < 2; ++i) {
                 final int rot = (int)(System.nanoTime() / 2000000L * i % 360L);
-                drawCircle(width / 2,  (float)(height / 2), (float)(i * 8), rot - 160-15, rot+15,new Color(30,30,30).getRGB());
+                drawCircle((float) width / 2,  (float)(height / 2), (float)(i * 8), rot - 160-15, rot+15,new Color(30,30,30).getRGB());
             }
-            RenderUtil.drawLoadingCircle(width / 2, (float)(height / 2));
-            FontManager.edit20.drawCenteredString("正在加载"+ SplashScreen.CURRENT, width / 2, height / 2+50 , new Color(255, 255, 255, 255).getRGB());
+            RenderUtil.drawLoadingCircle((float) width / 2, (float) (height / 2));
+            FontManager.edit20.drawCenteredString("正在加载"+ SplashScreen.CURRENT, (double) width / 2, (double) height / 2 + 50 , new Color(255, 255, 255, 255).getRGB());
 
         }
         if(count>50){
-            Display.setTitle(Client.NAME + " " + Client.VERSION  + " | "+ "我是"+RegionalAbuseUtil.country+"的用户");
-            FontManager.edit25.drawCenteredString("初始化完毕！", width / 2, height / 2, Color.WHITE.getRGB());
+            Display.setTitle(Client.NAME + " " + Client.VERSION  + " | " + "你是来自 " + RegionalAbuseUtil.country + " 的觉醒者");
+            FontManager.edit25.drawCenteredString("初始化完毕！", (double) width / 2, (double) height / 2, Color.WHITE.getRGB());
             //FontManager.edit18.drawCenteredString("单击屏幕以进行下一步", width / 2, height / 2+3, Color.WHITE.getRGB());
         }
         if(count>200)
@@ -65,7 +66,7 @@ public class GuiStart extends GuiScreen {
             menuShader.renderCanvas(scaledResolution);
             glDisable(GL_BLEND);
             menuShader.uninit();
-            time += mc.getDebugFPS() < 60 ? 0 : (float) (0.002 * RenderUtil.deltaTime);
+            time += Minecraft.getDebugFPS() < 60 ? 0 : (float) (0.002 * RenderUtil.deltaTime);
         }
     }
 

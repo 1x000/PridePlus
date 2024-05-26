@@ -40,11 +40,12 @@ public class EventProtocol {
 
     public void handleEvent(Event event) {
         for (EventListener listener : listeners) {
+            if (listener == null) continue;
             try {
                 listener.onEvent(event);
             } catch (Exception exception) {
-                exception.printStackTrace();
-                System.err.println("Error handling event " + event.getClass().getSimpleName() + " for listener " + listener.getClass().getSimpleName());
+                //exception.printStackTrace();
+                //System.err.println("Error handling event " + event.getClass().getSimpleName() + " for listener " + listener.getClass().getSimpleName());
             }
         }
     }

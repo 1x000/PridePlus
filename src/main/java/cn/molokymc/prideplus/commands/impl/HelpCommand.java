@@ -15,7 +15,7 @@ public class HelpCommand extends Command {
 
     @Override
     public void execute(String[] args) {
-        ChatComponentText response = new ChatComponentText("\n§l§dStable §r§d" + Client.INSTANCE.getVersion()  + " §7- §r§6Hover to see command usages.");
+        ChatComponentText response = new ChatComponentText("\n§l§d" + Client.NAME + " §r§d" + Client.INSTANCE.getVersion()  + " §7- §r§6Hover to see command usages.");
         ChatComponentText temp = new ChatComponentText("");
         float maxLength = 0;
         for (Command cmd : Client.INSTANCE.getCommandHandler().getCommands()) {

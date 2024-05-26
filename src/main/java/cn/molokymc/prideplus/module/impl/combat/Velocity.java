@@ -16,6 +16,7 @@ import cn.molokymc.prideplus.module.settings.impl.NumberSetting;
 import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.entity.RayCastUtil;
 import cn.molokymc.prideplus.utils.movementfix.Rise.RotationComponent;
+import cn.molokymc.prideplus.utils.player.RotationUtils;
 import cn.molokymc.prideplus.utils.server.PacketUtils;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C02PacketUseEntity;
@@ -150,7 +151,7 @@ public class Velocity extends Module {
                 if (this.attacking) {
                     if (killAura.state && KillAura.target != null) {
                         if (mc.thePlayer.getDistanceToEntity(KillAura.target) <= killAura.reach.getValue()) {
-                            if (RayCastUtil.rayCast(RotationComponent.rotations, 3.5).entityHit == KillAura.target) {
+                            if (RotationUtils.isMouseOver(RotationComponent.rotations.x, RotationComponent.rotations.y, KillAura.target, 3.5f)) {
                                 for (int i = 0; i < 13; i++) {
                                     PacketUtils.sendPacketNoEvent(new C02PacketUseEntity(KillAura.target, C02PacketUseEntity.Action.ATTACK));
                                     PacketUtils.sendPacketNoEvent(new C0APacketAnimation());
