@@ -50,13 +50,14 @@ public class Stuck extends Module {
         addSettings(fallDistance, debugValue);
     }
 
+    @Override
     public void onMoveInput(EventMoveInput event) {
         if (this.calculating) {
             event.setCancelled(true);
         }
     }
 
-
+    @Override
     public void onRender2DEvent(final Render2DEvent event) {
         if(mc.thePlayer != null  && debugValue.getValue()){
             mc.fontRendererObj.drawString("assessment: " + new ProjectileUtils.EnderPearlPredictor(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, mc.thePlayer.motionY - 0.01, mc.thePlayer.motionY + 0.02).assessRotation(new Rotation(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch)), 20, 20, Color.WHITE.getRGB());
@@ -66,6 +67,7 @@ public class Stuck extends Module {
     }
 
 
+    @Override
     public void onEnable(){
         if(mc.theWorld != null){
             this.x = mc.thePlayer.posX;
@@ -77,6 +79,7 @@ public class Stuck extends Module {
         super.onEnable();
     }
 
+    @Override
     public void onPacketSendEvent(PacketSendEvent event) {
         if (stuck && KillAura.target == null) {
             if (event.getPacket() instanceof C08PacketPlayerBlockPlacement) {
@@ -100,6 +103,7 @@ public class Stuck extends Module {
     }
 
 
+    @Override
     public void onPacketReceiveEvent(PacketReceiveEvent event) {
         if (event.getPacket() instanceof S08PacketPlayerPosLook && stuck && KillAura.target == null) {
             stuck = false;
@@ -107,6 +111,7 @@ public class Stuck extends Module {
     }
 
 
+    @Override
     public void onUpdateEvent(UpdateEvent event) {
         if (stuck) {
             mc.thePlayer.motionX = 0.0;
@@ -116,7 +121,7 @@ public class Stuck extends Module {
         }
     }
 
-
+    @Override
     public void onMotionEvent(MotionEvent event) {
         if (mc.thePlayer.onGround) {
             this.attempted = false;

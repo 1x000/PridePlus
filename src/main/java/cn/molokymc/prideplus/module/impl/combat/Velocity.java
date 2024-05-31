@@ -153,9 +153,7 @@ public class Velocity extends Module {
         KillAura killAura = (KillAura) Client.INSTANCE.getModuleCollection().get(KillAura.class);
         if (mode.is("GrimAC")) {
             if (this.velocityInput) {
-                System.out.println(1);
                 if (this.attacking) {
-                    System.out.println(2);
                     if (KillAura.target != null) {
                         if (mc.thePlayer.getDistanceToEntity(KillAura.target) <= killAura.reach.getValue()) {
                             if (RotationUtils.isMouseOver(RotationComponent.rotations.x, RotationComponent.rotations.y, KillAura.target, 3.5f)) {
