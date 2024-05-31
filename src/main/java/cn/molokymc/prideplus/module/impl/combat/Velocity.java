@@ -3,6 +3,7 @@ package cn.molokymc.prideplus.module.impl.combat;
 import cn.molokymc.prideplus.Client;
 import cn.molokymc.prideplus.event.impl.game.LegitTickEvent;
 import cn.molokymc.prideplus.event.impl.game.LegitUpdateEvent;
+import cn.molokymc.prideplus.event.impl.game.TickEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
@@ -52,20 +53,21 @@ public class Velocity extends Module {
         Packet<?> packet = e.getPacket();
         if (e.getPacket() instanceof S12PacketEntityVelocity) {
             S12PacketEntityVelocity s12 = ((S12PacketEntityVelocity) e.getPacket());
-            switch (mode.getMode()) {
-                case "GrimAC":
-                    if (s12.getEntityID() == mc.thePlayer.getEntityId()) {
-                        this.velocityInput = true;
-                        MovingObjectPosition target = RayCastUtil.rayCast(RotationComponent.rotations, 3.6);
-                        if (target.entityHit != null) {
-                            if (mc.thePlayer.getDistanceToEntity(target.entityHit) <= 3.5) {
-                                this.attacking = true;
-                                this.motionNoXZ = this.getMotionNoXZ(s12);
-                                PacketUtils.sendPacket(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
-                            }
+
+            if (mode.is("GrimAC")) {
+                if (s12.getEntityID() == mc.thePlayer.getEntityId()) {
+                    this.velocityInput = true;
+                    if (KillAura.target != null) {
+                        if (mc.thePlayer.getDistanceToEntity(KillAura.target) <= 3.5) {
+                            this.attacking = true;
+                            this.motionNoXZ = this.getMotionNoXZ(s12);
+                            PacketUtils.sendPacket(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
                         }
                     }
-                    break;
+                }
+            }
+
+            switch (mode.getMode()) {
                 case "Strict": {
                     if (Utils.mc.thePlayer.isOnGround()) {
                         if (horizontal.getValue() == 0.0d && vertical.getValue() == 0.0d) {
@@ -147,17 +149,18 @@ public class Velocity extends Module {
     }
 
     @Override
-    public void onLegitTickEvent(LegitTickEvent e) {
+    public void onTickEvent(TickEvent e) {
         KillAura killAura = (KillAura) Client.INSTANCE.getModuleCollection().get(KillAura.class);
         if (mode.is("GrimAC")) {
             if (this.velocityInput) {
+                System.out.println(1);
                 if (this.attacking) {
-                    MovingObjectPosition target = RayCastUtil.rayCast(RotationComponent.rotations, 3.6);
-                    if (target.entityHit != null) {
-                        if (mc.thePlayer.getDistanceToEntity(target.entityHit) <= killAura.reach.getValue()) {
-                            if (RotationUtils.isMouseOver(RotationComponent.rotations.x, RotationComponent.rotations.y, target.entityHit, 3.5f)) {
+                    System.out.println(2);
+                    if (KillAura.target != null) {
+                        if (mc.thePlayer.getDistanceToEntity(KillAura.target) <= killAura.reach.getValue()) {
+                            if (RotationUtils.isMouseOver(RotationComponent.rotations.x, RotationComponent.rotations.y, KillAura.target, 3.5f)) {
                                 for (int i = 0; i < 13; i++) {
-                                    PacketUtils.sendPacketNoEvent(new C02PacketUseEntity(target.entityHit, C02PacketUseEntity.Action.ATTACK));
+                                    PacketUtils.sendPacketNoEvent(new C02PacketUseEntity(KillAura.target, C02PacketUseEntity.Action.ATTACK));
                                     PacketUtils.sendPacketNoEvent(new C0APacketAnimation());
                                 }
                                 mc.thePlayer.motionX = this.motionNoXZ[0];
@@ -166,9 +169,9 @@ public class Velocity extends Module {
                                 C0B = true;
                             }
 
-                        } else if (mc.thePlayer.getDistanceToEntity(target.entityHit) <= 3.5) {
+                        } else if (mc.thePlayer.getDistanceToEntity(KillAura.target) <= 3.5) {
                             for (int i = 0; i < 13; i++) {
-                                PacketUtils.sendPacketNoEvent(new C02PacketUseEntity(target.entityHit, C02PacketUseEntity.Action.ATTACK));
+                                PacketUtils.sendPacketNoEvent(new C02PacketUseEntity(KillAura.target, C02PacketUseEntity.Action.ATTACK));
                                 PacketUtils.sendPacketNoEvent(new C0APacketAnimation());
                             }
                             mc.thePlayer.motionX = this.motionNoXZ[0];
@@ -190,7 +193,7 @@ public class Velocity extends Module {
     @Override
     public void onPacketSendEvent(PacketSendEvent event) {
         Packet<?> packet = event.getPacket();
-        if (mode.is("Grim") && Client.INSTANCE.getModuleCollection().get(Disabler.class).isEnabled() && Disabler.disablers.isEnabled("Grim")) {
+        if (mode.getName().equals("GrimAC") && Client.INSTANCE.getModuleCollection().get(Disabler.class).isEnabled() && Disabler.disablers.isEnabled("Grim")) {
             if (packet instanceof C0BPacketEntityAction) {
                 if (((C0BPacketEntityAction) packet).getAction() == C0BPacketEntityAction.Action.START_SPRINTING) {
                     if (this.lastSprinting) {
