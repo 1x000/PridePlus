@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum ReleaseType {
 
     RELEASE("Release"),
+    BETA("Beta"),
     DEV("Dev");
 
     private final String name;

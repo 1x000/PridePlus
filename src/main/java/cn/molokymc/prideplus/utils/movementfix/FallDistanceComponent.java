@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.utils.movementfix;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.ListenerAdapter;
 import cn.molokymc.prideplus.event.impl.player.MotionEvent;
 
@@ -12,11 +12,11 @@ public final class FallDistanceComponent extends ListenerAdapter {
 
 
     public void register() {
-        Client.INSTANCE.getEventProtocol().register(this);
+        Pride.INSTANCE.getEventProtocol().register(this);
     }
 
     public void unregister() {
-        Client.INSTANCE.getEventProtocol().unregister(this);
+        Pride.INSTANCE.getEventProtocol().unregister(this);
     }
 
     public void onMotionEvent(final MotionEvent event) {

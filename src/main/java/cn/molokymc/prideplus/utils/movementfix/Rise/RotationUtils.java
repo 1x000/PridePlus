@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.utils.movementfix.Rise;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.EventHandler;
 import cn.molokymc.prideplus.event.impl.game.TickEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
@@ -49,7 +49,7 @@ public final class RotationUtils {
 	private static double z = random.nextDouble();
 
 	public RotationUtils(){
-		Client.INSTANCE.getEventProtocol().register(this);
+		Pride.INSTANCE.getEventProtocol().register(this);
 	}
 
 	/**

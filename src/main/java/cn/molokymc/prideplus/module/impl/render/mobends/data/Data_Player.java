@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.render.mobends.data;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.MoBendsMod;
 import cn.molokymc.prideplus.module.impl.render.mobends.client.model.ModelRendererBends;
 import cn.molokymc.prideplus.module.impl.render.mobends.client.model.entity.ModelBendsPlayer;
@@ -116,7 +116,7 @@ public class Data_Player extends EntityData{
 					if(this.ticksAfterPunch < 15.0f){
 						if(this.currentAttack == 1) this.currentAttack = 2;
 						else if(this.currentAttack == 2){
-							this.currentAttack = (!((MoBendsMod) Client.INSTANCE.getModuleCollection().get(MoBendsMod.class)).spinAttack.getConfigValue() || this.getEntity().isRiding()) ? 1 : 3;
+							this.currentAttack = (!((MoBendsMod) Pride.INSTANCE.getModuleCollection().get(MoBendsMod.class)).spinAttack.getConfigValue() || this.getEntity().isRiding()) ? 1 : 3;
 						}
 						else if(this.currentAttack == 3) this.currentAttack = 1;
 						this.ticksAfterPunch = 0;

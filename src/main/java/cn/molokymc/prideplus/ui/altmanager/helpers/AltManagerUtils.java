@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.altmanager.helpers;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.microsoft.MicrosoftLogin;
 import cn.molokymc.prideplus.ui.notifications.NotificationManager;
 import cn.molokymc.prideplus.ui.notifications.NotificationType;
@@ -31,7 +31,7 @@ public class AltManagerUtils implements Utils {
     @Getter
     private static List<Alt> alts = new ArrayList<>();
     private final TimerUtil timerUtil = new TimerUtil();
-    public static File altsFile = new File(Client.DIRECTORY, "Alts.json");
+    public static File altsFile = new File(Pride.DIRECTORY, "Alts.json");
 
     public AltManagerUtils() {
         if (!altsFile.exists()) {
@@ -143,8 +143,8 @@ public class AltManagerUtils implements Utils {
                 finalAlt.altState = Alt.AltState.LOGIN_SUCCESS;
                 AltManagerUtils.getAlts().add(finalAlt);
                 writeAlts();
-                Client.INSTANCE.getAltManager().currentSessionAlt = finalAlt;
-                Client.INSTANCE.getAltManager().getAltPanel().refreshAlts();
+                Pride.INSTANCE.getAltManager().currentSessionAlt = finalAlt;
+                Pride.INSTANCE.getAltManager().getAltPanel().refreshAlts();
             } else {
                 Alt.stage = 1;
                 finalAlt.altState = Alt.AltState.LOGIN_FAIL;

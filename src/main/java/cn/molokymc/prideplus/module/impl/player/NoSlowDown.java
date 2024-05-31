@@ -1,17 +1,13 @@
 package cn.molokymc.prideplus.module.impl.player;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.game.LegitUpdateEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
 import cn.molokymc.prideplus.event.impl.player.MotionEvent;
 import cn.molokymc.prideplus.event.impl.player.SlowDownEvent;
-import cn.molokymc.prideplus.event.impl.player.UpdateEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.impl.combat.KillAura;
-import cn.molokymc.prideplus.module.impl.movement.Scaffold;
-import cn.molokymc.prideplus.module.impl.movement.Sprint;
-import cn.molokymc.prideplus.module.settings.Setting;
 import cn.molokymc.prideplus.module.settings.impl.ModeSetting;
 import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.player.BlockUtils;
@@ -88,12 +84,12 @@ public class NoSlowDown extends Module {
                     if (e.isPre()) {
                         if (mc.thePlayer.getHeldItem().getItem() instanceof ItemBow && mc.thePlayer.isUsingItem()){
                             mc.getNetHandler().addToSendQueue(new C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9 ));
-                            mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload(Client.NAME, new PacketBuffer(Unpooled.buffer())));
+                            mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload(Pride.NAME, new PacketBuffer(Unpooled.buffer())));
                             mc.getNetHandler().addToSendQueue(new C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem));
                         }
                         if (isBlocking()) {
                             mc.getNetHandler().addToSendQueue(new C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9 ));
-                            mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload(Client.NAME, new PacketBuffer(Unpooled.buffer())));
+                            mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload(Pride.NAME, new PacketBuffer(Unpooled.buffer())));
                             mc.getNetHandler().addToSendQueue(new C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem));
                         }
                     }

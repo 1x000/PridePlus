@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import cn.molokymc.prideplus.utils.skidfont.FontManager;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.NotificationsMod;
 import cn.molokymc.prideplus.module.impl.render.PostProcessing;
 import cn.molokymc.prideplus.module.impl.render.ScoreboardMod;
@@ -188,15 +188,15 @@ public class GuiIngame extends Gui implements Utils {
             }
         }
 
-        Client.INSTANCE.getEventProtocol().handleEvent(new PreRenderEvent());
+        Pride.INSTANCE.getEventProtocol().handleEvent(new PreRenderEvent());
 
 
-        PostProcessing postProcessing = (PostProcessing) Client.INSTANCE.getModuleCollection().get(PostProcessing.class);
+        PostProcessing postProcessing = (PostProcessing) Pride.INSTANCE.getModuleCollection().get(PostProcessing.class);
         postProcessing.blurScreen();
 
 
-        Client.INSTANCE.getEventProtocol().handleEvent(new Render2DEvent(scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight()));
-        NotificationsMod notif = Client.INSTANCE.getModuleCollection().getModule(NotificationsMod.class);
+        Pride.INSTANCE.getEventProtocol().handleEvent(new Render2DEvent(scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight()));
+        NotificationsMod notif = Pride.INSTANCE.getModuleCollection().getModule(NotificationsMod.class);
         if (notif.isEnabled()) {
             notif.render();
         }
@@ -364,7 +364,7 @@ public class GuiIngame extends Gui implements Utils {
 
         ScoreObjective scoreobjective1 = scoreobjective != null ? scoreobjective : scoreboard.getObjectiveInDisplaySlot(1);
 
-        if (scoreobjective1 != null && Client.INSTANCE.isEnabled(ScoreboardMod.class)) {
+        if (scoreobjective1 != null && Pride.INSTANCE.isEnabled(ScoreboardMod.class)) {
             this.renderScoreboard(scoreobjective1, scaledresolution);
         }
 
@@ -554,7 +554,7 @@ public class GuiIngame extends Gui implements Utils {
         }
 
         ScoreObjective objective = scoreobjective != null ? scoreobjective : scoreboardOBJ.getObjectiveInDisplaySlot(1);
-        if (objective != null && Client.INSTANCE.isEnabled(ScoreboardMod.class)) {
+        if (objective != null && Pride.INSTANCE.isEnabled(ScoreboardMod.class)) {
             Scoreboard scoreboard = objective.getScoreboard();
             Collection<Score> collection = scoreboard.getSortedScores(objective);
             List<Score> list = Lists.newArrayList(Iterables.filter(collection, (p_apply_1_) -> {

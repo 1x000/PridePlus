@@ -3,7 +3,7 @@ package net.minecraft.entity.player;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.authlib.GameProfile;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.player.LivingDeathEvent;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
@@ -495,7 +495,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
 
             entitylivingbase.addToPlayerScore(this, this.scoreValue);
 
-            Client.INSTANCE.getEventProtocol().handleEvent(new LivingDeathEvent(this, cause));
+            Pride.INSTANCE.getEventProtocol().handleEvent(new LivingDeathEvent(this, cause));
         }
 
         this.triggerAchievement(StatList.deathsStat);

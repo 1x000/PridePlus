@@ -3,18 +3,11 @@ package cn.molokymc.prideplus.module.impl.render.mobends.client.renderer;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.molokymc.prideplus.Client;
-import cn.molokymc.prideplus.module.Module;
-import cn.molokymc.prideplus.module.ModuleCollection;
-import cn.molokymc.prideplus.module.impl.render.ClickGUIMod;
-import cn.molokymc.prideplus.module.impl.render.HUDMod;
-import cn.molokymc.prideplus.module.impl.render.MoBendsMod;
 import cn.molokymc.prideplus.module.impl.render.mobends.client.model.ModelRendererBends;
 import cn.molokymc.prideplus.module.impl.render.mobends.client.model.entity.ModelBendsPlayer;
 import cn.molokymc.prideplus.module.impl.render.mobends.util.GUtil;
 import net.minecraft.client.Minecraft;
 
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector3f;

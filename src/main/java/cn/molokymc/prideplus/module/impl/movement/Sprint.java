@@ -1,11 +1,10 @@
 package cn.molokymc.prideplus.module.impl.movement;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
 import cn.molokymc.prideplus.event.impl.player.MotionEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
-import cn.molokymc.prideplus.module.impl.player.NoSlowDown;
 import cn.molokymc.prideplus.module.settings.impl.BooleanSetting;
 import cn.molokymc.prideplus.module.settings.impl.ModeSetting;
 import cn.molokymc.prideplus.utils.player.MovementUtils;
@@ -34,7 +33,7 @@ public class Sprint extends Module {
 
     @Override
     public void onMotionEvent(MotionEvent event) {
-        if (Client.INSTANCE.isEnabled(Scaffold.class)) return;
+        if (Pride.INSTANCE.isEnabled(Scaffold.class)) return;
         if (mode.is("Legit")) mc.gameSettings.keyBindSprint.pressed = true;
         if (mode.is("Omni") && OmniMode.is("Vanilla")) {
             if (MovementUtils.isMoving()) mc.thePlayer.setSprinting(true);

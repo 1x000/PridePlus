@@ -1,9 +1,7 @@
 package net.minecraft.client.gui;
 
-import cn.molokymc.prideplus.viamcp.ViaMCP;
-import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import com.google.common.collect.Lists;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.ui.mainmenu.CustomMainMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -303,7 +301,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
 
         if (button.id == 3)
         {
-            this.mc.displayGuiScreen(Client.INSTANCE.getAltManager());
+            this.mc.displayGuiScreen(Pride.INSTANCE.getAltManager());
         }
 
         if (button.id == 4)

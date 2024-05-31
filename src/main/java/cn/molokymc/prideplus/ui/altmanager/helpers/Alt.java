@@ -10,7 +10,7 @@ import com.mojang.authlib.Agent;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.microsoft.MicrosoftLogin;
 import cn.molokymc.prideplus.ui.notifications.NotificationManager;
 import cn.molokymc.prideplus.ui.notifications.NotificationType;
@@ -83,7 +83,7 @@ public class Alt {
             this.altState = AltState.LOGIN_SUCCESS;
             altType = AltType.CRACKED;
             stage = 2;
-            Client.INSTANCE.getAltManager().currentSessionAlt = this;
+            Pride.INSTANCE.getAltManager().currentSessionAlt = this;
             return;
         }
         Session auth = this.createSession(this.email, this.password, microsoft);
@@ -97,7 +97,7 @@ public class Alt {
             stage = 2;
             altState = AltState.LOGIN_SUCCESS;
             altType = currentLoginMethod;
-            Client.INSTANCE.getAltManager().currentSessionAlt = this;
+            Pride.INSTANCE.getAltManager().currentSessionAlt = this;
         }
     }
 

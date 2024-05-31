@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.utils.animations.impl.DecelerateAnimation;
 import cn.molokymc.prideplus.utils.skidfont.FontManager;
 import cn.molokymc.prideplus.utils.animations.impl.EaseBackIn;
@@ -148,7 +148,7 @@ public class GuiChat extends GuiScreen {
     public void initGui() {
 
         if (arraylistMod == null) {
-            arraylistMod = (ArrayListMod) Client.INSTANCE.getModuleCollection().get(ArrayListMod.class);
+            arraylistMod = (ArrayListMod) Pride.INSTANCE.getModuleCollection().get(ArrayListMod.class);
         }
 
         for (Dragging dragging : DragManager.draggables.values()) {
@@ -206,7 +206,7 @@ public class GuiChat extends GuiScreen {
             }
         });
 
-        HUDMod hudMod = (HUDMod) Client.INSTANCE.getModuleCollection().get(HUDMod.class);
+        HUDMod hudMod = (HUDMod) Pride.INSTANCE.getModuleCollection().get(HUDMod.class);
 
         Pair<Color, Color> colors = HUDMod.getClientColors();
 

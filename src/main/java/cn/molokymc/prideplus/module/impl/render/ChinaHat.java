@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.render;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.render.Render3DEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
@@ -74,7 +74,7 @@ public class ChinaHat extends Module {
             double height = (lowerHeight ? -CustomModel.getYOffset() : 0) + bb.maxY - bb.minY + 0.02, radius = bb.maxX - bb.minX;
 
             float yaw = MathUtils.interpolate(player.prevRotationYawHead, player.rotationYawHead, partialTicks).floatValue();
-            if (Client.INSTANCE.isEnabled(KillAura.class) || Client.INSTANCE.isEnabled(Scaffold.class)) {
+            if (Pride.INSTANCE.isEnabled(KillAura.class) || Pride.INSTANCE.isEnabled(Scaffold.class)) {
                 yaw = MathUtils.interpolate(MathHelper.wrapAngleTo180_float(player.prevRotationYawHead),
                         MathHelper.wrapAngleTo180_float(player.rotationYawHead), partialTicks).floatValue();
             }

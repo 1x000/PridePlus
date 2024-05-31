@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.clickguis.dropdown;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.impl.render.HUDMod;
@@ -8,7 +8,6 @@ import cn.molokymc.prideplus.module.impl.render.PostProcessing;
 import cn.molokymc.prideplus.module.settings.Setting;
 import cn.molokymc.prideplus.ui.Screen;
 import cn.molokymc.prideplus.ui.clickguis.dropdown.components.ModuleRect;
-import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.animations.Animation;
 import cn.molokymc.prideplus.utils.misc.HoveringUtil;
 import cn.molokymc.prideplus.utils.misc.MathUtils;
@@ -46,7 +45,7 @@ public class CategoryPanel implements Screen {
     public void initGui() {
         if (moduleRects == null) {
             moduleRects = new ArrayList<>();
-            for (Module module : Client.INSTANCE.getModuleCollection().getModulesInCategory(category).stream().sorted(Comparator.comparing(Module::getName)).collect(Collectors.toList())) {
+            for (Module module : Pride.INSTANCE.getModuleCollection().getModulesInCategory(category).stream().sorted(Comparator.comparing(Module::getName)).collect(Collectors.toList())) {
                 moduleRects.add(new ModuleRect(module));
             }
         }
@@ -222,11 +221,11 @@ public class CategoryPanel implements Screen {
     private final List<ModuleRect> moduleRectFilter = new ArrayList<>();
 
     public List<ModuleRect> getModuleRects() {
-        if (!Client.INSTANCE.getSearchBar().isFocused()) {
+        if (!Pride.INSTANCE.getSearchBar().isFocused()) {
             return moduleRects;
         }
 
-        String search = Client.INSTANCE.getSearchBar().getSearchField().getText();
+        String search = Pride.INSTANCE.getSearchBar().getSearchField().getText();
 
         if (search.equals(searchText)) {
             return moduleRectFilter;

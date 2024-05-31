@@ -4,11 +4,10 @@ import cn.molokymc.prideplus.viamcp.versionfix.VersionFixer;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Maps;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.player.JumpFixEvent;
 import cn.molokymc.prideplus.event.impl.player.LivingDeathEvent;
 import cn.molokymc.prideplus.module.impl.render.Animations;
-import cn.molokymc.prideplus.viamcp.ViaMCP;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -944,7 +943,7 @@ public abstract class EntityLivingBase extends Entity {
 
         if (entity != null) {
             if (entity instanceof EntityLivingBase) {
-                Client.INSTANCE.getEventProtocol().handleEvent(new LivingDeathEvent(this, cause));
+                Pride.INSTANCE.getEventProtocol().handleEvent(new LivingDeathEvent(this, cause));
             }
             entity.onKillEntity(this);
         }
@@ -1209,7 +1208,7 @@ public abstract class EntityLivingBase extends Entity {
      * progress indicator. Takes dig speed enchantments into account.
      */
     private int getArmSwingAnimationEnd() {
-        return (Client.INSTANCE.getModuleCollection().get(Animations.class).isEnabled() ? Animations.slowdown.getValue().intValue() : 1)
+        return (Pride.INSTANCE.getModuleCollection().get(Animations.class).isEnabled() ? Animations.slowdown.getValue().intValue() : 1)
                 * (this.isPotionActive(Potion.digSpeed)
                 ? 6 - (1 + this.getActivePotionEffect(Potion.digSpeed).getAmplifier())
                 : (this.isPotionActive(Potion.digSlowdown) ? 6 + (1 + this.getActivePotionEffect(Potion.digSlowdown).getAmplifier()) * 2 : 6));
@@ -1420,7 +1419,7 @@ public abstract class EntityLivingBase extends Entity {
             JumpFixEvent jumpFixEvent = new JumpFixEvent(this.rotationYaw);
 
             if (this instanceof EntityPlayerSP) {
-                Client.INSTANCE.getEventProtocol().handleEvent(jumpFixEvent);
+                Pride.INSTANCE.getEventProtocol().handleEvent(jumpFixEvent);
             }
 
             float f = jumpFixEvent.getYaw() * 0.017453292F;

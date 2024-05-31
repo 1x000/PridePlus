@@ -2,7 +2,7 @@ package cn.molokymc.prideplus.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.utils.objects.Dragging;
 
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class DragManager {
     public static HashMap<String, Dragging> draggables = new HashMap<>();
 
-    private static final File DRAG_DATA = new File(Client.DIRECTORY, "Drag.json");
+    private static final File DRAG_DATA = new File(Pride.DIRECTORY, "Drag.json");
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().setLenient().create();
 
     public static void saveDragData() {

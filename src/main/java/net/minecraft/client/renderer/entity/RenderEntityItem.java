@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.ItemPhysics;
 import cn.molokymc.prideplus.utils.render.EntityCulling;
 import net.minecraft.block.BlockTrapDoor;
@@ -32,7 +32,7 @@ public class RenderEntityItem extends Render<EntityItem> {
     private int func_177077_a(EntityItem itemIn, double p_177077_2_, double p_177077_4_, double p_177077_6_, float p_177077_8_, IBakedModel p_177077_9_) {
         Minecraft mc = Minecraft.getMinecraft();
 
-        boolean itemPhysics = Client.INSTANCE.isEnabled(ItemPhysics.class);
+        boolean itemPhysics = Pride.INSTANCE.isEnabled(ItemPhysics.class);
 
         ItemStack itemstack = itemIn.getEntityItem();
         Item item = itemstack.getItem();

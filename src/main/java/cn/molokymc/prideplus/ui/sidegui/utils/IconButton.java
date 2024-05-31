@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.sidegui.utils;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.ui.Screen;
 import cn.molokymc.prideplus.ui.sidegui.SideGUI;
 import cn.molokymc.prideplus.utils.Utils;
@@ -63,7 +63,7 @@ public class IconButton implements Screen {
         iconFont.drawString(icon, x, y, ColorUtil.applyOpacity(iconColor, alpha));
 
         if (tooltip != null) {
-            Client.INSTANCE.getSideGui().addTooltip(tooltip);
+            Pride.INSTANCE.getSideGui().addTooltip(tooltip);
             tooltip.setHovering(hovering);
         }
 

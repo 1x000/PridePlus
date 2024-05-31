@@ -1,7 +1,7 @@
 package net.minecraft.client.entity;
 
 import com.mojang.authlib.GameProfile;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.player.EventLook;
 import cn.molokymc.prideplus.utils.math.Vector2f;
 import net.minecraft.client.Minecraft;
@@ -236,7 +236,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer
 
         final EventLook event = new EventLook(new Vector2f(yaw, pitch));
 
-        Client.INSTANCE.getEventProtocol().handleEvent(event);
+        Pride.INSTANCE.getEventProtocol().handleEvent(event);
 
         yaw = event.getRotation().getX();
         pitch = event.getRotation().getY();

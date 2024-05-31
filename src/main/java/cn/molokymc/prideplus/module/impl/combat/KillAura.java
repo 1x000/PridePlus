@@ -6,7 +6,7 @@ import com.viaversion.viaversion.api.Via;
 import com.viaversion.viaversion.api.protocol.packet.PacketWrapper;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import com.viaversion.viaversion.api.type.Type;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.commands.impl.FriendCommand;
 import cn.molokymc.prideplus.event.impl.player.*;
 import cn.molokymc.prideplus.event.impl.render.Render3DEvent;
@@ -206,7 +206,7 @@ public final class KillAura extends Module {
                 wasBlocking = false;
             }
         }
-        attacking = !targets.isEmpty() && (addons.getSetting("Allow Scaffold").isEnabled() || !Client.INSTANCE.isEnabled(Scaffold.class));
+        attacking = !targets.isEmpty() && (addons.getSetting("Allow Scaffold").isEnabled() || !Pride.INSTANCE.isEnabled(Scaffold.class));
         blocking = autoblock.isEnabled() && attacking && InventoryUtils.isHoldingSword();
         if (attacking) {
             KillAura.target = targets.get(0);
@@ -238,7 +238,7 @@ public final class KillAura extends Module {
             if (mode.is("Multi")) {
                 for (EntityLivingBase entityLivingBase : targets) {
                     AttackEvent attackEvent = new AttackEvent(entityLivingBase);
-                    Client.INSTANCE.getEventProtocol().handleEvent(attackEvent);
+                    Pride.INSTANCE.getEventProtocol().handleEvent(attackEvent);
 
                     if (!attackEvent.isCancelled()) {
                         //AttackOrder.sendFixedAttack(mc.thePlayer, entityLivingBase);
@@ -253,7 +253,7 @@ public final class KillAura extends Module {
                 }
             } else {
                 AttackEvent attackEvent = new AttackEvent(KillAura.target);
-                Client.INSTANCE.getEventProtocol().handleEvent(attackEvent);
+                Pride.INSTANCE.getEventProtocol().handleEvent(attackEvent);
 
                 attack();
             }
@@ -310,7 +310,7 @@ public final class KillAura extends Module {
         } else if (!mc.thePlayer.canEntityBeSeen(entity) && !this.addons.getSetting("Through Walls").isEnabled()) {
             return false;
         } else {
-            return !Client.INSTANCE.isEnabled(Teams.class) || !Teams.isOnSameTeam(entity);
+            return !Pride.INSTANCE.isEnabled(Teams.class) || !Teams.isOnSameTeam(entity);
         }
     }
 

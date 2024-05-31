@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.commands.impl;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.commands.Command;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.util.ChatComponentText;
@@ -15,10 +15,10 @@ public class HelpCommand extends Command {
 
     @Override
     public void execute(String[] args) {
-        ChatComponentText response = new ChatComponentText("\n§l§d" + Client.NAME + " §r§d" + Client.INSTANCE.getVersion()  + " §7- §r§6Hover to see command usages.");
+        ChatComponentText response = new ChatComponentText("\n§l§d" + Pride.NAME + " §r§d" + Pride.INSTANCE.getVersion()  + " §7- §r§6Hover to see command usages.");
         ChatComponentText temp = new ChatComponentText("");
         float maxLength = 0;
-        for (Command cmd : Client.INSTANCE.getCommandHandler().getCommands()) {
+        for (Command cmd : Pride.INSTANCE.getCommandHandler().getCommands()) {
             String info = String.format("\n§r§b.%s • \2477%s", cmd.getName().toLowerCase(), cmd.getDescription());
             temp.appendSibling(
                     new ChatComponentText(info)

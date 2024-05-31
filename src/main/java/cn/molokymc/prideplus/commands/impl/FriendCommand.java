@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.commands.impl;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.commands.Command;
 import cn.molokymc.prideplus.utils.player.ChatUtil;
 import com.google.gson.Gson;
@@ -19,7 +19,7 @@ import java.util.List;
 public class FriendCommand extends Command {
 
     private static final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
-    private static final File file = new File(Client.DIRECTORY, "Friends.json");
+    private static final File file = new File(Pride.DIRECTORY, "Friends.json");
     public static final List<String> friends = new ArrayList<>();
 
     public FriendCommand() {
@@ -76,7 +76,7 @@ public class FriendCommand extends Command {
             JsonObject object = gson.fromJson(new String(Files.readAllBytes(file.toPath())), JsonObject.class);
             object.get("friends").getAsJsonArray().forEach(f -> friends.add(f.getAsString()));
         } catch (Exception e) {
-            Client.LOGGER.error("Failed to load " + file, e);
+            Pride.LOGGER.error("Failed to load " + file, e);
         }
     }
 

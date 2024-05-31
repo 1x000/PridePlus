@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import com.google.common.collect.Lists;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.CustomModel;
 import cn.molokymc.prideplus.module.impl.render.ESP2D;
 import cn.molokymc.prideplus.module.impl.render.TargetHUDMod;
@@ -104,11 +104,11 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
      * Renders the desired {@code T} type Entity.
      */
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        if (Client.INSTANCE.getModuleCollection().getModule(MoBendsMod.class).onRenderLivingEvent(this, entity, x, y, z, entityYaw, partialTicks)) {
+        if (Pride.INSTANCE.getModuleCollection().getModule(MoBendsMod.class).onRenderLivingEvent(this, entity, x, y, z, entityYaw, partialTicks)) {
             return;
         }
         RendererLivingEntityEvent event = new RendererLivingEntityEvent(entity, this, partialTicks, x, y, z);
-        Client.INSTANCE.getEventProtocol().handleEvent(event);
+        Pride.INSTANCE.getEventProtocol().handleEvent(event);
         if (event.isCancelled()) return;
 
 
@@ -257,7 +257,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
         }
 
         event.setPost();
-        Client.INSTANCE.getEventProtocol().handleEvent(event);
+        Pride.INSTANCE.getEventProtocol().handleEvent(event);
     }
 
     protected boolean setScoreTeamColor(T entityLivingBaseIn) {
@@ -321,14 +321,14 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                     () -> this.renderLayers(entitylivingbaseIn, x, y, partialTicks, z, entityYaw, entityPitch, scaleFactor));
 
 
-            Client.INSTANCE.getEventProtocol().handleEvent(renderModelEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(renderModelEvent);
 
             GL11.glEnable(GL11.GL_ALPHA_TEST);
 
             renderModelEvent.drawModel();
 
             renderModelEvent.setPost();
-            Client.INSTANCE.getEventProtocol().handleEvent(renderModelEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(renderModelEvent);
 
 
             if (flag1) {
@@ -576,11 +576,11 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     public void renderName(T entity, double x, double y, double z) {
         if (entity instanceof EntityPlayer) {
             NametagRenderEvent nametagRenderEvent = new NametagRenderEvent();
-            Client.INSTANCE.getEventProtocol().handleEvent(nametagRenderEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(nametagRenderEvent);
             if (nametagRenderEvent.isCancelled()) return;
         }
         if (esp2D == null) {
-            esp2D = Client.INSTANCE.getModuleCollection().getModule(ESP2D.class);
+            esp2D = Pride.INSTANCE.getModuleCollection().getModule(ESP2D.class);
         }
 
         if (this.canRenderName(entity)) {

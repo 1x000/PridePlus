@@ -4,9 +4,8 @@ import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.player.KeepSprintEvent;
-import cn.molokymc.prideplus.viamcp.ViaMCP;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
@@ -1151,7 +1150,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
                             targetEntity.addVelocity(-MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F, 0.1D, MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F);
 
                             KeepSprintEvent keepSprintEvent = new KeepSprintEvent();
-                            Client.INSTANCE.getEventProtocol().handleEvent(keepSprintEvent);
+                            Pride.INSTANCE.getEventProtocol().handleEvent(keepSprintEvent);
                             if(!keepSprintEvent.isCancelled()) {
                                 this.motionX *= 0.6D;
                                 this.motionZ *= 0.6D;

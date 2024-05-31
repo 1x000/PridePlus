@@ -5,7 +5,7 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.mojang.authlib.GameProfile;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.exploit.Disabler;
 import cn.molokymc.prideplus.module.impl.movement.Flight;
 import cn.molokymc.prideplus.event.impl.player.ChatReceivedEvent;
@@ -633,7 +633,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
         ChatReceivedEvent e = new ChatReceivedEvent(packetIn.getType(), packetIn.getChatComponent());
 
-        Client.INSTANCE.getEventProtocol().handleEvent(e);
+        Pride.INSTANCE.getEventProtocol().handleEvent(e);
         if (e.isCancelled() || e.message == null) return;
 
         if (packetIn.getType() == 2) {

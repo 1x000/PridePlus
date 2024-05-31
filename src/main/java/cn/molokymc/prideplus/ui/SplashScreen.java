@@ -1,30 +1,17 @@
 package cn.molokymc.prideplus.ui;
 
-import cn.molokymc.prideplus.Client;
-import cn.molokymc.prideplus.module.impl.render.targethud.utils.AnimationUtils;
-import cn.molokymc.prideplus.utils.Utils;
-import cn.molokymc.prideplus.utils.animations.Animation;
-import cn.molokymc.prideplus.utils.animations.AnimationUtil;
-import cn.molokymc.prideplus.utils.animations.Direction;
-import cn.molokymc.prideplus.utils.animations.impl.DecelerateAnimation;
-import cn.molokymc.prideplus.utils.font.CustomFont;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
 import cn.molokymc.prideplus.utils.skidfont.FontManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
 
 
 import java.awt.*;
-
-import static net.minecraft.client.gui.Gui.drawRect;
 
 
 public final class SplashScreen

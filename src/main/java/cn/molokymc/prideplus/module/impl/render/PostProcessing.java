@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.render;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.render.ShaderEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
@@ -54,15 +54,15 @@ public class PostProcessing
             ClickGUIMod.dropdownClickGui.renderEffects();
         }
         if (PostProcessing.mc.currentScreen == ClickGUIMod.dropdownClickGui || PostProcessing.mc.currentScreen == ClickGUIMod.modernClickGui || PostProcessing.mc.currentScreen == ClickGUIMod.compactClickgui) {
-            Client.INSTANCE.getSideGui().drawForEffects(bloom);
-            Client.INSTANCE.getSearchBar().drawEffects();
+            Pride.INSTANCE.getSideGui().drawForEffects(bloom);
+            Pride.INSTANCE.getSearchBar().drawEffects();
         }
         RenderUtil.resetColor();
         PostProcessing.mc.ingameGUI.getChatGUI().renderChatBox();
         RenderUtil.resetColor();
         PostProcessing.mc.ingameGUI.renderScoreboardBlur(sr);
         RenderUtil.resetColor();
-        NotificationsMod notificationsMod = Client.INSTANCE.getModuleCollection().getModule(NotificationsMod.class);
+        NotificationsMod notificationsMod = Pride.INSTANCE.getModuleCollection().getModule(NotificationsMod.class);
         if (notificationsMod.isEnabled()) {
             notificationsMod.renderEffects(glowOptions.getSetting("Notifications").isEnabled());
         }
@@ -78,7 +78,7 @@ public class PostProcessing
         if (this.blur.isEnabled()) {
             (this.stencilFramebuffer = RenderUtil.createFrameBuffer(this.stencilFramebuffer)).framebufferClear();
             this.stencilFramebuffer.bindFramebuffer(false);
-            Client.INSTANCE.getEventProtocol().handleEvent(new ShaderEvent(false, glowOptions));
+            Pride.INSTANCE.getEventProtocol().handleEvent(new ShaderEvent(false, glowOptions));
             this.stuffToBlur(false);
             this.stencilFramebuffer.unbindFramebuffer();
             KawaseBlur.renderBlur(this.stencilFramebuffer.framebufferTexture, this.iterations.getValue().intValue(), this.offset.getValue().intValue());
@@ -87,7 +87,7 @@ public class PostProcessing
             this.stencilFramebuffer = RenderUtil.createFrameBuffer(this.stencilFramebuffer);
             this.stencilFramebuffer.framebufferClear();
             this.stencilFramebuffer.bindFramebuffer(false);
-            Client.INSTANCE.getEventProtocol().handleEvent(new ShaderEvent(true, glowOptions));
+            Pride.INSTANCE.getEventProtocol().handleEvent(new ShaderEvent(true, glowOptions));
             this.stuffToBlur(true);
             this.stencilFramebuffer.unbindFramebuffer();
             KawaseBloom.renderBlur(this.stencilFramebuffer.framebufferTexture, this.shadowRadius.getValue().intValue(), this.shadowOffset.getValue().intValue());

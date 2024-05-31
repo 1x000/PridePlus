@@ -1,10 +1,9 @@
 package cn.molokymc.prideplus.module.impl.movement;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.player.MotionEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
-import cn.molokymc.prideplus.module.settings.impl.BooleanSetting;
 import cn.molokymc.prideplus.module.settings.impl.ModeSetting;
 import cn.molokymc.prideplus.module.settings.impl.NumberSetting;
 import cn.molokymc.prideplus.utils.Vec3;
@@ -145,7 +144,7 @@ public final class Speed extends Module {
         }
     }
     public boolean shouldPreventJumping() {
-        return Client.INSTANCE.isEnabled(Speed.class) && MovementUtils.isMoving() && !(mode.is("Watchdog") && watchdogMode.is("Ground"));
+        return Pride.INSTANCE.isEnabled(Speed.class) && MovementUtils.isMoving() && !(mode.is("Watchdog") && watchdogMode.is("Ground"));
     }
 
     public void onDisable() {

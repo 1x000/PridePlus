@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.altmanager;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.NotificationsMod;
 import cn.molokymc.prideplus.ui.Screen;
 import cn.molokymc.prideplus.ui.altmanager.helpers.Alt;
@@ -57,8 +57,8 @@ public class GuiAltManager extends GuiScreen {
     @Override
     public void initGui() {
         if (Utils.mc.gameSettings.guiScale != 2) {
-            Client.prevGuiScale = Utils.mc.gameSettings.guiScale;
-            Client.updateGuiScale = true;
+            Pride.prevGuiScale = Utils.mc.gameSettings.guiScale;
+            Pride.updateGuiScale = true;
             Utils.mc.gameSettings.guiScale = 2;
             Utils.mc.resize(Utils.mc.displayWidth - 1, Utils.mc.displayHeight);
             Utils.mc.resize(Utils.mc.displayWidth + 1, Utils.mc.displayHeight);
@@ -137,7 +137,7 @@ public class GuiAltManager extends GuiScreen {
         filterBanned.drawScreen(mouseX, mouseY);
         /* End filter banned button */
 
-        Client.INSTANCE.getModuleCollection().getModule(NotificationsMod.class).render();
+        Pride.INSTANCE.getModuleCollection().getModule(NotificationsMod.class).render();
         if (Alt.stage != 0) {
             AltPanel.loadingAltRect = null;
         }
@@ -170,9 +170,9 @@ public class GuiAltManager extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
-        if (Client.updateGuiScale) {
-            Utils.mc.gameSettings.guiScale = Client.prevGuiScale;
-            Client.updateGuiScale = false;
+        if (Pride.updateGuiScale) {
+            Utils.mc.gameSettings.guiScale = Pride.prevGuiScale;
+            Pride.updateGuiScale = false;
         }
     }
 

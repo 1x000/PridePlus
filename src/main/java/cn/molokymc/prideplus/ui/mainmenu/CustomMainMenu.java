@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.mainmenu;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.ui.Screen;
 import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.animations.Animation;
@@ -50,8 +50,8 @@ public class CustomMainMenu extends GuiScreen {
         }
 
         if (Utils.mc.gameSettings.guiScale != 2) {
-            Client.prevGuiScale = Utils.mc.gameSettings.guiScale;
-            Client.updateGuiScale = true;
+            Pride.prevGuiScale = Utils.mc.gameSettings.guiScale;
+            Pride.updateGuiScale = true;
             Utils.mc.gameSettings.guiScale = 2;
             Utils.mc.resize(Utils.mc.displayWidth - 1, Utils.mc.displayHeight);
             Utils.mc.resize(Utils.mc.displayWidth + 1, Utils.mc.displayHeight);
@@ -151,7 +151,7 @@ public class CustomMainMenu extends GuiScreen {
                         Utils.mc.displayGuiScreen(new GuiMultiplayer(this));
                         break;
                     case "Alt Manager":
-                        Utils.mc.displayGuiScreen(Client.INSTANCE.getAltManager());
+                        Utils.mc.displayGuiScreen(Pride.INSTANCE.getAltManager());
                         break;
                     case "Settings":
                         Utils.mc.displayGuiScreen(new GuiOptions(this, Utils.mc.gameSettings));
@@ -193,7 +193,7 @@ public class CustomMainMenu extends GuiScreen {
     }
     public void drawMainMenu() {
         //Left
-        FontManager.product_sans_regular_18.drawString(Client.NAME+" "+Client.INSTANCE.getVersion(), 6, height - 12, textColor());
+        FontManager.product_sans_regular_18.drawString(Pride.NAME+" "+ Pride.INSTANCE.getVersion(), 6, height - 12, textColor());
         //Right
         final String text2 = "Welcome, User";
         FontManager.product_sans_regular_18.drawString(text2, width - FontManager.product_sans_regular_18.getStringWidth(text2) - 6, height - 12, textColor());
@@ -206,9 +206,9 @@ public class CustomMainMenu extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
-        if (Client.updateGuiScale) {
-            Utils.mc.gameSettings.guiScale = Client.prevGuiScale;
-            Client.updateGuiScale = false;
+        if (Pride.updateGuiScale) {
+            Utils.mc.gameSettings.guiScale = Pride.prevGuiScale;
+            Pride.updateGuiScale = false;
         }
     }
 

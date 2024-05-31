@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.scripting.api;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.config.DragManager;
 import cn.molokymc.prideplus.module.settings.Setting;
 import cn.molokymc.prideplus.module.settings.impl.*;
@@ -246,7 +246,7 @@ public class Script implements Utils {
             if (mc.currentScreen instanceof GuiChat) {
                 mc.displayGuiScreen(null);
             }
-            Dragging dragging = Client.INSTANCE.createDrag(scriptModule, "script" + description, initialX, initialY);
+            Dragging dragging = Pride.INSTANCE.createDrag(scriptModule, "script" + description, initialX, initialY);
             DragManager.loadDragData();
             return dragging;
         }

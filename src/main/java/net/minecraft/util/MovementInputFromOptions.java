@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.player.EventMoveInput;
 import cn.molokymc.prideplus.module.impl.movement.Speed;
 import net.minecraft.client.settings.GameSettings;
@@ -32,12 +32,12 @@ public class MovementInputFromOptions extends MovementInput {
             --this.moveStrafe;
         }
 
-        this.jump = this.gameSettings.keyBindJump.isKeyDown() && !(Client.INSTANCE.getModuleCollection().getModule(Speed.class).shouldPreventJumping());
+        this.jump = this.gameSettings.keyBindJump.isKeyDown() && !(Pride.INSTANCE.getModuleCollection().getModule(Speed.class).shouldPreventJumping());
         this.sneak = this.gameSettings.keyBindSneak.isKeyDown();
 
         EventMoveInput event = new EventMoveInput(moveForward, moveStrafe, jump, sneak);
 
-        Client.INSTANCE.getEventProtocol().handleEvent(event);
+        Pride.INSTANCE.getEventProtocol().handleEvent(event);
 
         if (event.isCancelled()) return;
 

@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.clickguis.dropdown;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.impl.movement.InventoryMove;
 import cn.molokymc.prideplus.ui.sidegui.SideGUI;
@@ -36,7 +36,7 @@ public class DropdownClickGUI extends GuiScreen {
         for (CategoryPanel catPanels : categoryPanels) {
             catPanels.onDrag(mouseX, mouseY);
         }
-        Client.INSTANCE.getSideGui().onDrag(mouseX, mouseY);
+        Pride.INSTANCE.getSideGui().onDrag(mouseX, mouseY);
     }
 
     @Override
@@ -54,8 +54,8 @@ public class DropdownClickGUI extends GuiScreen {
             }
         }
 
-        Client.INSTANCE.getSideGui().initGui();
-        Client.INSTANCE.getSearchBar().initGui();
+        Pride.INSTANCE.getSideGui().initGui();
+        Pride.INSTANCE.getSearchBar().initGui();
 
 
         for (CategoryPanel catPanels : categoryPanels) {
@@ -66,25 +66,25 @@ public class DropdownClickGUI extends GuiScreen {
     @Override
     protected void keyTyped(char typedChar, int keyCode) {
         if (keyCode == Keyboard.KEY_ESCAPE && !binding) {
-            if (Client.INSTANCE.getSearchBar().isFocused()) {
-                Client.INSTANCE.getSearchBar().getSearchField().setText("");
-                Client.INSTANCE.getSearchBar().getSearchField().setFocused(false);
+            if (Pride.INSTANCE.getSearchBar().isFocused()) {
+                Pride.INSTANCE.getSearchBar().getSearchField().setText("");
+                Pride.INSTANCE.getSearchBar().getSearchField().setFocused(false);
                 return;
             }
 
-            if (Client.INSTANCE.getSideGui().isFocused()) {
-                Client.INSTANCE.getSideGui().setFocused(false);
+            if (Pride.INSTANCE.getSideGui().isFocused()) {
+                Pride.INSTANCE.getSideGui().setFocused(false);
                 return;
             }
 
-            Client.INSTANCE.getSearchBar().getOpenAnimation().setDirection(Direction.BACKWARDS);
+            Pride.INSTANCE.getSearchBar().getOpenAnimation().setDirection(Direction.BACKWARDS);
             openingAnimations.use((fade, opening) -> {
                 fade.setDirection(Direction.BACKWARDS);
                 opening.setDirection(Direction.BACKWARDS);
             });
         }
-        Client.INSTANCE.getSideGui().keyTyped(typedChar, keyCode);
-        Client.INSTANCE.getSearchBar().keyTyped(typedChar, keyCode);
+        Pride.INSTANCE.getSideGui().keyTyped(typedChar, keyCode);
+        Pride.INSTANCE.getSearchBar().keyTyped(typedChar, keyCode);
         categoryPanels.forEach(categoryPanel -> categoryPanel.keyTyped(typedChar, keyCode));
     }
 
@@ -96,7 +96,7 @@ public class DropdownClickGUI extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         binding = categoryPanels.stream().anyMatch(CategoryPanel::isTyping) ||
-                (Client.INSTANCE.getSideGui().isFocused() && Client.INSTANCE.getSideGui().typing) || Client.INSTANCE.getSearchBar().isTyping();
+                (Pride.INSTANCE.getSideGui().isFocused() && Pride.INSTANCE.getSideGui().typing) || Pride.INSTANCE.getSearchBar().isTyping();
 
 
         //Gui.drawRect2(0,0, width, height, ColorUtil.applyOpacity(0, Client.INSTANCE.getSearchBar().getFocusAnimation().getOutput().floatValue() * .25f));
@@ -109,7 +109,7 @@ public class DropdownClickGUI extends GuiScreen {
         }
 
 
-        boolean focusedConfigGui = Client.INSTANCE.getSideGui().isFocused() || Client.INSTANCE.getSearchBar().isTyping();
+        boolean focusedConfigGui = Pride.INSTANCE.getSideGui().isFocused() || Pride.INSTANCE.getSearchBar().isTyping();
         int fakeMouseX = focusedConfigGui ? 0 : mouseX, fakeMouseY = focusedConfigGui ? 0 : mouseY;
         ScaledResolution sr = new ScaledResolution(Utils.mc);
 
@@ -125,7 +125,7 @@ public class DropdownClickGUI extends GuiScreen {
 
         //Draw Side GUI
 
-        SideGUI sideGUI = Client.INSTANCE.getSideGui();
+        SideGUI sideGUI = Pride.INSTANCE.getSideGui();
         sideGUI.getOpenAnimation().setDirection(openingAnimations.getFirst().getDirection());
         sideGUI.drawScreen(mouseX, mouseY);
 
@@ -142,9 +142,9 @@ public class DropdownClickGUI extends GuiScreen {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        boolean focused = Client.INSTANCE.getSideGui().isFocused();
-        Client.INSTANCE.getSideGui().mouseClicked(mouseX, mouseY, mouseButton);
-        Client.INSTANCE.getSearchBar().mouseClicked(mouseX, mouseY, mouseButton);
+        boolean focused = Pride.INSTANCE.getSideGui().isFocused();
+        Pride.INSTANCE.getSideGui().mouseClicked(mouseX, mouseY, mouseButton);
+        Pride.INSTANCE.getSearchBar().mouseClicked(mouseX, mouseY, mouseButton);
         if (!focused) {
             categoryPanels.forEach(cat -> cat.mouseClicked(mouseX, mouseY, mouseButton));
         }
@@ -152,9 +152,9 @@ public class DropdownClickGUI extends GuiScreen {
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
-        boolean focused = Client.INSTANCE.getSideGui().isFocused();
-        Client.INSTANCE.getSideGui().mouseReleased(mouseX, mouseY, state);
-        Client.INSTANCE.getSearchBar().mouseReleased(mouseX, mouseY, state);
+        boolean focused = Pride.INSTANCE.getSideGui().isFocused();
+        Pride.INSTANCE.getSideGui().mouseReleased(mouseX, mouseY, state);
+        Pride.INSTANCE.getSearchBar().mouseReleased(mouseX, mouseY, state);
         if (!focused) {
             categoryPanels.forEach(cat -> cat.mouseReleased(mouseX, mouseY, state));
         }

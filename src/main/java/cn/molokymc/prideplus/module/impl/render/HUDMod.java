@@ -2,7 +2,7 @@ package cn.molokymc.prideplus.module.impl.render;
 
 import cn.molokymc.prideplus.utils.skidfont.FontDrawer;
 import cn.molokymc.prideplus.utils.skidfont.FontManager;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.render.Render2DEvent;
 import cn.molokymc.prideplus.event.impl.render.ShaderEvent;
 import cn.molokymc.prideplus.module.Category;
@@ -101,20 +101,20 @@ public class HUDMod extends Module {
     public void onShaderEvent(ShaderEvent e) {
         ScaledResolution sr = new ScaledResolution(mc);
         Pair<Color, Color> clientColors = HUDMod.getClientColors();
-        String name = Client.NAME;
+        String name = Pride.NAME;
         if (!clientName.getString().equals("")) {
             name = clientName.getString().replace("%time%", getCurrentTimeStamp());
         }
         String finalName = get(name);
             switch (watermarkMode.getMode()) {
                 case "StableNew":
-                    String sb = name + " | "+Client.INSTANCE.getVersion()+" | " + Minecraft.getDebugFPS() + "FPS";
+                    String sb = name + " | "+ Pride.INSTANCE.getVersion()+" | " + Minecraft.getDebugFPS() + "FPS";
                     float sb1 = FontManager.edit17.getStringWidth(sb);
                     RoundedUtil.drawRound(8.0f,8.0f,sb1+9f,20f,2,Color.BLACK);
                     //RoundedUtil.drawGradientHorizontal(8.0f,8.0f,sb1+2f,20f,2,new Color(HUDMod.getClientColors().getFirst().getRed(),HUDMod.getClientColors().getFirst().getGreen(),HUDMod.getClientColors().getFirst().getBlue(),35),new Color(HUDMod.getClientColors().getSecond().getRed(),HUDMod.getClientColors().getSecond().getGreen(),HUDMod.getClientColors().getSecond().getBlue(),35));
                     break;
                 case "Stable":
-                    String text1 = finalName+" "+ Client.INSTANCE.getVersion() + " | " + Minecraft.getDebugFPS() + "FPS";
+                    String text1 = finalName+" "+ Pride.INSTANCE.getVersion() + " | " + Minecraft.getDebugFPS() + "FPS";
                     //String text1 = "     "+finalName+" | "+ Client.INSTANCE.getVersion() + " | " + Minecraft.getDebugFPS() + " fps";
                     float textS = rubikFont18.getStringWidth(text1);
                     RoundedUtil.drawRound(6.0f, 7.0f, textS + 4.0f, 16.0f, 2f,Color.BLACK);
@@ -129,7 +129,7 @@ public class HUDMod extends Module {
                     FontDrawer font20 = FontManager.normal_bold_20;
                     FontDrawer font18 = FontManager.rubik15;
                     String client = name.toUpperCase();
-                    String string = " §7| §f " + Client.INSTANCE.getVersion() + " §7| §f" + HUDMod.mc.thePlayer.getName() + " §7| §f" + PingerUtils.getPing() + " Ping §7| §f" + formattedTime;
+                    String string = " §7| §f " + Pride.INSTANCE.getVersion() + " §7| §f" + HUDMod.mc.thePlayer.getName() + " §7| §f" + PingerUtils.getPing() + " Ping §7| §f" + formattedTime;
                     float clientw = font20.getStringWidth(client);
                     float stringw = font18.getStringWidth(string);
                     float aw = clientw + stringw;
@@ -156,7 +156,7 @@ public class HUDMod extends Module {
 
                 switch (watermarkMode.getMode()) {
                     case "Moon":
-                        String text = "Moon | " + Client.INSTANCE.getVersion() + " | " + HUDMod.mc.thePlayer.getName() + " | " + (mc.isSingleplayer() ? "singleplayer" : HUDMod.mc.getCurrentServerData().serverIP) + " | " + Minecraft.getDebugFPS() + " fps";
+                        String text = "Moon | " + Pride.INSTANCE.getVersion() + " | " + HUDMod.mc.thePlayer.getName() + " | " + (mc.isSingleplayer() ? "singleplayer" : HUDMod.mc.getCurrentServerData().serverIP) + " | " + Minecraft.getDebugFPS() + " fps";
                         float textW = tenacityBoldFont16.getStringWidth(text);
                         tenacityBoldFont16.drawString(text, 12.0f, 14.0f, -1);
                         RoundedUtil.drawRound(8.0f, 9.0f, textW + 7.0f, 16.0f, 4.0f, clientColors.getFirst());
@@ -175,9 +175,9 @@ public class HUDMod extends Module {
     public void onRender2DEvent(Render2DEvent e) {
         ScaledResolution sr = new ScaledResolution(Utils.mc);
         Pair<Color, Color> clientColors = getClientColors();
-        String name = Client.NAME;
+        String name = Pride.NAME;
         float h = hue;
-        PostProcessing postProcessing = Client.INSTANCE.getModuleCollection().getModule(PostProcessing.class);
+        PostProcessing postProcessing = Pride.INSTANCE.getModuleCollection().getModule(PostProcessing.class);
         if (!postProcessing.isEnabled()) {
             version = false;
         }
@@ -186,13 +186,13 @@ public class HUDMod extends Module {
             name = clientName.getString().replace("%time%", getCurrentTimeStamp());
         }
 
-        version = name.equalsIgnoreCase(Client.NAME);
+        version = name.equalsIgnoreCase(Pride.NAME);
 
         String finalName = get(name);
 
         switch (watermarkMode.getMode()) {
             case "StableNew":
-                String sb = name + " | "+Client.INSTANCE.getVersion()+" | " + Minecraft.getDebugFPS() + "FPS";
+                String sb = name + " | "+ Pride.INSTANCE.getVersion()+" | " + Minecraft.getDebugFPS() + "FPS";
                 float sb1 = FontManager.edit17.getStringWidth(sb);
                 RoundedUtil.drawRound(8.0f,8.0f,sb1+9f,20f,2,new Color(0,0,0,130));
                 RoundedUtil.drawGradientHorizontal(8.0f,8.0f,sb1+9f,20f,2,new Color(HUDMod.getClientColors().getFirst().getRed(),HUDMod.getClientColors().getFirst().getGreen(),HUDMod.getClientColors().getFirst().getBlue(),35),new Color(HUDMod.getClientColors().getSecond().getRed(),HUDMod.getClientColors().getSecond().getGreen(),HUDMod.getClientColors().getSecond().getBlue(),35));
@@ -202,14 +202,14 @@ public class HUDMod extends Module {
                 FontManager.edit17.drawString(sb,15.0f,13.8f,-1);
                 break;
             case "Stable":
-                String text1 = finalName+" "+ Client.INSTANCE.getVersion() + " | " + Minecraft.getDebugFPS() + "FPS";
+                String text1 = finalName+" "+ Pride.INSTANCE.getVersion() + " | " + Minecraft.getDebugFPS() + "FPS";
                 float textS = rubikFont18.getStringWidth(text1);
                 RoundedUtil.drawRound(6.0f, 7.0f, textS + 4.0f, 16.0f, 2f, new Color(0, 0, 0, 105));
                 rubikFont18.drawStringWithShadow(text1, 8.0f, 14.0f, -1);
                 RoundedUtil.drawRound(6.0f, 7.0f, textS + 4.0f, 0.8f, 1f,  HUDMod.getColor(0));
                 break;
             case "Moon":
-                String text = "Moon | "+ Client.INSTANCE.getVersion() + " | " + HUDMod.mc.thePlayer.getName() + " | " + (mc.isSingleplayer() ? "singleplayer" : HUDMod.mc.getCurrentServerData().serverIP) + " | " + Minecraft.getDebugFPS() + " fps";
+                String text = "Moon | "+ Pride.INSTANCE.getVersion() + " | " + HUDMod.mc.thePlayer.getName() + " | " + (mc.isSingleplayer() ? "singleplayer" : HUDMod.mc.getCurrentServerData().serverIP) + " | " + Minecraft.getDebugFPS() + " fps";
                 float textW = tenacityBoldFont16.getStringWidth(text);
                 RoundedUtil.drawRound(8.0f, 9.0f, textW + 7.0f, 16.0f, 4.0f, new Color(0, 0, 0, 120));
                 tenacityBoldFont16.drawString(text, 12.0f, 14.0f, -1);
@@ -234,7 +234,7 @@ public class HUDMod extends Module {
                 int color3 = color333.getRGB();
                 int ping = mc.getNetHandler().getPlayerInfo(mc.thePlayer.getUniqueID()).getResponseTime();
                 String pings = ping + " ms";
-                String testtext = Client.NAME + "§2sense§f | " + this.df.format(new Date()) + " | " + pings + " | Edited 0.1 | " + mc.thePlayer.getName();
+                String testtext = Pride.NAME + "§2sense§f | " + this.df.format(new Date()) + " | " + pings + " | Edited 0.1 | " + mc.thePlayer.getName();
                 RenderUtil.drawNewRect(4.0, 4.0, Utils.fr.getStringWidth(testtext) + 11, 20.0, 1.0, color33.getRGB(), color332.getRGB(), color333.getRGB());
                 fr.drawCenteredStringWithShadow(testtext, (double)fr.getStringWidth(testtext) / 2.0 + 8.0, 14.25 - (double)fr.getStringHeight(testtext) / 2.0 - 0.75, new Color(255, 255, 255).getRGB());
                 break;
@@ -254,7 +254,7 @@ public class HUDMod extends Module {
                 FontDrawer font20 = FontManager.normal_bold_20;
                 FontDrawer font18 = FontManager.rubik15;
                 String client = name.toUpperCase();
-                String string = " §7| §f " + Client.INSTANCE.getVersion() + " §7| §f" + HUDMod.mc.thePlayer.getName() + " §7| §f" + PingerUtils.getPing() + " Ping §7| §f" + formattedTime;
+                String string = " §7| §f " + Pride.INSTANCE.getVersion() + " §7| §f" + HUDMod.mc.thePlayer.getName() + " §7| §f" + PingerUtils.getPing() + " Ping §7| §f" + formattedTime;
                 float clientw = font20.getStringWidth(client);
                 float stringw = font18.getStringWidth(string);
                 float aw = clientw + stringw;
@@ -313,7 +313,7 @@ public class HUDMod extends Module {
         boolean shadowInfo = infoCustomization.isEnabled("Info Shadow");
         if (infoCustomization.isEnabled("Client Info")) {
             String text;
-            text = Client.INSTANCE.getVersion();
+            text = Pride.INSTANCE.getVersion();
             text = HUDMod.get(text);
             float x = (float)sr.getScaledWidth() - (fr.getStringWidth(text) + 3.0f);
             float y = (float)(sr.getScaledHeight() - (fr.getHeight() + 3)) - yOffset;
@@ -501,14 +501,14 @@ public class HUDMod extends Module {
 
     public static void updateButtonStatus() {
         for (ModuleButton mb : ModuleButton.values()) {
-            mb.getButton().enabled = Client.INSTANCE.getModuleCollection().getModule(mb.getModule()).isEnabled();
+            mb.getButton().enabled = Pride.INSTANCE.getModuleCollection().getModule(mb.getModule()).isEnabled();
         }
     }
 
     public static void handleActionPerformed(GuiButton button) {
         for (ModuleButton mb : ModuleButton.values()) {
             if (mb.getButton() != button) continue;
-            Module m = Client.INSTANCE.getModuleCollection().getModule(mb.getModule());
+            Module m = Pride.INSTANCE.getModuleCollection().getModule(mb.getModule());
             if (!m.isEnabled()) break;
             m.toggle();
             break;

@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.notifications;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.NotificationsMod;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +24,7 @@ public class NotificationManager {
     }
 
     private static void post(Notification notification) {
-        if (Client.INSTANCE.isEnabled(NotificationsMod.class)) {
+        if (Pride.INSTANCE.isEnabled(NotificationsMod.class)) {
             notifications.add(notification);
         }
     }

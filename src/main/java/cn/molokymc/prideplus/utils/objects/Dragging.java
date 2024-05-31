@@ -2,7 +2,7 @@ package cn.molokymc.prideplus.utils.objects;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.impl.render.ArrayListMod;
 import cn.molokymc.prideplus.utils.Utils;
@@ -121,7 +121,7 @@ public class Dragging implements Utils {
     public final void onDrawArraylist(ArrayListMod arraylistMod, int mouseX, int mouseY) {
         ScaledResolution sr = new ScaledResolution(mc);
 
-        List<Module> modules = Client.INSTANCE.getModuleCollection().getArraylistModules(arraylistMod, arraylistMod.modules);
+        List<Module> modules = Pride.INSTANCE.getModuleCollection().getArraylistModules(arraylistMod, arraylistMod.modules);
 
         String longest = getLongestModule(arraylistMod);
 

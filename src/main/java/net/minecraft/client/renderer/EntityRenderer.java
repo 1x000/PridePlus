@@ -2,7 +2,7 @@ package net.minecraft.client.renderer;
 
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.render.HurtCamEvent;
 import cn.molokymc.prideplus.event.impl.render.Render3DEvent;
 import cn.molokymc.prideplus.module.impl.player.Stealer;
@@ -584,7 +584,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     private void hurtCameraEffect(float partialTicks) {
         if (this.mc.getRenderViewEntity() instanceof EntityLivingBase) {
             HurtCamEvent hurtCamEvent = new HurtCamEvent();
-            Client.INSTANCE.getEventProtocol().handleEvent(hurtCamEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(hurtCamEvent);
 
             if (!hurtCamEvent.isCancelled()) {
                 EntityLivingBase entitylivingbase = (EntityLivingBase) this.mc.getRenderViewEntity();
@@ -1537,7 +1537,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.renderCloudsCheck(renderglobal, partialTicks, pass);
         }
 
-        Client.INSTANCE.getEventProtocol().handleEvent(new Render3DEvent(partialTicks));
+        Pride.INSTANCE.getEventProtocol().handleEvent(new Render3DEvent(partialTicks));
 
         this.mc.mcProfiler.endStartSection("hand");
 

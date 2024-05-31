@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.utils.render.blur;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.render.GLUtil;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
@@ -40,7 +40,7 @@ implements Utils {
     }
 
     public static void renderBlur(final int framebufferTexture, final int iterations, final int offset) {
-        if (KawaseBloom.currentIterations != iterations || KawaseBloom.framebuffer.framebufferWidth != Client.mc.displayWidth || KawaseBloom.framebuffer.framebufferHeight != Client.mc.displayHeight) {
+        if (KawaseBloom.currentIterations != iterations || KawaseBloom.framebuffer.framebufferWidth != Pride.mc.displayWidth || KawaseBloom.framebuffer.framebufferHeight != Pride.mc.displayHeight) {
             initFramebuffers((float)iterations);
             KawaseBloom.currentIterations = iterations;
         }
@@ -72,7 +72,7 @@ implements Utils {
         ShaderUtil.drawQuads();
         KawaseBloom.kawaseUp.unload();
         GlStateManager.clearColor(0.0f, 0.0f, 0.0f, 0.0f);
-        Client.mc.getFramebuffer().bindFramebuffer(false);
+        Pride.mc.getFramebuffer().bindFramebuffer(false);
         RenderUtil.bindTexture(KawaseBloom.framebufferList.get(0).framebufferTexture);
         RenderUtil.setAlphaLimit(0.0f);
         GLUtil.startBlend();

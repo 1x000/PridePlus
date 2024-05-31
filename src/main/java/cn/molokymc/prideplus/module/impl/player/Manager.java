@@ -1,11 +1,9 @@
 package cn.molokymc.prideplus.module.impl.player;
 
-import cn.molokymc.prideplus.Client;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
 import cn.molokymc.prideplus.event.impl.player.MotionEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
-import cn.molokymc.prideplus.module.impl.render.CameraClip;
 import cn.molokymc.prideplus.module.impl.render.HUDMod;
 import cn.molokymc.prideplus.module.settings.ParentAttribute;
 import cn.molokymc.prideplus.module.settings.impl.BooleanSetting;

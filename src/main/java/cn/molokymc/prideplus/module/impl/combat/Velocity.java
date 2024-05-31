@@ -1,13 +1,10 @@
 package cn.molokymc.prideplus.module.impl.combat;
 
-import cn.molokymc.prideplus.Client;
-import cn.molokymc.prideplus.event.impl.game.LegitTickEvent;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.game.LegitUpdateEvent;
 import cn.molokymc.prideplus.event.impl.game.TickEvent;
-import cn.molokymc.prideplus.event.impl.network.PacketEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
-import cn.molokymc.prideplus.event.impl.player.UpdateEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.impl.exploit.Disabler;
@@ -15,9 +12,6 @@ import cn.molokymc.prideplus.module.settings.Setting;
 import cn.molokymc.prideplus.module.settings.impl.ModeSetting;
 import cn.molokymc.prideplus.module.settings.impl.NumberSetting;
 import cn.molokymc.prideplus.utils.Utils;
-import cn.molokymc.prideplus.utils.entity.RayCastUtil;
-import cn.molokymc.prideplus.utils.entity.RaycastUtils;
-import cn.molokymc.prideplus.utils.math.Rotation;
 import cn.molokymc.prideplus.utils.movementfix.Rise.RotationComponent;
 import cn.molokymc.prideplus.utils.player.RotationUtils;
 import cn.molokymc.prideplus.utils.server.PacketUtils;
@@ -28,7 +22,6 @@ import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.network.play.server.S27PacketExplosion;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
 
 
 public class Velocity extends Module {
@@ -150,7 +143,7 @@ public class Velocity extends Module {
 
     @Override
     public void onTickEvent(TickEvent e) {
-        KillAura killAura = (KillAura) Client.INSTANCE.getModuleCollection().get(KillAura.class);
+        KillAura killAura = (KillAura) Pride.INSTANCE.getModuleCollection().get(KillAura.class);
         if (mode.is("GrimAC")) {
             if (this.velocityInput) {
                 if (this.attacking) {
@@ -191,7 +184,7 @@ public class Velocity extends Module {
     @Override
     public void onPacketSendEvent(PacketSendEvent event) {
         Packet<?> packet = event.getPacket();
-        if (mode.getName().equals("GrimAC") && Client.INSTANCE.getModuleCollection().get(Disabler.class).isEnabled() && Disabler.disablers.isEnabled("Grim")) {
+        if (mode.getName().equals("GrimAC") && Pride.INSTANCE.getModuleCollection().get(Disabler.class).isEnabled() && Disabler.disablers.isEnabled("Grim")) {
             if (packet instanceof C0BPacketEntityAction) {
                 if (((C0BPacketEntityAction) packet).getAction() == C0BPacketEntityAction.Action.START_SPRINTING) {
                     if (this.lastSprinting) {

@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.commands.impl;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.commands.Command;
 import cn.molokymc.prideplus.config.ConfigManager;
 import cn.molokymc.prideplus.config.LocalConfig;
@@ -19,7 +19,7 @@ public class LoadConfigCommand extends Command {
             ChatUtil.print("Try to Load...");
                 for (LocalConfig i : ConfigManager.localConfigs) {
                     if(i.getName().equals(args[1])) {
-                        Client.INSTANCE.getConfigManager().loadConfig(FileUtils.readFile(i.getFile()), true);
+                        Pride.INSTANCE.getConfigManager().loadConfig(FileUtils.readFile(i.getFile()), true);
                         ChatUtil.print("loaded config.");
                     }
                 }
@@ -27,7 +27,7 @@ public class LoadConfigCommand extends Command {
 
         if(args[0].equals("save")) {
             ChatUtil.print("Try to Save...");
-            Client.INSTANCE.getConfigManager().saveConfig(args[1]);
+            Pride.INSTANCE.getConfigManager().saveConfig(args[1]);
         }
     }
 }

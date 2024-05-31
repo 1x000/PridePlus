@@ -1,6 +1,6 @@
 package net.minecraft.network;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.exploit.Disabler;
 import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import cn.molokymc.prideplus.viamcp.common.platform.VersionTracker;
@@ -143,7 +143,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> implemen
                 if (packetIn instanceof S3FPacketCustomPayload) {
                     final PacketReceiveEvent event = new PacketReceiveEvent(packetIn, EnumPacketDirection.CLIENTBOUND, Disabler.mc.getNetHandler());
 
-                    Client.INSTANCE.getEventProtocol().handleEvent(event);
+                    Pride.INSTANCE.getEventProtocol().handleEvent(event);
 
                     if (event.isCancelled()) {
                         return;
@@ -156,7 +156,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> implemen
                 } else {
                     final PacketReceiveEvent event = new PacketReceiveEvent(packetIn, EnumPacketDirection.CLIENTBOUND, Disabler.mc.getNetHandler());
 
-                    Client.INSTANCE.getEventProtocol().handleEvent(event);
+                    Pride.INSTANCE.getEventProtocol().handleEvent(event);
 
                     if (event.isCancelled()) {
                         return;
@@ -194,7 +194,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> implemen
         if (this.isChannelOpen()) {
             if (!silent) {
                 PacketSendEvent e = new PacketSendEvent(packetIn);
-                Client.INSTANCE.getEventProtocol().handleEvent(e);
+                Pride.INSTANCE.getEventProtocol().handleEvent(e);
                 if (e.isCancelled()) return;
                 packetIn = e.getPacket();
             }

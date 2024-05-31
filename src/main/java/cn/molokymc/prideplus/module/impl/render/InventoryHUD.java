@@ -1,7 +1,7 @@
 package cn.molokymc.prideplus.module.impl.render;
 
 import cn.molokymc.prideplus.utils.skidfont.FontManager;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.render.Render2DEvent;
 import cn.molokymc.prideplus.event.impl.render.ShaderEvent;
 import cn.molokymc.prideplus.module.Category;
@@ -20,7 +20,7 @@ import java.awt.*;
 public class InventoryHUD extends Module {
 
 
-    private final Dragging Inventory_dragging = Client.INSTANCE.createDrag(this, "Show your Inventory", 5, 150);
+    private final Dragging Inventory_dragging = Pride.INSTANCE.createDrag(this, "Show your Inventory", 5, 150);
     public static final BooleanSetting bar = new BooleanSetting("Bar", false);
     float inventory_width = 165;
     float inventory_height = 75;

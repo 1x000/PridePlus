@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.misc;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
 import cn.molokymc.prideplus.event.impl.player.ChatReceivedEvent;
 import cn.molokymc.prideplus.module.Category;
@@ -9,7 +9,6 @@ import cn.molokymc.prideplus.module.impl.combat.KillAura;
 import cn.molokymc.prideplus.module.impl.exploit.Disabler;
 import cn.molokymc.prideplus.module.impl.player.Manager;
 import cn.molokymc.prideplus.module.impl.player.Stealer;
-import cn.molokymc.prideplus.module.impl.render.HUDMod;
 import cn.molokymc.prideplus.module.settings.ParentAttribute;
 import cn.molokymc.prideplus.module.settings.impl.BooleanSetting;
 import cn.molokymc.prideplus.module.settings.impl.NumberSetting;
@@ -94,9 +93,9 @@ public class AutoHypixel extends Module {
             SoundUtils.playSound(new ResourceLocation("Pride/sounds/victory.wav"), 1.2f);
         }
         //NotificationManager.post(NotificationType.INFO, "", "Respawn Check");
-        (Client.INSTANCE.getModuleCollection().getModule((Class)Manager.class)).setToggled(false);
-        (Client.INSTANCE.getModuleCollection().getModule((Class)Stealer.class)).setToggled(false);
-        (Client.INSTANCE.getModuleCollection().getModule((Class)KillAura.class)).setToggled(false);
+        (Pride.INSTANCE.getModuleCollection().getModule((Class)Manager.class)).setToggled(false);
+        (Pride.INSTANCE.getModuleCollection().getModule((Class)Stealer.class)).setToggled(false);
+        (Pride.INSTANCE.getModuleCollection().getModule((Class)KillAura.class)).setToggled(false);
         Multithreading.schedule(() -> ChatUtil.send(mode), (long) delay, TimeUnit.SECONDS);
     }
 

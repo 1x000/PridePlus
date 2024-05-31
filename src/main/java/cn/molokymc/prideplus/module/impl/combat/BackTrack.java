@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.combat;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.game.TickEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
 import cn.molokymc.prideplus.event.impl.render.Render3DEvent;
@@ -100,7 +100,7 @@ public final class BackTrack extends Module
 
     @Override
     public void onTickEvent(final TickEvent event) {
-        if (((KillAura) Client.INSTANCE.getModuleCollection().getModule((Class)KillAura.class)).getState()) {
+        if (((KillAura) Pride.INSTANCE.getModuleCollection().getModule((Class)KillAura.class)).getState()) {
             this.entity = KillAura.target;
         }
         else {

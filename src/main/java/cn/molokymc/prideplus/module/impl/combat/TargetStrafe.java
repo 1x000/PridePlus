@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.combat;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.player.MotionEvent;
 import cn.molokymc.prideplus.event.impl.player.MoveEvent;
 import cn.molokymc.prideplus.event.impl.render.Render3DEvent;
@@ -105,8 +105,8 @@ public class TargetStrafe extends Module {
         }
     }
     public static boolean canStrafe() {
-        KillAura killAura = Client.INSTANCE.getModuleCollection().getModule(KillAura.class);
-        if (!Client.INSTANCE.isEnabled(TargetStrafe.class) || !killAura.isEnabled()
+        KillAura killAura = Pride.INSTANCE.getModuleCollection().getModule(KillAura.class);
+        if (!Pride.INSTANCE.isEnabled(TargetStrafe.class) || !killAura.isEnabled()
                 || !MovementUtils.isMoving()) {
             return false;
         }
@@ -168,7 +168,7 @@ public class TargetStrafe extends Module {
         }
     }
     public void onMoveEvent(MoveEvent event) {
-        if ((!this.onlyGround.isEnabled() || mc.thePlayer.isOnGround()) && (!this.onlyhurttime.isEnabled() || mc.thePlayer.hurtTime >= 1) && Client.INSTANCE.isEnabled(KillAura.class)) {
+        if ((!this.onlyGround.isEnabled() || mc.thePlayer.isOnGround()) && (!this.onlyhurttime.isEnabled() || mc.thePlayer.hurtTime >= 1) && Pride.INSTANCE.isEnabled(KillAura.class)) {
             if (KillAura.target == null) {
                 return;
             }

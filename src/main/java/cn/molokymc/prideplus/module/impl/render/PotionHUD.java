@@ -1,7 +1,7 @@
 package cn.molokymc.prideplus.module.impl.render;
 
 import cn.molokymc.prideplus.utils.skidfont.FontManager;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.render.Render2DEvent;
 import cn.molokymc.prideplus.event.impl.render.ShaderEvent;
 import cn.molokymc.prideplus.module.Category;
@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class PotionHUD extends Module {
 
-    private final Dragging Potion_dragging = Client.INSTANCE.createDrag(this, "PotionHUD", 721.0f, 34.0f);
+    private final Dragging Potion_dragging = Pride.INSTANCE.createDrag(this, "PotionHUD", 721.0f, 34.0f);
     public static final BooleanSetting bar = new BooleanSetting("Bar", false);
     private final Map<Potion, PotionData> potionMap = new HashMap<Potion, PotionData>();
     FontDrawer font17 = FontManager.rubik17;

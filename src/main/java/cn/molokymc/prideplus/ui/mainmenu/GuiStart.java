@@ -1,7 +1,6 @@
 package cn.molokymc.prideplus.ui.mainmenu;
 
-import cn.molokymc.prideplus.Client;
-import cn.molokymc.prideplus.module.impl.render.HUDMod;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.ui.SplashScreen;
 import cn.molokymc.prideplus.utils.client.RegionalAbuseUtil;
 import cn.molokymc.prideplus.utils.misc.SoundUtils;
@@ -42,7 +41,7 @@ public class GuiStart extends GuiScreen {
 
         }
         if(count>50){
-            Display.setTitle(Client.NAME + " " + Client.VERSION  + " | " + "你是来自 " + RegionalAbuseUtil.country + " 的觉醒者");
+            Display.setTitle(Pride.NAME + " " + Pride.VERSION  + " | " + "你是来自 " + RegionalAbuseUtil.country + " 的觉醒者");
             FontManager.edit25.drawCenteredString("初始化完毕！", (double) width / 2, (double) height / 2, Color.WHITE.getRGB());
             //FontManager.edit18.drawCenteredString("单击屏幕以进行下一步", width / 2, height / 2+3, Color.WHITE.getRGB());
         }

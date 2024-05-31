@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.commands.impl;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.commands.Command;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.settings.impl.KeybindSetting;
@@ -15,7 +15,7 @@ public class ClearBindsCommand extends Command {
     @Override
     public void execute(String[] args) {
         int count = 0;
-        for (Module module : Client.INSTANCE.getModuleCollection().getModules()) {
+        for (Module module : Pride.INSTANCE.getModuleCollection().getModules()) {
             KeybindSetting keybind = module.getKeybind();
             if (keybind.getCode() != Keyboard.KEY_NONE) {
                 keybind.setCode(Keyboard.KEY_NONE);

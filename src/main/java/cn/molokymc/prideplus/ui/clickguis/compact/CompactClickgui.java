@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.clickguis.compact;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.ModuleCollection;
@@ -47,11 +47,11 @@ public class CompactClickgui extends GuiScreen {
 
     @Override
     public void onDrag(int mouseX, int mouseY) {
-        boolean focusedConfigGui = Client.INSTANCE.getSideGui().isFocused();
+        boolean focusedConfigGui = Pride.INSTANCE.getSideGui().isFocused();
         int fakeMouseX = focusedConfigGui ? 0 : mouseX, fakeMouseY = focusedConfigGui ? 0 : mouseY;
 
         drag.onDraw(fakeMouseX, fakeMouseY);
-        Client.INSTANCE.getSideGui().onDrag(mouseX, mouseY);
+        Pride.INSTANCE.getSideGui().onDrag(mouseX, mouseY);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class CompactClickgui extends GuiScreen {
             moduleRects.forEach((cat, list) -> list.forEach(ModuleRect::initGui));
         }
         modulePanel.initGui();
-        Client.INSTANCE.getSideGui().initGui();
+        Pride.INSTANCE.getSideGui().initGui();
     }
 
     public void bloom() {
@@ -79,22 +79,22 @@ public class CompactClickgui extends GuiScreen {
     @Override
     protected void keyTyped(char typedChar, int keyCode) {
         if (keyCode == 1) {
-            if (Client.INSTANCE.getSearchBar().isFocused()) {
-                Client.INSTANCE.getSearchBar().getSearchField().setText("");
-                Client.INSTANCE.getSearchBar().getSearchField().setFocused(false);
+            if (Pride.INSTANCE.getSearchBar().isFocused()) {
+                Pride.INSTANCE.getSearchBar().getSearchField().setText("");
+                Pride.INSTANCE.getSearchBar().getSearchField().setFocused(false);
                 return;
             }
 
-            if (Client.INSTANCE.getSideGui().isFocused()) {
-                Client.INSTANCE.getSideGui().setFocused(false);
+            if (Pride.INSTANCE.getSideGui().isFocused()) {
+                Pride.INSTANCE.getSideGui().setFocused(false);
                 return;
             }
             
             openingAnimation.setDirection(Direction.BACKWARDS);
         }
         modulePanel.keyTyped(typedChar, keyCode);
-        Client.INSTANCE.getSideGui().keyTyped(typedChar, keyCode);
-        Client.INSTANCE.getSearchBar().keyTyped(typedChar, keyCode);
+        Pride.INSTANCE.getSideGui().keyTyped(typedChar, keyCode);
+        Pride.INSTANCE.getSearchBar().keyTyped(typedChar, keyCode);
     }
 
 
@@ -109,7 +109,7 @@ public class CompactClickgui extends GuiScreen {
             } else moduleRects.clear();
             for (Category category : Category.values()) {
                 ArrayList<ModuleRect> modules = new ArrayList<>();
-                for (Module module : Client.INSTANCE.getModuleCollection().getModulesInCategory(category)) {
+                for (Module module : Pride.INSTANCE.getModuleCollection().getModulesInCategory(category)) {
                     modules.add(new ModuleRect(module));
                 }
 
@@ -122,13 +122,13 @@ public class CompactClickgui extends GuiScreen {
 
 
 
-        typing = modulePanel.typing || (Client.INSTANCE.getSideGui().isFocused() && Client.INSTANCE.getSideGui().isTyping()) || Client.INSTANCE.getSearchBar().isTyping();
+        typing = modulePanel.typing || (Pride.INSTANCE.getSideGui().isFocused() && Pride.INSTANCE.getSideGui().isTyping()) || Pride.INSTANCE.getSearchBar().isTyping();
 
         if (ClickGUIMod.walk.isEnabled() && !typing) {
             InventoryMove.updateStates();
         }
 
-        boolean focusedConfigGui = Client.INSTANCE.getSideGui().isFocused();
+        boolean focusedConfigGui = Pride.INSTANCE.getSideGui().isFocused();
         int fakeMouseX = focusedConfigGui ? 0 : mouseX, fakeMouseY = focusedConfigGui ? 0 : mouseY;
 
         float x = drag.getX(), y = drag.getY();
@@ -155,11 +155,11 @@ public class CompactClickgui extends GuiScreen {
         Utils.mc.getTextureManager().bindTexture(new ResourceLocation("Pride/modernlogo.png"));
         Gui.drawModalRectWithCustomSizedTexture(x + 5, y + 5, 0, 0, 20.5f, 20.5f, 20.5f, 20.5f);
 
-        FontUtil.tenacityBoldFont22.drawString(Client.NAME, x + 33, y + 7, -1);
-        FontUtil.rubikFont16.drawCenteredString(Client.INSTANCE.getVersion(),
-                (float) (x + 31 + FontUtil.tenacityBoldFont22.getStringWidth(Client.NAME) / 2f), y + 19, -1);
+        FontUtil.tenacityBoldFont22.drawString(Pride.NAME, x + 33, y + 7, -1);
+        FontUtil.rubikFont16.drawCenteredString(Pride.INSTANCE.getVersion(),
+                (float) (x + 31 + FontUtil.tenacityBoldFont22.getStringWidth(Pride.NAME) / 2f), y + 19, -1);
 
-        boolean searching = Client.INSTANCE.getSearchBar().isFocused();
+        boolean searching = Pride.INSTANCE.getSearchBar().isFocused();
 
         float bannerHeight = 75 / 2f;
         RoundedUtil.drawGradientHorizontal(x + 5, y + 31, 80, (float) .5, 1f,new Color(110, 110, 110),new Color(110, 110, 110));
@@ -167,8 +167,8 @@ public class CompactClickgui extends GuiScreen {
         RoundedUtil.drawGradientHorizontal(x + 5, y + rectHeight - (bannerHeight + 3), 80, (float) .5,1f, new Color(110, 110, 110), new Color(110, 110, 110));
 
 
-        if (Client.INSTANCE.getDiscordAccount() != null) {
-            DiscordAccount discordAccount = Client.INSTANCE.getDiscordAccount();
+        if (Pride.INSTANCE.getDiscordAccount() != null) {
+            DiscordAccount discordAccount = Pride.INSTANCE.getDiscordAccount();
             float avatarSize = 40 / 2f;
             float bannerWidth = 180 / 2f;
             boolean hoveringDiscord = HoveringUtil.isHovering(x, y + rectHeight - bannerHeight, bannerWidth, bannerHeight, fakeMouseX, fakeMouseY);
@@ -217,7 +217,7 @@ public class CompactClickgui extends GuiScreen {
 
 
         float minus = (bannerHeight + 3) + 33;
-        ClickGUIMod clickGUIMod = Client.INSTANCE.getModuleCollection().getModule(ClickGUIMod.class);
+        ClickGUIMod clickGUIMod = Pride.INSTANCE.getModuleCollection().getModule(ClickGUIMod.class);
         float catHeight = ((rectHeight - minus) / (Category.values().length));
         float seperation = 0;
         for (Category category : Category.values()) {
@@ -252,11 +252,11 @@ public class CompactClickgui extends GuiScreen {
 
         modulePanel.drawTooltips(fakeMouseX, fakeMouseY);
 
-        SideGUI sideGUI = Client.INSTANCE.getSideGui();
+        SideGUI sideGUI = Pride.INSTANCE.getSideGui();
         sideGUI.getOpenAnimation().setDirection(openingAnimation.getDirection());
         sideGUI.drawScreen(mouseX, mouseY);
 
-        SearchBar searchBar = Client.INSTANCE.getSearchBar();
+        SearchBar searchBar = Pride.INSTANCE.getSearchBar();
         searchBar.setAlpha(openingAnimation.getOutput().floatValue() * (1 - sideGUI.getClickAnimation().getOutput().floatValue()));
         searchBar.drawScreen(fakeMouseX, fakeMouseY);
 
@@ -264,12 +264,12 @@ public class CompactClickgui extends GuiScreen {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        if (!Client.INSTANCE.getSideGui().isFocused()) {
+        if (!Pride.INSTANCE.getSideGui().isFocused()) {
             drag.onClick(mouseX, mouseY, mouseButton, HoveringUtil.isHovering(drag.getX(), drag.getY(), rectWidth, 10, mouseX, mouseY));
             float bannerWidth = 180 / 2f;
             float bannerHeight = 75 / 2f;
 
-            ClickGUIMod clickGUIMod = Client.INSTANCE.getModuleCollection().getModule(ClickGUIMod.class);
+            ClickGUIMod clickGUIMod = Pride.INSTANCE.getModuleCollection().getModule(ClickGUIMod.class);
 
 
 
@@ -286,18 +286,18 @@ public class CompactClickgui extends GuiScreen {
             }
 
             modulePanel.mouseClicked(mouseX, mouseY, mouseButton);
-            Client.INSTANCE.getSearchBar().mouseClicked(mouseX, mouseY, mouseButton);
+            Pride.INSTANCE.getSearchBar().mouseClicked(mouseX, mouseY, mouseButton);
         }
-        Client.INSTANCE.getSideGui().mouseClicked(mouseX, mouseY, mouseButton);
+        Pride.INSTANCE.getSideGui().mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
-        if (!Client.INSTANCE.getSideGui().isFocused()) {
+        if (!Pride.INSTANCE.getSideGui().isFocused()) {
             drag.onRelease(state);
             modulePanel.mouseReleased(mouseX, mouseY, state);
         }
-        Client.INSTANCE.getSideGui().mouseReleased(mouseX, mouseY, state);
+        Pride.INSTANCE.getSideGui().mouseReleased(mouseX, mouseY, state);
     }
 
     @Override
@@ -309,11 +309,11 @@ public class CompactClickgui extends GuiScreen {
     private String searchText;
 
     public List<ModuleRect> getModuleRects(Category category) {
-        if (!Client.INSTANCE.getSearchBar().isFocused()) {
+        if (!Pride.INSTANCE.getSearchBar().isFocused()) {
             return moduleRects.get(category);
         }
 
-        String search = Client.INSTANCE.getSearchBar().getSearchField().getText();
+        String search = Pride.INSTANCE.getSearchBar().getSearchField().getText();
 
         if (search.equals(searchText)) {
             return searchResults;

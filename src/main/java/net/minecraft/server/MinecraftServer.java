@@ -10,7 +10,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.GameProfileRepository;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.game.GameCloseEvent;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufOutputStream;
@@ -452,7 +452,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         if (!this.worldIsBeingDeleted)
         {
             logger.info("Stopping server");
-            Client.INSTANCE.getEventProtocol().handleEvent(new GameCloseEvent());
+            Pride.INSTANCE.getEventProtocol().handleEvent(new GameCloseEvent());
 
             if (this.getNetworkSystem() != null)
             {

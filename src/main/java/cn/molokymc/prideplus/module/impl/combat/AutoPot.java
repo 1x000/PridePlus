@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.combat;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.player.MotionEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
@@ -43,7 +43,7 @@ public class AutoPot extends Module {
     @Override
     public void onMotionEvent(MotionEvent e) {
         //this.setSuffix("Stop Moving");
-        if (Client.INSTANCE.isEnabled(Scaffold.class) || Utils.mc.currentScreen instanceof GuiChest)
+        if (Pride.INSTANCE.isEnabled(Scaffold.class) || Utils.mc.currentScreen instanceof GuiChest)
             return;
 
         int prevSlot = Utils.mc.thePlayer.inventory.currentItem;

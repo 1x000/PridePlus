@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.movement.Flight;
 import cn.molokymc.prideplus.module.impl.render.XRay;
 import cn.molokymc.prideplus.utils.player.BlockUtils;
@@ -508,7 +508,7 @@ public class Block
 
         if(collidingEntity == Minecraft.getMinecraft().thePlayer) {
             BoundingBoxEvent boundingBoxEvent = new BoundingBoxEvent(this,pos,axisalignedbb);
-            Client.INSTANCE.getEventProtocol().handleEvent(boundingBoxEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(boundingBoxEvent);
             axisalignedbb = boundingBoxEvent.getBoundingBox();
         }
 

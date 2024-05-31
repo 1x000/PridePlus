@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.altmanager.panels;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.ui.altmanager.Panel;
 import cn.molokymc.prideplus.ui.altmanager.helpers.Alt;
 import cn.molokymc.prideplus.ui.altmanager.helpers.AltManagerUtils;
@@ -111,9 +111,9 @@ public class LoginPanel extends Panel {
             actionButton.setClickAction(() -> {
                 switch (actionButton.getName()) {
                     case "Login":
-                        Client.INSTANCE.getAltManager().getUtils().login(textFields.get(0), textFields.get(1));
+                        Pride.INSTANCE.getAltManager().getUtils().login(textFields.get(0), textFields.get(1));
                         resetTextFields();
-                        Client.INSTANCE.getAltManager().getAltPanel().refreshAlts();
+                        Pride.INSTANCE.getAltManager().getAltPanel().refreshAlts();
                         break;
                     case "Add":
                         TextField username = textFields.get(0);
@@ -130,11 +130,11 @@ public class LoginPanel extends Panel {
                         Alt alt = new Alt(email, password);
                         resetTextFields();
                         AltManagerUtils.getAlts().add(alt);
-                        Client.INSTANCE.getAltManager().getAltPanel().refreshAlts();
+                        Pride.INSTANCE.getAltManager().getAltPanel().refreshAlts();
                         break;
                     case "Gen Cracked":
-                        Client.INSTANCE.getAltManager().getUtils().loginWithString(generator.generate(8), "", false);
-                        Client.INSTANCE.getAltManager().getAltPanel().refreshAlts();
+                        Pride.INSTANCE.getAltManager().getUtils().loginWithString(generator.generate(8), "", false);
+                        Pride.INSTANCE.getAltManager().getAltPanel().refreshAlts();
                         break;
                 }
             });
@@ -183,7 +183,7 @@ public class LoginPanel extends Panel {
                 password = split[1];
             }
 
-            Client.INSTANCE.getAltManager().getUtils().microsoftLoginAsync(email, password);
+            Pride.INSTANCE.getAltManager().getUtils().microsoftLoginAsync(email, password);
             resetTextFields();
         }
 

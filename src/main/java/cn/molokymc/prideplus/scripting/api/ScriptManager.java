@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.scripting.api;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.ModuleCollection;
@@ -28,7 +28,7 @@ public class ScriptManager implements Utils {
     }
 
     public void reloadScripts() {
-        HashMap<Object, Module> moduleList = Client.INSTANCE.getModuleCollection().getModuleMap();
+        HashMap<Object, Module> moduleList = Pride.INSTANCE.getModuleCollection().getModuleMap();
 
         scripts.removeIf(Script::isReloadable);
 

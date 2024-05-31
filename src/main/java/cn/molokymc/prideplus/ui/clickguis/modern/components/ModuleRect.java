@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.clickguis.modern.components;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.impl.render.HUDMod;
@@ -82,7 +82,7 @@ public class ModuleRect extends Component {
 
         Color clickModColor = Color.WHITE;
         Color clickModColor2 = Color.WHITE;
-        HUDMod hudMod = Client.INSTANCE.getModuleCollection().getModule(HUDMod.class);
+        HUDMod hudMod = Pride.INSTANCE.getModuleCollection().getModule(HUDMod.class);
         Pair<Color, Color> colors = HUDMod.getClientColors();
 
 

@@ -1,24 +1,19 @@
 package cn.molokymc.prideplus.module.impl.player;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.game.WorldEvent;
-import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
 import cn.molokymc.prideplus.event.impl.player.MotionEvent;
 import cn.molokymc.prideplus.event.impl.render.Render2DEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
-import cn.molokymc.prideplus.module.impl.misc.AutoHypixel;
 import cn.molokymc.prideplus.module.impl.render.HUDMod;
 import cn.molokymc.prideplus.module.settings.ParentAttribute;
 import cn.molokymc.prideplus.module.settings.impl.BooleanSetting;
 import cn.molokymc.prideplus.module.settings.impl.NumberSetting;
 import cn.molokymc.prideplus.utils.Utils;
-import cn.molokymc.prideplus.utils.font.AbstractFontRenderer;
 import cn.molokymc.prideplus.utils.player.RotationUtils;
-import cn.molokymc.prideplus.utils.skidfont.FontDrawer;
 import cn.molokymc.prideplus.utils.skidfont.FontManager;
 import cn.molokymc.prideplus.utils.time.TimerUtil;
-import net.minecraft.client.gui.IFontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.player.inventory.ContainerLocalMenu;
@@ -28,8 +23,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.server.S2DPacketOpenWindow;
-import net.minecraft.network.play.server.S2EPacketCloseWindow;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
@@ -78,7 +71,7 @@ public class Stealer extends Module {
         if (e.isPre()) {
             setSuffix(smart.isEnabled() ? "Smart" : null);
             setSuffix(String.valueOf(chests));
-            if (Manager == null) Manager = Client.INSTANCE.getModuleCollection().getModule(Manager.class);
+            if (Manager == null) Manager = Pride.INSTANCE.getModuleCollection().getModule(Manager.class);
             if (aura.isEnabled()) {
                 final int radius = auraRange.getValue().intValue();
                 for (int x = -radius; x < radius; x++) {
@@ -177,7 +170,7 @@ public class Stealer extends Module {
     }
 
     public static boolean canSteal() {
-        if (Client.INSTANCE.isEnabled(Stealer.class) && Utils.mc.currentScreen instanceof GuiChest) {
+        if (Pride.INSTANCE.isEnabled(Stealer.class) && Utils.mc.currentScreen instanceof GuiChest) {
             ContainerChest chest = (ContainerChest) Utils.mc.thePlayer.openContainer;
             IInventory chestInv = chest.getLowerChestInventory();
             return !titleCheck.isEnabled() || (chestInv instanceof ContainerLocalMenu && ((ContainerLocalMenu) chestInv).realChest);

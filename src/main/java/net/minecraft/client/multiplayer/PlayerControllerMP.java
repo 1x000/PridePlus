@@ -1,6 +1,6 @@
 package net.minecraft.client.multiplayer;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.combat.KillAura;
 import cn.molokymc.prideplus.module.impl.movement.Flight;
 import cn.molokymc.prideplus.event.impl.player.AttackEvent;
@@ -416,7 +416,7 @@ public class PlayerControllerMP {
         boolean cancelled = false;
         if (targetEntity instanceof EntityLivingBase) {
             AttackEvent attackEvent = new AttackEvent((EntityLivingBase) targetEntity);
-            Client.INSTANCE.getEventProtocol().handleEvent(attackEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(attackEvent);
             cancelled = attackEvent.isCancelled();
         }
         if (!cancelled) {
@@ -492,7 +492,7 @@ public class PlayerControllerMP {
     }
 
     public void onStoppedUsingItem(EntityPlayer playerIn) {
-        if (Client.INSTANCE.isEnabled(KillAura.class)) {
+        if (Pride.INSTANCE.isEnabled(KillAura.class)) {
             if (KillAura.blocking) {
                 return;
             }

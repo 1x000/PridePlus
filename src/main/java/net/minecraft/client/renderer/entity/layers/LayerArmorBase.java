@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity.layers;
 
 import com.google.common.collect.Maps;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.Animations;
 import cn.molokymc.prideplus.module.impl.render.CustomModel;
 import cn.molokymc.prideplus.module.impl.render.Glint;
@@ -46,7 +46,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     }
 
     public boolean shouldCombineTextures() {
-        return (Client.INSTANCE.isEnabled(Animations.class));
+        return (Pride.INSTANCE.isEnabled(Animations.class));
     }
 
     private void renderLayer(EntityLivingBase entitylivingbaseIn, float p_177182_2_, float p_177182_3_, float partialTicks, float p_177182_5_, float p_177182_6_, float p_177182_7_, float scale, int armorSlot) {
@@ -123,7 +123,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                 GlStateManager.blendFunc(768, 1);
                 float f2 = 0.76F;
 
-                Glint glint = (Glint) Client.INSTANCE.getModuleCollection().get(Glint.class);
+                Glint glint = (Glint) Pride.INSTANCE.getModuleCollection().get(Glint.class);
                 if(glint.isEnabled()){
                     int color = glint.getColor().getRGB();
                     RenderUtil.color(color, 1);

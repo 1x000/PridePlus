@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.utils.server;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.ListenerAdapter;
 import cn.molokymc.prideplus.event.impl.game.TickEvent;
 import cn.molokymc.prideplus.event.impl.player.EventMoveInput;
@@ -41,7 +41,7 @@ public class PingerUtils extends ListenerAdapter implements Utils {
         this.serverUpdateTime = new HashMap<>();
         this.serverUpdateStatus = new HashMap<>();
         this.serverPing = null;
-        Client.INSTANCE.getEventProtocol().register(this);
+        Pride.INSTANCE.getEventProtocol().register(this);
     }
 
     public static String getPing() {
@@ -51,7 +51,7 @@ public class PingerUtils extends ListenerAdapter implements Utils {
             if (info != null) latency = info.getResponseTime();
 
             if (ServerUtils.isOnHypixel() && latency == 1) {
-                int temp = Client.INSTANCE.getPingerUtils().getServerPing().intValue();
+                int temp = Pride.INSTANCE.getPingerUtils().getServerPing().intValue();
                 if (temp != -1) {
                     latency = temp;
                 }

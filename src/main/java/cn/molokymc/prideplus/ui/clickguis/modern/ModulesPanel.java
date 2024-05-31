@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.clickguis.modern;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.ModuleCollection;
@@ -56,7 +56,7 @@ public class ModulesPanel extends Panel {
     public void refreshSettingMap() {
         if (settingsPanelHashMap == null || ModuleCollection.reloadModules) {
             settingsPanelHashMap = new HashMap<>();
-            for (Module module : Client.INSTANCE.getModuleCollection().getModules()) {
+            for (Module module : Pride.INSTANCE.getModuleCollection().getModules()) {
                 SettingsPanel settingsPanel = new SettingsPanel(module);
                 settingsPanel.initGui();
                 settingsPanelHashMap.put(module, settingsPanel);
@@ -91,7 +91,7 @@ public class ModulesPanel extends Panel {
         Scroll scroll = scrollHashMap.get(currentCategory);
 
         if (!(HoveringUtil.isHovering(x + (250 + (55 * expandAnim.getOutput().floatValue())), y, 135, 250, mouseX, mouseY) && currentlySelected != null) &&
-                !Client.INSTANCE.getSideGui().isFocused()) {
+                !Pride.INSTANCE.getSideGui().isFocused()) {
             scroll.onScroll(25);
         }
         double scrollVal = MathUtils.roundToHalf(scroll.getScroll());

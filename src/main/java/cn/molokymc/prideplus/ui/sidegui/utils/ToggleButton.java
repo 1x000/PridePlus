@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.sidegui.utils;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.ui.Screen;
 import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.animations.Animation;
@@ -51,7 +51,7 @@ public class ToggleButton implements Screen {
         toggleAnimation.setDirection(enabled ? Direction.FORWARDS : Direction.BACKWARDS);
 
         float toggleAnim = toggleAnimation.getOutput().floatValue();
-        Color roundColor = ColorUtil.interpolateColorC(ColorUtil.tripleColor(64), Client.INSTANCE.getSideGui().getGreenEnabledColor(), toggleAnim);
+        Color roundColor = ColorUtil.interpolateColorC(ColorUtil.tripleColor(64), Pride.INSTANCE.getSideGui().getGreenEnabledColor(), toggleAnim);
         RoundedUtil.drawRound(x, y, WH, WH, WH / 2f - .25f, roundColor);
 
         if (enabled || !toggleAnimation.isDone()) {

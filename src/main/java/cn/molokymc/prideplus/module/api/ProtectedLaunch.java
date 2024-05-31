@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.api;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.commands.CommandHandler;
 import cn.molokymc.prideplus.commands.impl.*;
 import cn.molokymc.prideplus.config.ConfigManager;
@@ -28,7 +28,6 @@ import cn.molokymc.prideplus.viamcp.ViaMCP;
 import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ForceUnicodeChat;
-import org.apache.logging.log4j.core.appender.FileManager;
 
 import java.io.File;
 import java.util.Arrays;
@@ -44,7 +43,7 @@ public class ProtectedLaunch {
 
         // Setup Intent API access
       //  Client.INSTANCE.setIntentAccount(GetUserInfo.loginFailure);
-        Client.INSTANCE.setModuleCollection(new ModuleCollection());
+        Pride.INSTANCE.setModuleCollection(new ModuleCollection());
 
         // Combat
         modules.put(Antibot.class, new Antibot());
@@ -133,18 +132,18 @@ public class ProtectedLaunch {
         modules.put(SessionHUD.class, new SessionHUD());
         modules.put(TargetHUDMod.class, new TargetHUDMod());
 
-        Client.INSTANCE.getModuleCollection().setModules(modules);
+        Pride.INSTANCE.getModuleCollection().setModules(modules);
 
         Theme.init();
 
 //        SessionInfo.timeJoined = System.currentTimeMillis();
 
-        Client.INSTANCE.setPingerUtils(new PingerUtils());
+        Pride.INSTANCE.setPingerUtils(new PingerUtils());
 
-        Client.INSTANCE.setScriptManager(new ScriptManager());
+        Pride.INSTANCE.setScriptManager(new ScriptManager());
 
-        Client.INSTANCE.setFallDistanceComponent(new FallDistanceComponent());
-        Client.INSTANCE.getFallDistanceComponent().register();
+        Pride.INSTANCE.setFallDistanceComponent(new FallDistanceComponent());
+        Pride.INSTANCE.getFallDistanceComponent().register();
 
         CommandHandler commandHandler = new CommandHandler();
         commandHandler.commands.addAll(Arrays.asList(
@@ -155,24 +154,24 @@ public class ProtectedLaunch {
               new ToggleCommand()
 
         ));
-        Client.INSTANCE.setCommandHandler(commandHandler);
+        Pride.INSTANCE.setCommandHandler(commandHandler);
 
 
-        Client.INSTANCE.getEventProtocol().register(new SlotComponent());
-        Client.INSTANCE.getEventProtocol().register(new BadPacketsComponent());
-        Client.INSTANCE.getEventProtocol().register(new BackgroundProcess());
-        Client.INSTANCE.getEventProtocol().register(new RotationComponent());
-        Client.INSTANCE.setConfigManager(new ConfigManager());
+        Pride.INSTANCE.getEventProtocol().register(new SlotComponent());
+        Pride.INSTANCE.getEventProtocol().register(new BadPacketsComponent());
+        Pride.INSTANCE.getEventProtocol().register(new BackgroundProcess());
+        Pride.INSTANCE.getEventProtocol().register(new RotationComponent());
+        Pride.INSTANCE.setConfigManager(new ConfigManager());
         commandHandler.commands.addAll(Arrays.asList(new FriendCommand(), new CopyNameCommand(), new BindCommand(), new UnbindCommand(), new ScriptCommand(), new SettingCommand(), new HelpCommand(), new VClipCommand(), new ClearBindsCommand(), new ClearConfigCommand(), new LoadConfigCommand(),new ToggleCommand(), new LoadConfigCommand()));
         ConfigManager.defaultConfig = new File(Minecraft.getMinecraft().mcDataDir + "/PridePlus/Config.json");
-        Client.INSTANCE.getConfigManager().collectConfigs();
+        Pride.INSTANCE.getConfigManager().collectConfigs();
         if (ConfigManager.defaultConfig.exists()) {
-            Client.INSTANCE.getConfigManager().loadConfig(Client.INSTANCE.getConfigManager().readConfigData(ConfigManager.defaultConfig.toPath()), true);
+            Pride.INSTANCE.getConfigManager().loadConfig(Pride.INSTANCE.getConfigManager().readConfigData(ConfigManager.defaultConfig.toPath()), true);
         }
 
         DragManager.loadDragData();
 
-        Client.INSTANCE.setAltManager(new GuiAltManager());
+        Pride.INSTANCE.setAltManager(new GuiAltManager());
     }
 
 

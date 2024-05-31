@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.render;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.settings.impl.BooleanSetting;
 import cn.molokymc.prideplus.module.settings.impl.ModeSetting;
 import cn.molokymc.prideplus.event.impl.render.PreRenderEvent;
@@ -45,7 +45,7 @@ public class TargetHUDMod extends Module {
     }
 
     private EntityLivingBase target;
-    private final Dragging drag = Client.INSTANCE.createDrag(this, "targetHud", 300, 300);
+    private final Dragging drag = Pride.INSTANCE.createDrag(this, "targetHud", 300, 300);
 
     public Animation openAnimation1 = new EaseBackIn(350, 1,(float)1.1);
 
@@ -77,7 +77,7 @@ public class TargetHUDMod extends Module {
 
 
         if (killAura == null) {
-            killAura = (KillAura) Client.INSTANCE.getModuleCollection().get(KillAura.class);
+            killAura = (KillAura) Pride.INSTANCE.getModuleCollection().get(KillAura.class);
         }
 
 

@@ -1,15 +1,11 @@
 package cn.molokymc.prideplus.module.impl.player;
 
-import cn.molokymc.prideplus.Client;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
-import cn.molokymc.prideplus.event.impl.player.BoundingBoxEvent;
 import cn.molokymc.prideplus.event.impl.player.MotionEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.settings.impl.ModeSetting;
-import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.server.PacketUtils;
-import cn.molokymc.prideplus.utils.server.ServerUtils;
 import cn.molokymc.prideplus.utils.time.TimerUtil;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C03PacketPlayer;

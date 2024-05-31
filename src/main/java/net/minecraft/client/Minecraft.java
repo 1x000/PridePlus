@@ -1,6 +1,5 @@
 package net.minecraft.client;
 
-import cn.molokymc.prideplus.viamcp.ViaMCP;
 import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -14,7 +13,7 @@ import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.game.*;
 import cn.molokymc.prideplus.event.impl.player.BlockEvent;
 import cn.molokymc.prideplus.event.impl.player.BlockPlaceableEvent;
@@ -46,7 +45,6 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -567,7 +565,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
     private void createDisplay() throws LWJGLException {
         Display.setResizable(true);
-        Display.setTitle("Starting "+Client.NAME+"...");
+        Display.setTitle("Starting "+ Pride.NAME+"...");
 
         try {
             Display.create((new PixelFormat()).withDepthBits(24));
@@ -962,12 +960,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
         if (!this.skipRenderWorld) {
             RenderTickEvent renderTickEvent = new RenderTickEvent(this.timer.renderPartialTicks);
-            Client.INSTANCE.getEventProtocol().handleEvent(renderTickEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(renderTickEvent);
             this.mcProfiler.endStartSection("gameRenderer");
             this.entityRenderer.updateCameraAndRender(this.timer.renderPartialTicks, i);
             this.mcProfiler.endSection();
             renderTickEvent.setPost();
-            Client.INSTANCE.getEventProtocol().handleEvent(renderTickEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(renderTickEvent);
         }
 
         this.mcProfiler.endSection();
@@ -1216,8 +1214,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      * Called when the window is closing. Sets 'running' to false which allows the game loop to exit cleanly.
      */
     public void shutdown() {
-        Client.INSTANCE.getFallDistanceComponent().unregister();
-        Client.INSTANCE.getEventProtocol().handleEvent(new GameCloseEvent());
+        Pride.INSTANCE.getFallDistanceComponent().unregister();
+        Pride.INSTANCE.getEventProtocol().handleEvent(new GameCloseEvent());
         this.running = false;
     }
 
@@ -1295,7 +1293,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         if (this.leftClickCounter <= 0) {
             final ClickEvent e = new ClickEvent(false);
 
-            Client.INSTANCE.getEventProtocol().handleEvent(e);
+            Pride.INSTANCE.getEventProtocol().handleEvent(e);
 
             // ViaForgeMCP
             if (ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8))
@@ -1338,7 +1336,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     @SuppressWarnings("incomplete-switch")
 
     public void rightClickMouse() {
-        Client.INSTANCE.getEventProtocol().handleEvent(new ClickEventRight());
+        Pride.INSTANCE.getEventProtocol().handleEvent(new ClickEventRight());
 
         if (!this.playerController.getIsHittingBlock()) {
             this.rightClickDelayTimer = 4;
@@ -1543,7 +1541,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         }
 
         TickEvent tickEvent = new TickEvent(ticks);
-        Client.INSTANCE.getEventProtocol().handleEvent(tickEvent);
+        Pride.INSTANCE.getEventProtocol().handleEvent(tickEvent);
 
         this.mcProfiler.startSection("gui");
 
@@ -1682,7 +1680,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                     if (this.currentScreen != null) {
                         this.currentScreen.handleKeyboardInput();
                     } else {
-                        Client.INSTANCE.getEventProtocol().handleEvent(new KeyPressEvent(k));
+                        Pride.INSTANCE.getEventProtocol().handleEvent(new KeyPressEvent(k));
 
                         if (k == 1) {
                             this.displayInGameMenu();
@@ -1833,7 +1831,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
             if (this.thePlayer.isUsingItem()) {
                 BlockEvent blockEvent = new BlockEvent();
-                Client.INSTANCE.getEventProtocol().handleEvent(blockEvent);
+                Pride.INSTANCE.getEventProtocol().handleEvent(blockEvent);
                 if (!this.gameSettings.keyBindUseItem.isKeyDown() && !blockEvent.isCancelled()) {
                     this.playerController.onStoppedUsingItem(this.thePlayer);
                 }
@@ -1863,13 +1861,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 this.rightClickMouse();
             }
 
-            if (Minecraft.getMinecraft().thePlayer != null && Minecraft.getMinecraft().theWorld != null) Client.INSTANCE.getEventProtocol().handleEvent(new BlockPlaceableEvent());
+            if (Minecraft.getMinecraft().thePlayer != null && Minecraft.getMinecraft().theWorld != null) Pride.INSTANCE.getEventProtocol().handleEvent(new BlockPlaceableEvent());
             this.sendClickBlockToController(this.currentScreen == null && this.gameSettings.keyBindAttack.isKeyDown() && this.inGameHasFocus);
         }
 
         if (this.theWorld != null) {
             LegitTickEvent event = new LegitTickEvent();
-            Client.INSTANCE.getEventProtocol().handleEvent(event);
+            Pride.INSTANCE.getEventProtocol().handleEvent(event);
             if (this.thePlayer != null) {
                 ++this.joinPlayerCounter;
 
@@ -1950,7 +1948,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         }
 
         tickEvent.setPost();
-        Client.INSTANCE.getEventProtocol().handleEvent(tickEvent);
+        Pride.INSTANCE.getEventProtocol().handleEvent(tickEvent);
 
         this.mcProfiler.endSection();
         this.systemTime = getSystemTime();
@@ -2028,7 +2026,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         }
         if (theWorld != null) {
             WorldEvent e = new WorldEvent.Unload(theWorld);
-            Client.INSTANCE.getEventProtocol().handleEvent(e);
+            Pride.INSTANCE.getEventProtocol().handleEvent(e);
         }
         if (worldClientIn == null) {
             NetHandlerPlayClient nethandlerplayclient = this.getNetHandler();

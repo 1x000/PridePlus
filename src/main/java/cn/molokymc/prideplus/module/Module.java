@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.ListenerAdapter;
 import cn.molokymc.prideplus.module.settings.impl.*;
 import com.google.gson.annotations.Expose;
@@ -27,8 +27,6 @@ import store.intent.intentguard.annotation.Strategy;
 import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
-
-import static cn.molokymc.prideplus.module.impl.render.HUDMod.Language;
 
 
 @Getter
@@ -133,12 +131,12 @@ public class Module extends ListenerAdapter implements Utils {
 
 
     public void onEnable() {
-        Client.INSTANCE.getEventProtocol().register(this);
+        Pride.INSTANCE.getEventProtocol().register(this);
     }
 
     public void onDisable() {
-        Multithreading.schedule(() -> Client.INSTANCE.getEventProtocol().unregister(this), 250, TimeUnit.MILLISECONDS);
-        Client.INSTANCE.getEventProtocol().unregister(this);
+        Multithreading.schedule(() -> Pride.INSTANCE.getEventProtocol().unregister(this), 250, TimeUnit.MILLISECONDS);
+        Pride.INSTANCE.getEventProtocol().unregister(this);
     }
 
     @Exclude(Strategy.NAME_REMAPPING)

@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.commands.impl;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.commands.Command;
 
 public final class ScriptCommand extends Command {
@@ -11,7 +11,7 @@ public final class ScriptCommand extends Command {
 
     @Override
     public void execute(String[] args) {
-        Client.INSTANCE.getScriptManager().reloadScripts();
+        Pride.INSTANCE.getScriptManager().reloadScripts();
     }
 
 }

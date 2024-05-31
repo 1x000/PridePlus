@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.clickguis.modern;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.ModuleCollection;
@@ -77,7 +77,7 @@ public class ModernClickGui extends GuiScreen {
         }
 
         drag.onDraw(mouseX, mouseY);
-        Client.INSTANCE.getSideGui().onDrag(mouseX, mouseY);
+        Pride.INSTANCE.getSideGui().onDrag(mouseX, mouseY);
     }
 
     @Override
@@ -91,9 +91,9 @@ public class ModernClickGui extends GuiScreen {
             modpanel = new ModulesPanel();
         }
 
-        Client.INSTANCE.getSideGui().initGui();
-        Client.INSTANCE.getSearchBar().initGui();
-        ClickGUIMod clickMod = Client.INSTANCE.getModuleCollection().getModule(ClickGUIMod.class);
+        Pride.INSTANCE.getSideGui().initGui();
+        Pride.INSTANCE.getSearchBar().initGui();
+        ClickGUIMod clickMod = Pride.INSTANCE.getModuleCollection().getModule(ClickGUIMod.class);
         currentCategory = clickMod.getActiveCategory();
         categories.forEach(Component::initGui);
         openingAnimation = new DecelerateAnimation(300, 1);
@@ -109,25 +109,25 @@ public class ModernClickGui extends GuiScreen {
     protected void keyTyped(char typedChar, int keyCode) {
         if (keyCode == 1 && !typing) {
 
-            if (Client.INSTANCE.getSearchBar().isFocused()) {
-                Client.INSTANCE.getSearchBar().getSearchField().setText("");
-                Client.INSTANCE.getSearchBar().getSearchField().setFocused(false);
+            if (Pride.INSTANCE.getSearchBar().isFocused()) {
+                Pride.INSTANCE.getSearchBar().getSearchField().setText("");
+                Pride.INSTANCE.getSearchBar().getSearchField().setFocused(false);
                 return;
             }
 
-            if (Client.INSTANCE.getSideGui().isFocused()) {
-                Client.INSTANCE.getSideGui().setFocused(false);
+            if (Pride.INSTANCE.getSideGui().isFocused()) {
+                Pride.INSTANCE.getSideGui().setFocused(false);
                 return;
             }
 
-            Client.INSTANCE.getSearchBar().getOpenAnimation().setDirection(Direction.BACKWARDS);
+            Pride.INSTANCE.getSearchBar().getOpenAnimation().setDirection(Direction.BACKWARDS);
             openingAnimation.setDirection(Direction.BACKWARDS);
-            ClickGUIMod clickMod = Client.INSTANCE.getModuleCollection().getModule(ClickGUIMod.class);
+            ClickGUIMod clickMod = Pride.INSTANCE.getModuleCollection().getModule(ClickGUIMod.class);
             clickMod.setActiveCategory(currentCategory);
         }
 
-        Client.INSTANCE.getSideGui().keyTyped(typedChar, keyCode);
-        Client.INSTANCE.getSearchBar().keyTyped(typedChar, keyCode);
+        Pride.INSTANCE.getSideGui().keyTyped(typedChar, keyCode);
+        Pride.INSTANCE.getSearchBar().keyTyped(typedChar, keyCode);
         modpanel.keyTyped(typedChar, keyCode);
     }
 
@@ -142,7 +142,7 @@ public class ModernClickGui extends GuiScreen {
             } else moduleRects.clear();
             for (Category category : Category.values()) {
                 ArrayList<ModuleRect> modules = new ArrayList<>();
-                for (Module module : Client.INSTANCE.getModuleCollection().getModulesInCategory(category)) {
+                for (Module module : Pride.INSTANCE.getModuleCollection().getModulesInCategory(category)) {
                     modules.add(new ModuleRect(module));
                 }
 
@@ -154,13 +154,13 @@ public class ModernClickGui extends GuiScreen {
             return;
         }
 
-        typing = modpanel.isTyping() || (Client.INSTANCE.getSideGui().isFocused() && Client.INSTANCE.getSideGui().isTyping()) || Client.INSTANCE.getSearchBar().isTyping();
+        typing = modpanel.isTyping() || (Pride.INSTANCE.getSideGui().isFocused() && Pride.INSTANCE.getSideGui().isTyping()) || Pride.INSTANCE.getSearchBar().isTyping();
 
         if (ClickGUIMod.walk.isEnabled() && !typing) {
             InventoryMove.updateStates();
         }
 
-        boolean focusedConfigGui = Client.INSTANCE.getSideGui().isFocused();
+        boolean focusedConfigGui = Pride.INSTANCE.getSideGui().isFocused();
         int fakeMouseX = focusedConfigGui ? 0 : mouseX, fakeMouseY = focusedConfigGui ? 0 : mouseY;
 
         adjustment = 0;
@@ -182,7 +182,7 @@ public class ModernClickGui extends GuiScreen {
 
         float catWidth = (100 - (55 * expandedAnimation.getOutput().floatValue()));
         boolean hoveringCat = HoveringUtil.isHovering(x, y, catWidth, rectHeight, fakeMouseX, fakeMouseY);
-        boolean searching = Client.INSTANCE.getSearchBar().isFocused();
+        boolean searching = Pride.INSTANCE.getSearchBar().isFocused();
         if (expandedAnimation.isDone()) {
             expandedAnimation.setDirection(hoveringCat && !searching ? Direction.BACKWARDS : Direction.FORWARDS);
         }
@@ -210,7 +210,7 @@ public class ModernClickGui extends GuiScreen {
         float xAdjust = 10 * expandedAnimation.getOutput().floatValue();
         FontUtil.rubikFont20.drawString("Stable", x + 35 + xAdjust, y + 13, -1);
 
-        FontUtil.rubikFont14.drawString(Client.INSTANCE.getVersion(), x + 41 + FontUtil.rubikFont18.getStringWidth("Stable") + xAdjust, y + 15.5f,
+        FontUtil.rubikFont14.drawString(Pride.INSTANCE.getVersion(), x + 41 + FontUtil.rubikFont18.getStringWidth("Stable") + xAdjust, y + 15.5f,
                 new Color(98, 98, 98));
 
 
@@ -245,11 +245,11 @@ public class ModernClickGui extends GuiScreen {
         StencilUtil.uninitStencilBuffer();
 
 
-        SideGUI sideGUI = Client.INSTANCE.getSideGui();
+        SideGUI sideGUI = Pride.INSTANCE.getSideGui();
         sideGUI.getOpenAnimation().setDirection(openingAnimation.getDirection());
         sideGUI.drawScreen(mouseX, mouseY);
 
-        SearchBar searchBar = Client.INSTANCE.getSearchBar();
+        SearchBar searchBar = Pride.INSTANCE.getSearchBar();
         searchBar.setAlpha(openingAnimation.getOutput().floatValue() * (1 - sideGUI.getClickAnimation().getOutput().floatValue()));
         searchBar.drawScreen(fakeMouseX, fakeMouseY);
 
@@ -266,7 +266,7 @@ public class ModernClickGui extends GuiScreen {
         double x = drag.getX(), y = drag.getY();
         final boolean canDrag = HoveringUtil.isHovering((float) x, (float) y, rectWidth, 20f, mouseX, mouseY);
 
-        if (!Client.INSTANCE.getSideGui().isFocused()) {
+        if (!Pride.INSTANCE.getSideGui().isFocused()) {
             drag.onClick(mouseX, mouseY, mouseButton, canDrag);
 
 
@@ -286,18 +286,18 @@ public class ModernClickGui extends GuiScreen {
             }
             modpanel.mouseClicked(mouseX, mouseY, mouseButton);
         }
-        Client.INSTANCE.getSideGui().mouseClicked(mouseX, mouseY, mouseButton);
-        Client.INSTANCE.getSearchBar().mouseClicked(mouseX, mouseY, mouseButton);
+        Pride.INSTANCE.getSideGui().mouseClicked(mouseX, mouseY, mouseButton);
+        Pride.INSTANCE.getSearchBar().mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
-        if (!Client.INSTANCE.getSideGui().isFocused()) {
+        if (!Pride.INSTANCE.getSideGui().isFocused()) {
             drag.onRelease(state);
             modpanel.mouseReleased(mouseX, mouseY, state);
         }
-        Client.INSTANCE.getSideGui().mouseReleased(mouseX, mouseY, state);
-        Client.INSTANCE.getSearchBar().mouseReleased(mouseX, mouseY, state);
+        Pride.INSTANCE.getSideGui().mouseReleased(mouseX, mouseY, state);
+        Pride.INSTANCE.getSearchBar().mouseReleased(mouseX, mouseY, state);
     }
 
     @Override
@@ -314,11 +314,11 @@ public class ModernClickGui extends GuiScreen {
     private String searchText;
 
     public List<ModuleRect> getModuleRects(Category category) {
-        if (!Client.INSTANCE.getSearchBar().isFocused()) {
+        if (!Pride.INSTANCE.getSearchBar().isFocused()) {
             return moduleRects.get(category);
         }
 
-        String search = Client.INSTANCE.getSearchBar().getSearchField().getText();
+        String search = Pride.INSTANCE.getSearchBar().getSearchField().getText();
 
         if (search.equals(searchText)) {
             return searchResults;

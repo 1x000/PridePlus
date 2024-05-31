@@ -29,12 +29,11 @@ import java.util.concurrent.Executors;
 
 @Getter
 @Setter
-
-public class Client implements Utils {
-    public static final Client INSTANCE = new Client();
+public class Pride implements Utils {
+    public static final Pride INSTANCE = new Pride();
     public static final String NAME = "PridePlus";
-    public static final String VERSION = "0.0.1 Beta#2";
     public static final ReleaseType RELEASE = ReleaseType.RELEASE;
+    public static final String VERSION = "0.0.1 " + RELEASE;
     public static String username = "觉醒者";
 
     public static final Logger LOGGER = LogManager.getLogger(NAME);

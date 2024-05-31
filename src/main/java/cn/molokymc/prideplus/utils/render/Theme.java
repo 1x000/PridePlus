@@ -1,5 +1,6 @@
 package cn.molokymc.prideplus.utils.render;
 
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.HUDMod;
 import cn.molokymc.prideplus.module.settings.impl.ModeSetting;
 import cn.molokymc.prideplus.utils.tuples.Pair;
@@ -20,7 +21,7 @@ public enum Theme {
     RED_NEON("Red Neon", new Color(255, 0, 0), new Color(128, 42, 16), true),
     DEEP_OCEAN("Deep Ocean", new Color(60, 82, 145), new Color(0, 20, 64), true),
     TROPICAL_ICE("Tropical Ice", new Color(102, 255, 209), new Color(6, 149, 255), true),
-    Stable("Stable", cn.molokymc.prideplus.Client.INSTANCE.getClientColor(), cn.molokymc.prideplus.Client.INSTANCE.getAlternateClientColor(), true),
+    Stable("Stable", Pride.INSTANCE.getClientColor(), Pride.INSTANCE.getAlternateClientColor(), true),
     CUSTOM_THEME("Custom Theme", HUDMod.color1.getColor(), HUDMod.color2.getColor());
 
     private static final Map<String, Theme> themeMap = new HashMap<>();

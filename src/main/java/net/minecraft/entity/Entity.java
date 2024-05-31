@@ -1,12 +1,10 @@
 package net.minecraft.entity;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.player.PlayerMoveUpdateEvent;
 import cn.molokymc.prideplus.event.impl.player.SafeWalkEvent;
 import cn.molokymc.prideplus.event.impl.player.StepConfirmEvent;
-import cn.molokymc.prideplus.event.impl.player.Vector3d;
 import cn.molokymc.prideplus.module.impl.movement.Flight;
-import cn.molokymc.prideplus.viamcp.ViaMCP;
 import cn.molokymc.prideplus.viamcp.versionfix.VersionFixer;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -685,7 +683,7 @@ public abstract class Entity implements ICommandSender {
             double d5 = z;
 
             SafeWalkEvent safeWalkEvent = new SafeWalkEvent();
-            Client.INSTANCE.getEventProtocol().handleEvent(safeWalkEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(safeWalkEvent);
 
             boolean flag = this.onGround && (this.isSneaking() || safeWalkEvent.isSafe()) && this instanceof EntityPlayer;
 
@@ -835,7 +833,7 @@ public abstract class Entity implements ICommandSender {
                     z = d8;
                     this.setEntityBoundingBox(axisalignedbb3);
                 } else {
-                    Client.INSTANCE.getEventProtocol().handleEvent(new StepConfirmEvent());
+                    Pride.INSTANCE.getEventProtocol().handleEvent(new StepConfirmEvent());
                 }
             }
 
@@ -1185,7 +1183,7 @@ public abstract class Entity implements ICommandSender {
     public void moveFlying(float strafe, float forward, float friction) {
         PlayerMoveUpdateEvent playerMovementEvent = new PlayerMoveUpdateEvent(strafe, forward, friction, this.rotationYaw, this.rotationPitch);
         if (this instanceof EntityPlayerSP) {
-            Client.INSTANCE.getEventProtocol().handleEvent(playerMovementEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(playerMovementEvent);
         }
 
         if (playerMovementEvent.isCancelled()) return;

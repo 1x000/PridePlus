@@ -1,9 +1,8 @@
 package net.minecraft.client.renderer.entity;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.combat.KillAura;
 import cn.molokymc.prideplus.module.impl.render.Glint;
-import cn.molokymc.prideplus.utils.render.GLUtil;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -181,7 +180,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.translate(f, 0.0F, 0.0F);
                 GlStateManager.rotate(-50.0F, 0.0F, 0.0F, 1.0F);
                 int color = -8372020;
-                Glint glint = (Glint) Client.INSTANCE.getModuleCollection().get(Glint.class);
+                Glint glint = (Glint) Pride.INSTANCE.getModuleCollection().get(Glint.class);
                 if (glint.isEnabled()) {
                     color = glint.getColor().getRGB();
                 }

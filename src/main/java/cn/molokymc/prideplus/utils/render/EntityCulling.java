@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.utils.render;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.game.RenderTickEvent;
 import cn.molokymc.prideplus.event.impl.game.TickEvent;
 import cn.molokymc.prideplus.event.impl.render.RendererLivingEntityEvent;
@@ -67,7 +67,7 @@ public class EntityCulling extends Module {
 
 
     public static boolean renderItem(Entity stack) {
-        if (!Client.INSTANCE.isEnabled(EntityCulling.class)) return false;
+        if (!Pride.INSTANCE.isEnabled(EntityCulling.class)) return false;
         //needs to be called from RenderEntityItem#doRender and RenderItemFrame#doRender. Returning true means it should cancel the render event
         return shouldPerformCulling && stack.worldObj == Utils.mc.thePlayer.worldObj && checkEntity(stack);
     }

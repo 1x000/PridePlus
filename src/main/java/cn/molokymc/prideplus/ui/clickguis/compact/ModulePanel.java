@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.clickguis.compact;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.ModuleCollection;
 import cn.molokymc.prideplus.ui.Screen;
@@ -10,7 +10,6 @@ import cn.molokymc.prideplus.utils.misc.MathUtils;
 import cn.molokymc.prideplus.utils.objects.Scroll;
 import cn.molokymc.prideplus.utils.render.ColorUtil;
 import cn.molokymc.prideplus.utils.render.RoundedUtil;
-import net.minecraft.client.gui.Gui;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -55,7 +54,7 @@ public class ModulePanel implements Screen {
 
         float maxScrollbarHeight = rectHeight - 10;
         Scroll scroll = scrollHashMap.get(currentCat);
-        if (!Client.INSTANCE.getSideGui().isFocused()) {
+        if (!Pride.INSTANCE.getSideGui().isFocused()) {
             scroll.onScroll(35);
         }
 

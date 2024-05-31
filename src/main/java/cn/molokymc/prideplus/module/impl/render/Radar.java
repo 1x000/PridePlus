@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.render;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.settings.impl.BooleanSetting;
 import cn.molokymc.prideplus.module.settings.impl.ColorSetting;
 import cn.molokymc.prideplus.module.settings.impl.MultipleBoolSetting;
@@ -42,7 +42,7 @@ public class Radar extends Module {
             new BooleanSetting("Items", true));
 
 
-    public final Dragging drag = Client.INSTANCE.createDrag(this, "radar", 5, 40);
+    public final Dragging drag = Pride.INSTANCE.createDrag(this, "radar", 5, 40);
     private final List<Entity> entities = new ArrayList<>();
     private final GradientColorWheel colorWheel = new GradientColorWheel();
 

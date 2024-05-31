@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.tileentity;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.render.RenderChestEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
@@ -154,7 +154,7 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 
             if (!renderingInInventory) {
                 RenderChestEvent renderChestEvent = new RenderChestEvent(te, modelchest::renderAll);
-                Client.INSTANCE.getEventProtocol().handleEvent(renderChestEvent);
+                Pride.INSTANCE.getEventProtocol().handleEvent(renderChestEvent);
 
                 if(!renderChestEvent.isCancelled()) {
                     renderChestEvent.drawChest();

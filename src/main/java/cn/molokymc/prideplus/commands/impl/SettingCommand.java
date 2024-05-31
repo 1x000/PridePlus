@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.commands.impl;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.commands.Command;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.settings.impl.*;
@@ -22,7 +22,7 @@ public class SettingCommand extends Command {
         } else {
 
             String moduleName = args[0].replace("_", " ");
-            Module module = Client.INSTANCE.getModuleCollection().getModuleByName(moduleName);
+            Module module = Pride.INSTANCE.getModuleCollection().getModuleByName(moduleName);
             if (module == null) {
                 sendChatError("Module not found");
                 usage();

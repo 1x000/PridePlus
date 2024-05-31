@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.player;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
@@ -37,7 +37,7 @@ public class AntiVoid extends Module {
     @Override
     public void onPacketSendEvent(PacketSendEvent event) {
         setSuffix(fallDist.getValue().toString());
-        if(mode.is("Watchdog") && !Client.INSTANCE.getModuleCollection().getModule(Speed.class).isEnabled()) {
+        if(mode.is("Watchdog") && !Pride.INSTANCE.getModuleCollection().getModule(Speed.class).isEnabled()) {
             if(event.getPacket() instanceof C03PacketPlayer) {
                 if(!isBlockUnder()) {
                     if(Utils.mc.thePlayer.fallDistance < fallDist.getValue()) {

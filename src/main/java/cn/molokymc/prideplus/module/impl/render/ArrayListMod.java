@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.render;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.render.Render2DEvent;
 import cn.molokymc.prideplus.event.impl.render.ShaderEvent;
 import cn.molokymc.prideplus.module.Category;
@@ -66,8 +66,8 @@ public class ArrayListMod extends Module {
                 font = FontManager.product_sans_regular_18;
             }
         if (modules == null || ModuleCollection.reloadModules) {
-            List<Class<? extends Module>> hiddenModules = Client.INSTANCE.getModuleCollection().getHiddenModules();
-            List<Module> moduleList = Client.INSTANCE.getModuleCollection().getModules();
+            List<Class<? extends Module>> hiddenModules = Pride.INSTANCE.getModuleCollection().getHiddenModules();
+            List<Module> moduleList = Pride.INSTANCE.getModuleCollection().getModules();
             moduleList.removeIf(module -> hiddenModules.stream().anyMatch(moduleClass -> moduleClass == module.getClass()));
             modules = moduleList;
         }
@@ -86,7 +86,7 @@ public class ArrayListMod extends Module {
     }
 
 
-    public Dragging arraylistDrag = Client.INSTANCE.createDrag(this, "arraylist", 2, 1);
+    public Dragging arraylistDrag = Pride.INSTANCE.createDrag(this, "arraylist", 2, 1);
 
     public String longest = "";
 

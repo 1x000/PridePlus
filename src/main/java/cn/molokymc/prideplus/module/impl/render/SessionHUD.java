@@ -1,7 +1,6 @@
 package cn.molokymc.prideplus.module.impl.render;
 
-import cn.molokymc.prideplus.Client;
-import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.render.Render2DEvent;
 import cn.molokymc.prideplus.event.impl.render.ShaderEvent;
 import cn.molokymc.prideplus.module.Category;
@@ -12,7 +11,6 @@ import cn.molokymc.prideplus.utils.client.TimeLog;
 import cn.molokymc.prideplus.utils.objects.Dragging;
 import cn.molokymc.prideplus.utils.render.ColorUtil;
 import cn.molokymc.prideplus.utils.render.RoundedUtil;
-import net.minecraft.network.play.server.S02PacketChat;
 
 import java.awt.*;
 
@@ -22,7 +20,7 @@ import static cn.molokymc.prideplus.utils.skidfont.FontManager.*;
 public class SessionHUD extends Module {
 
 
-    private final Dragging SessionInfo_dragging = Client.INSTANCE.createDrag(this, "sessioninfo", 5, 150);
+    private final Dragging SessionInfo_dragging = Pride.INSTANCE.createDrag(this, "sessioninfo", 5, 150);
     private final ModeSetting sessionMode = new ModeSetting("Session Mode", "Rainy", "Rainy","Rise");
     public static final BooleanSetting bar = new BooleanSetting("Bar", false);
 

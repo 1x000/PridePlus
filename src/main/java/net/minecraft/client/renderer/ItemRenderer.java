@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer;
 
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.combat.KillAura;
 import cn.molokymc.prideplus.module.impl.render.Animations;
 import cn.molokymc.prideplus.module.impl.render.RemoveEffects;
@@ -381,7 +381,7 @@ public class ItemRenderer {
                             transformFirstPersonItem(f, f2);
                             break;
                         case BLOCK:
-                            if (Client.INSTANCE.isEnabled(Animations.class)) {
+                            if (Pride.INSTANCE.isEnabled(Animations.class)) {
                                 switch (Animations.mode.getMode()) {
 
                                     case "SlideDown":
@@ -503,13 +503,13 @@ public class ItemRenderer {
                             this.transformFirstPersonItem(f, f2);
                             this.doBowTransformations(partialTicks, abstractclientplayer);
                     }
-                } else if ( Client.INSTANCE.isEnabled(Animations.class)&& Animations.every.get() && this.mc.gameSettings.keyBindUseItem.isKeyDown()) {
+                } else if ( Pride.INSTANCE.isEnabled(Animations.class)&& Animations.every.get() && this.mc.gameSettings.keyBindUseItem.isKeyDown()) {
                     GL11.glTranslated(0.0d, 0.0d, 0.0d);
                     GL11.glTranslated(0.0d, 0.12d, 0.0d);
                     transformFirstPersonItem(f, f2);
                     doBlockTransformations();
                 } else {
-                    if (Client.INSTANCE.isEnabled(Animations.class)&& !Animations.swing.get()) {
+                    if (Pride.INSTANCE.isEnabled(Animations.class)&& !Animations.swing.get()) {
                         doItemUsedTransformations(f2);
                     }
                     transformFirstPersonItem(f, f2);
@@ -646,7 +646,7 @@ public class ItemRenderer {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         Float colorAlpha;
-        if (!Client.INSTANCE.isEnabled(RemoveEffects.class)) {
+        if (!Pride.INSTANCE.isEnabled(RemoveEffects.class)) {
             colorAlpha = 0.9F;
         } else {
             colorAlpha = 0F;

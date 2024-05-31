@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.sidegui.panels.searchpanel;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.ui.sidegui.panels.Panel;
 import cn.molokymc.prideplus.ui.sidegui.utils.ToggleButton;
 import cn.molokymc.prideplus.utils.objects.Scroll;
@@ -40,7 +40,7 @@ public class SearchPanel extends Panel {
         compactMode.setAlpha(getAlpha());
         compactMode.drawScreen(mouseX, mouseY);
 
-        String search = Client.INSTANCE.getSideGui().getHotbar().searchField.getText();
+        String search = Pride.INSTANCE.getSideGui().getHotbar().searchField.getText();
 
 
     }

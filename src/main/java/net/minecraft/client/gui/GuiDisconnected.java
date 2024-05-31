@@ -1,6 +1,6 @@
 package net.minecraft.client.gui;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.NotificationsMod;
 import cn.molokymc.prideplus.ui.altmanager.helpers.Alt;
 import cn.molokymc.prideplus.ui.mainmenu.CustomMainMenu;
@@ -24,7 +24,7 @@ public class GuiDisconnected extends GuiScreen {
         this.parentScreen = screen;
         this.reason = I18n.format(reasonLocalizationKey);
         this.message = chatComp;
-        Alt activeAlt = Client.INSTANCE.getAltManager().currentSessionAlt;
+        Alt activeAlt = Pride.INSTANCE.getAltManager().currentSessionAlt;
         if (activeAlt != null) {
             BanUtils.processDisconnect(activeAlt, chatComp);
         }
@@ -57,7 +57,7 @@ public class GuiDisconnected extends GuiScreen {
         if (button.id == 0) {
             mc2.displayGuiScreen(this.parentScreen);
         } else if (button.id == 1) {
-            mc2.displayGuiScreen(Client.INSTANCE.getAltManager());
+            mc2.displayGuiScreen(Pride.INSTANCE.getAltManager());
         } else if (button.id == 2) {
             if (ServerUtils.lastServer != null) {
                 mc2.displayGuiScreen(new GuiConnecting(new GuiMultiplayer(new CustomMainMenu()), mc2, ServerUtils.lastServer));
@@ -80,7 +80,7 @@ public class GuiDisconnected extends GuiScreen {
             }
         }
 
-        Client.INSTANCE.getModuleCollection().getModule(NotificationsMod.class).render();
+        Pride.INSTANCE.getModuleCollection().getModule(NotificationsMod.class).render();
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

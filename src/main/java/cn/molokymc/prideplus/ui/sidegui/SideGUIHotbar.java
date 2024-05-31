@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.sidegui;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.HUDMod;
 import cn.molokymc.prideplus.ui.Screen;
 import cn.molokymc.prideplus.ui.sidegui.utils.CarouselButtons;
@@ -71,7 +71,7 @@ public class SideGUIHotbar implements Screen {
 
 
         Utils.tenacityBoldFont32.drawString("pride", x + 9.5f, y + Utils.tenacityBoldFont32.getMiddleOfBox(height), textColor);
-        Utils.rubikFont18.drawString(Client.INSTANCE.getVersion(), x + 9.5f + Utils.tenacityBoldFont32.getStringWidth("pride") - 2,
+        Utils.rubikFont18.drawString(Pride.INSTANCE.getVersion(), x + 9.5f + Utils.tenacityBoldFont32.getStringWidth("pride") - 2,
                 y + Utils.tenacityBoldFont32.getMiddleOfBox(height) - 2.5f, ColorUtil.applyOpacity(textColor, .5f));
 
         searchAnimation.setDirection(searchField.isFocused() || !searchField.getText().equals("") ? Direction.FORWARDS : Direction.BACKWARDS);

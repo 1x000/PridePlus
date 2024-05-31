@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.ui.searchbar;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.ui.Screen;
 import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.animations.Animation;
@@ -10,7 +10,6 @@ import cn.molokymc.prideplus.utils.misc.HoveringUtil;
 import cn.molokymc.prideplus.utils.objects.TextField;
 import cn.molokymc.prideplus.utils.render.ColorUtil;
 import cn.molokymc.prideplus.utils.render.RoundedUtil;
-import cn.molokymc.prideplus.utils.skidfont.FontManager;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.gui.GuiScreen;
@@ -45,7 +44,7 @@ public class SearchBar implements Screen {
 
         if (GuiScreen.isCtrlKeyDown() && keyCode == Keyboard.KEY_F) {
             searchField.setFocused(true);
-            Client.INSTANCE.getModuleCollection().getModules().forEach(module -> module.setExpanded(false));
+            Pride.INSTANCE.getModuleCollection().getModules().forEach(module -> module.setExpanded(false));
             return;
         }
 
@@ -113,7 +112,7 @@ public class SearchBar implements Screen {
         boolean focused = searchField.isFocused();
         searchField.mouseClicked(mouseX, mouseY, button);
         if (!focused && searchField.isFocused()) {
-            Client.INSTANCE.getModuleCollection().getModules().forEach(module -> module.setExpanded(false));
+            Pride.INSTANCE.getModuleCollection().getModules().forEach(module -> module.setExpanded(false));
         }
     }
 

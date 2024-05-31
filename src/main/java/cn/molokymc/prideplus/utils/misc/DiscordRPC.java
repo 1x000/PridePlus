@@ -3,7 +3,7 @@ package cn.molokymc.prideplus.utils.misc;
 import de.jcm.discordgamesdk.Core;
 import de.jcm.discordgamesdk.CreateParams;
 import de.jcm.discordgamesdk.activity.Activity;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 
@@ -123,14 +123,14 @@ public class DiscordRPC {
             activity = new Activity();
 
             // General information
-            activity.setDetails("Release: " + Client.INSTANCE.getVersion());
+            activity.setDetails("Release: " + Pride.INSTANCE.getVersion());
 
             // Setting a start time causes an "elapsed" field to appear
             activity.timestamps().setStart(Instant.now());
 
             // Large image
             activity.assets().setLargeImage("mc");
-            activity.assets().setLargeText(Client.NAME + " " + Client.INSTANCE.getVersion() + " @ by MolokyMC");
+            activity.assets().setLargeText(Pride.NAME + " " + Pride.INSTANCE.getVersion() + " @ by MolokyMC");
 
             // Finally, update the current activity to our activity
             core.activityManager().updateActivity(activity);

@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.render.mobends.client.renderer.entity;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.MoBendsMod;
 import cn.molokymc.prideplus.module.impl.render.mobends.client.model.entity.ModelBendsPlayer;
 import cn.molokymc.prideplus.module.impl.render.mobends.client.renderer.entity.layers.LayerBendsCape;
@@ -114,7 +114,7 @@ public class RenderBendsPlayer extends RenderPlayer {
 
         Data_Player data = Data_Player.get(clientPlayer.getEntityId());
 
-        if (Client.INSTANCE.getModuleCollection().getModule(MoBendsMod.class).swordTrail.getConfigValue()) {
+        if (Pride.INSTANCE.getModuleCollection().getModule(MoBendsMod.class).swordTrail.getConfigValue()) {
             GL11.glPushMatrix();
             float f5 = 0.0625F;
             GL11.glScalef(-f5, -f5, f5);

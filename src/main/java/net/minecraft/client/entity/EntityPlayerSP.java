@@ -1,6 +1,6 @@
 package net.minecraft.client.entity;
 
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.commands.CommandHandler;
 import cn.molokymc.prideplus.event.impl.game.LegitUpdateEvent;
 import cn.molokymc.prideplus.event.impl.player.*;
@@ -181,7 +181,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      */
     
     public void onUpdate() {
-        Client.INSTANCE.getEventProtocol().handleEvent(new UpdateEvent());
+        Pride.INSTANCE.getEventProtocol().handleEvent(new UpdateEvent());
 
         if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ))) {
             super.onUpdate();
@@ -211,7 +211,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      */
     public void onUpdateWalkingPlayer() {
         LegitUpdateEvent event = new LegitUpdateEvent(false);
-        Client.INSTANCE.getEventProtocol().handleEvent(event);
+        Pride.INSTANCE.getEventProtocol().handleEvent(event);
 
         boolean flag = this.isSprinting();
 
@@ -247,7 +247,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
         if (this.isCurrentViewEntity()) {
             MotionEvent motionEvent = new MotionEvent(this.posX, this.getEntityBoundingBox().minY, this.posZ, this.rotationYaw, this.rotationPitch, this.onGround);
-            Client.INSTANCE.getEventProtocol().handleEvent(motionEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(motionEvent);
 
             if(!motionEvent.isCancelled()) {
                 double posX = motionEvent.getX(), posY = motionEvent.getY(), posZ = motionEvent.getZ();
@@ -302,14 +302,14 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                 --thePlayer2.rotIncrement;
             }
             motionEvent.setPost();
-            Client.INSTANCE.getEventProtocol().handleEvent(motionEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(motionEvent);
             this.rotationPitchHead = motionEvent.getPitch();
         }
 
         this.prevOnGround = this.onGround;
 
         LegitUpdateEvent event2 = new LegitUpdateEvent(true);
-        Client.INSTANCE.getEventProtocol().handleEvent(event2);
+        Pride.INSTANCE.getEventProtocol().handleEvent(event2);
     }
 
     /**
@@ -348,12 +348,12 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      * Sends a chat message from the player. Args: chatMessage
      */
     public void sendChatMessage(String message) {
-        if (Client.INSTANCE.getCommandHandler().execute(message) || message.startsWith(CommandHandler.CHAT_PREFIX)) {
+        if (Pride.INSTANCE.getCommandHandler().execute(message) || message.startsWith(CommandHandler.CHAT_PREFIX)) {
             return;
         }
 
         PlayerSendMessageEvent playerSendMessageEvent = new PlayerSendMessageEvent(message);
-        Client.INSTANCE.getEventProtocol().handleEvent(playerSendMessageEvent);
+        Pride.INSTANCE.getEventProtocol().handleEvent(playerSendMessageEvent);
         if (!playerSendMessageEvent.isCancelled()) {
             this.sendQueue.addToSendQueue(new C01PacketChatMessage(message));
         }
@@ -474,7 +474,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
     protected boolean pushOutOfBlocks(double x, double y, double z) {
         PushOutOfBlockEvent pushOutOfBlockEvent = new PushOutOfBlockEvent();
-        Client.INSTANCE.getEventProtocol().handleEvent(pushOutOfBlockEvent);
+        Pride.INSTANCE.getEventProtocol().handleEvent(pushOutOfBlockEvent);
         if (!this.noClip || !pushOutOfBlockEvent.isCancelled()) {
             BlockPos blockpos = new BlockPos(x, y, z);
             double d0 = x - (double) blockpos.getX();
@@ -753,7 +753,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
         if (this.isUsingItem() && !this.isRiding()) {
             SlowDownEvent slowDownEvent = new SlowDownEvent();
-            Client.INSTANCE.getEventProtocol().handleEvent(slowDownEvent);
+            Pride.INSTANCE.getEventProtocol().handleEvent(slowDownEvent);
             if (!slowDownEvent.isCancelled()) {
                 this.movementInput.moveStrafe *= 0.2F;
                 this.movementInput.moveForward *= 0.2F;
@@ -780,7 +780,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
 
         if (this.isSprinting() && (this.movementInput.moveForward < f || this.isCollidedHorizontally || !flag3)) {
-            if(!(Client.INSTANCE.isEnabled(Sprint.class)) || Sprint.mode.is("Legit")) {
+            if(!(Pride.INSTANCE.isEnabled(Sprint.class)) || Sprint.mode.is("Legit")) {
                 this.setSprinting(false);
             }
         }
@@ -855,7 +855,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     @Override
     public void moveEntity(double x, double y, double z) {
         MoveEvent event = new MoveEvent(x, y, z);
-        Client.INSTANCE.getEventProtocol().handleEvent(event);
+        Pride.INSTANCE.getEventProtocol().handleEvent(event);
         if (!event.isCancelled()) {
             x = event.getX();
             y = event.getY();
@@ -867,7 +867,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     @Override
     public void jump() {
         JumpEvent jumpEvent = new JumpEvent();
-        Client.INSTANCE.getEventProtocol().handleEvent(jumpEvent);
+        Pride.INSTANCE.getEventProtocol().handleEvent(jumpEvent);
         if (!jumpEvent.isCancelled()) {
             super.jump();
         }

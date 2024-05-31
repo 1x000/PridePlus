@@ -1,7 +1,7 @@
 package cn.molokymc.prideplus.ui.clickguis.compact.impl;
 
 import cn.molokymc.prideplus.utils.skidfont.FontManager;
-import cn.molokymc.prideplus.Client;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.impl.render.HUDMod;
 import cn.molokymc.prideplus.module.settings.impl.KeybindSetting;
@@ -69,7 +69,7 @@ public class ModuleRect implements Screen {
         typing = false;
         Gui.drawRect2(x, y, rectWidth, 20, new Color(39, 39, 39).getRGB());
 
-        HUDMod hudMod = Client.INSTANCE.getModuleCollection().getModule(HUDMod.class);
+        HUDMod hudMod = Pride.INSTANCE.getModuleCollection().getModule(HUDMod.class);
         Pair<Color, Color> colors = HUDMod.getClientColors();
         Color actualColor = colors.getFirst();
 

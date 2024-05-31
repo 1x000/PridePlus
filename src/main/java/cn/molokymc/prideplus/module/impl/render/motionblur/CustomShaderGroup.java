@@ -4,8 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import cn.molokymc.prideplus.Client;
-import cn.molokymc.prideplus.module.impl.render.Camera;
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.MotionBlur;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.IResourceManager;
@@ -24,7 +23,7 @@ public class CustomShaderGroup extends ShaderGroup {
 
     @Override
     public void parseGroup(TextureManager p_152765_1_, ResourceLocation p_152765_2_) throws IOException, JsonSyntaxException {
-        JsonObject jsonobject = Client.INSTANCE.getModuleCollection().getModule(MotionBlur.class).getJsonObject();
+        JsonObject jsonobject = Pride.INSTANCE.getModuleCollection().getModule(MotionBlur.class).getJsonObject();
 
         if (JsonUtils.isJsonArray(jsonobject, "targets")) {
             JsonArray jsonarray = jsonobject.getAsJsonArray("targets");
