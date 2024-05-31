@@ -57,5 +57,6 @@ public class HackerDetector extends Module {
     @Override
     public void onEnable() {
         count = 0;
+        super.onEnable();
     }
 }

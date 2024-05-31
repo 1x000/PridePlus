@@ -95,6 +95,7 @@ public final class BackTrack extends Module
                 }
             }
         }
+        super.onEnable();
     }
 
     @Override

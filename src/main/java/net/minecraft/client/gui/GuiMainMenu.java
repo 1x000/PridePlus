@@ -248,9 +248,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
             this.M.a(this.width, this.height);
             this.M.initGui();
         }
-
-        // ViaForgeMCP
-        ViaMCPCommon.init(ViaMCP.PLATFORM);
     }
 
     /**

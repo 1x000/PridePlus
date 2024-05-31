@@ -48,6 +48,7 @@ public final class Timer extends Module {
     public void onEnable() {
         lastTransaction = System.currentTimeMillis();
         transactions.clear();
+        super.onEnable();
     }
 
     @Override
@@ -110,8 +111,8 @@ public final class Timer extends Module {
                 this.setState(false);
             }
             int timer;
-            ChatUtil.send(String.valueOf(transactions.size()));
-            if (!Keyboard.isKeyDown(Keyboard.KEY_W)) {
+            ChatUtil.print(String.valueOf(transactions.size()));
+            if (!Keyboard.isKeyDown(mc.gameSettings.keyBindForward.getKeyCode())) {
                 timer = 500;
             } else {
                 timer = 7;

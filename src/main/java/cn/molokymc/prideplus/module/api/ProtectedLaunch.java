@@ -25,6 +25,7 @@ import cn.molokymc.prideplus.utils.movementfix.SlotComponent;
 import cn.molokymc.prideplus.utils.render.Theme;
 import cn.molokymc.prideplus.utils.server.PingerUtils;
 import cn.molokymc.prideplus.viamcp.ViaMCP;
+import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ForceUnicodeChat;
 import org.apache.logging.log4j.core.appender.FileManager;
@@ -38,6 +39,9 @@ public class ProtectedLaunch {
     private static final HashMap<Object, Module> modules = new HashMap<>();
 
     public static void start() {
+        // ViaForgeMCP
+        ViaMCPCommon.init(ViaMCP.PLATFORM);
+
         // Setup Intent API access
       //  Client.INSTANCE.setIntentAccount(GetUserInfo.loginFailure);
         Client.INSTANCE.setModuleCollection(new ModuleCollection());
