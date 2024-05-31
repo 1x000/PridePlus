@@ -1,6 +1,5 @@
 package cn.molokymc.prideplus.module.impl.combat;
 
-import cn.molokymc.prideplus.viamcp.ViaMCP;
 import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import com.viaversion.viarewind.protocol.protocol1_8to1_9.Protocol1_8To1_9;
 import com.viaversion.viaversion.api.Via;
@@ -138,9 +137,9 @@ public final class KillAura extends Module {
     private void attackEntity(final Entity target) {
         if (ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8)) {
             mc.thePlayer.swingItem();
-            mc.playerController.attackEntity(mc.thePlayer, mc.objectMouseOver.entityHit);
+            mc.playerController.attackEntity(mc.thePlayer, target);
         } else {
-            mc.playerController.attackEntity(mc.thePlayer, mc.objectMouseOver.entityHit);
+            mc.playerController.attackEntity(mc.thePlayer, target);
             mc.thePlayer.swingItem();
         }
         //AttackOrder.sendFixedAttack((EntityPlayer) KillAura.mc.thePlayer, target);
@@ -245,9 +244,9 @@ public final class KillAura extends Module {
                         //AttackOrder.sendFixedAttack(mc.thePlayer, entityLivingBase);
                         if (ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8)) {
                             mc.thePlayer.swingItem();
-                            mc.playerController.attackEntity(mc.thePlayer, mc.objectMouseOver.entityHit);
+                            mc.playerController.attackEntity(mc.thePlayer, entityLivingBase);
                         } else {
-                            mc.playerController.attackEntity(mc.thePlayer, mc.objectMouseOver.entityHit);
+                            mc.playerController.attackEntity(mc.thePlayer, entityLivingBase);
                             mc.thePlayer.swingItem();
                         }
                     }

@@ -1,5 +1,6 @@
 package net.minecraft.client.main;
 
+import cn.molokymc.prideplus.Client;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.authlib.properties.PropertyMap;
@@ -24,8 +25,6 @@ import java.util.List;
 
 @MainClass
 public class Main {
-    private static final Logger logger = LogManager.getLogger();
-
     public static void main(String[] p_main_0_)  {
         new Progress();
 
@@ -38,13 +37,13 @@ public class Main {
         OptionSpec<String> optionspec = optionparser.accepts("server").withRequiredArg();
         OptionSpec<Integer> optionspec1 = optionparser.accepts("port").withRequiredArg().ofType(Integer.class).defaultsTo(25565);
         OptionSpec<File> optionspec2 = optionparser.accepts("gameDir").withRequiredArg().ofType(File.class).defaultsTo(new File("."));
-        OptionSpec<File> optionspec3 = optionparser.accepts("assetsDir").withRequiredArg().<File>ofType(File.class);
-        OptionSpec<File> optionspec4 = optionparser.accepts("resourcePackDir").withRequiredArg().<File>ofType(File.class);
+        OptionSpec<File> optionspec3 = optionparser.accepts("assetsDir").withRequiredArg().ofType(File.class);
+        OptionSpec<File> optionspec4 = optionparser.accepts("resourcePackDir").withRequiredArg().ofType(File.class);
         OptionSpec<String> optionspec5 = optionparser.accepts("proxyHost").withRequiredArg();
         OptionSpec<Integer> optionspec6 = optionparser.accepts("proxyPort").withRequiredArg().defaultsTo("8080", new String[0]).<Integer>ofType(Integer.class);
         OptionSpec<String> optionspec7 = optionparser.accepts("proxyUser").withRequiredArg();
         OptionSpec<String> optionspec8 = optionparser.accepts("proxyPass").withRequiredArg();
-        OptionSpec<String> optionspec9 = optionparser.accepts("username").withRequiredArg().defaultsTo("stable" + Minecraft.getSystemTime() % 1000L);
+        OptionSpec<String> optionspec9 = optionparser.accepts("username").withRequiredArg().defaultsTo(Client.NAME + Minecraft.getSystemTime() % 1000L);
         OptionSpec<String> optionspec10 = optionparser.accepts("uuid").withRequiredArg();
         OptionSpec<String> optionspec11 = optionparser.accepts("accessToken").withRequiredArg().required();
         OptionSpec<String> optionspec12 = optionparser.accepts("version").withRequiredArg().required();

@@ -118,6 +118,10 @@ public class Scaffold extends Module {
 
     @Override
     public void onMotionEvent(MotionEvent e) {
+        if (!Keyboard.isKeyDown(mc.gameSettings.keyBindJump.getKeyCode())) {
+            mc.gameSettings.keyBindJump.pressed = false;
+        }
+
         if (sprintMode.is("Watchdog") && mc.thePlayer.onGround && MovementUtils.isMoving()) {
             mc.thePlayer.setSprinting(false);
             MovementUtils.setSpeed(this.JumpStrafe.getValue());
@@ -372,6 +376,7 @@ public class Scaffold extends Module {
 
         mc.timer.timerSpeed = 1.0F;
         mc.gameSettings.keyBindSneak.pressed = false;
+        mc.gameSettings.keyBindJump.pressed = false;
         super.onDisable();
     }
 

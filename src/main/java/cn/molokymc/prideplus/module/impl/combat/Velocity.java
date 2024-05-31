@@ -15,6 +15,8 @@ import cn.molokymc.prideplus.module.settings.impl.ModeSetting;
 import cn.molokymc.prideplus.module.settings.impl.NumberSetting;
 import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.entity.RayCastUtil;
+import cn.molokymc.prideplus.utils.entity.RaycastUtils;
+import cn.molokymc.prideplus.utils.math.Rotation;
 import cn.molokymc.prideplus.utils.movementfix.Rise.RotationComponent;
 import cn.molokymc.prideplus.utils.player.RotationUtils;
 import cn.molokymc.prideplus.utils.server.PacketUtils;
@@ -25,6 +27,7 @@ import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.network.play.server.S27PacketExplosion;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 
 
 public class Velocity extends Module {
@@ -53,9 +56,9 @@ public class Velocity extends Module {
                 case "GrimAC":
                     if (s12.getEntityID() == mc.thePlayer.getEntityId()) {
                         this.velocityInput = true;
-                        KillAura killAura = Client.INSTANCE.getModuleCollection().getModule(KillAura.class);
-                        if (killAura.state && KillAura.target != null) {
-                            if (mc.thePlayer.getDistanceToEntity(KillAura.target) <= 3) {
+                        MovingObjectPosition target = RayCastUtil.rayCast(RotationComponent.rotations, 3.6);
+                        if (target.entityHit != null) {
+                            if (mc.thePlayer.getDistanceToEntity(target.entityHit) <= 3.5) {
                                 this.attacking = true;
                                 this.motionNoXZ = this.getMotionNoXZ(s12);
                                 PacketUtils.sendPacket(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
@@ -149,11 +152,12 @@ public class Velocity extends Module {
         if (mode.is("GrimAC")) {
             if (this.velocityInput) {
                 if (this.attacking) {
-                    if (killAura.state && KillAura.target != null) {
-                        if (mc.thePlayer.getDistanceToEntity(KillAura.target) <= killAura.reach.getValue()) {
-                            if (RotationUtils.isMouseOver(RotationComponent.rotations.x, RotationComponent.rotations.y, KillAura.target, 3.5f)) {
+                    MovingObjectPosition target = RayCastUtil.rayCast(RotationComponent.rotations, 3.6);
+                    if (target.entityHit != null) {
+                        if (mc.thePlayer.getDistanceToEntity(target.entityHit) <= killAura.reach.getValue()) {
+                            if (RotationUtils.isMouseOver(RotationComponent.rotations.x, RotationComponent.rotations.y, target.entityHit, 3.5f)) {
                                 for (int i = 0; i < 13; i++) {
-                                    PacketUtils.sendPacketNoEvent(new C02PacketUseEntity(KillAura.target, C02PacketUseEntity.Action.ATTACK));
+                                    PacketUtils.sendPacketNoEvent(new C02PacketUseEntity(target.entityHit, C02PacketUseEntity.Action.ATTACK));
                                     PacketUtils.sendPacketNoEvent(new C0APacketAnimation());
                                 }
                                 mc.thePlayer.motionX = this.motionNoXZ[0];
@@ -162,9 +166,9 @@ public class Velocity extends Module {
                                 C0B = true;
                             }
 
-                        } else if (mc.thePlayer.getDistanceToEntity(KillAura.target) <= 3.0D) {
+                        } else if (mc.thePlayer.getDistanceToEntity(target.entityHit) <= 3.5) {
                             for (int i = 0; i < 13; i++) {
-                                PacketUtils.sendPacketNoEvent(new C02PacketUseEntity(KillAura.target, C02PacketUseEntity.Action.ATTACK));
+                                PacketUtils.sendPacketNoEvent(new C02PacketUseEntity(target.entityHit, C02PacketUseEntity.Action.ATTACK));
                                 PacketUtils.sendPacketNoEvent(new C0APacketAnimation());
                             }
                             mc.thePlayer.motionX = this.motionNoXZ[0];
