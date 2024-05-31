@@ -9,6 +9,8 @@ import cn.molokymc.prideplus.module.impl.movement.Sprint;
 import cn.molokymc.prideplus.ui.notifications.NotificationManager;
 import cn.molokymc.prideplus.ui.notifications.NotificationType;
 
+import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -25,6 +27,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
 import net.minecraft.potion.Potion;
 import net.minecraft.stats.StatBase;
@@ -122,6 +125,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     private Vec3 severPosition;
     public int rotIncrement;
 
+    // ViaForgeMCP
+    private boolean prevOnGround;
+
     public EntityPlayerSP(Minecraft mcIn, World worldIn, NetHandlerPlayClient netHandler, StatFileWriter statFile) {
         super(worldIn, netHandler.getGameProfile());
         this.sendQueue = netHandler;
@@ -189,6 +195,17 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
     }
 
+    // ViaForgeMCP
+    public void emulateIdlePacket(NetHandlerPlayClient instance, Packet<?> p_addToSendQueue_1_) {
+        if (ViaMCPCommon.getManager().getTargetVersion().newerThan(ProtocolVersion.v1_8)) {
+            // <= 1.8 spams the idle packet instead of only sending it when the ground state changes
+            if (this.prevOnGround == this.onGround) {
+                return;
+            }
+        }
+        instance.addToSendQueue(p_addToSendQueue_1_);
+    }
+
     /**
      * called every tick when the player is on foot. Performs all the things that normally happen during movement.
      */
@@ -253,7 +270,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                     } else if (flag3) {
                         this.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(rotationYaw, rotationPitch, onGround));
                     } else {
-                        this.sendQueue.addToSendQueue(new C03PacketPlayer(onGround));
+                        // ViaForgeMCP
+                        this.emulateIdlePacket(this.sendQueue, new C03PacketPlayer(onGround));
+                        //this.sendQueue.addToSendQueue(new C03PacketPlayer(this.onGround));
                     }
                     //Disabler.processPackets();
                 } else {
@@ -286,6 +305,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             Client.INSTANCE.getEventProtocol().handleEvent(motionEvent);
             this.rotationPitchHead = motionEvent.getPitch();
         }
+
+        this.prevOnGround = this.onGround;
 
         LegitUpdateEvent event2 = new LegitUpdateEvent(true);
         Client.INSTANCE.getEventProtocol().handleEvent(event2);

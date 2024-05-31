@@ -1,102 +1,61 @@
+/*
+ * This file is part of ViaForgeMCP - https://github.com/MolokyMC/ViaForgeMCP
+ * Copyright (C) 2021-2024 FlorianMichael/EnZaXD <florian.michael07@gmail.com> and contributors
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package cn.molokymc.prideplus.viamcp;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.viaversion.viaversion.ViaManagerImpl;
-import com.viaversion.viaversion.api.Via;
-import com.viaversion.viaversion.api.data.MappingDataLoader;
-import io.netty.channel.EventLoop;
-import io.netty.channel.local.LocalEventLoopGroup;
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.logging.log4j.LogManager;
-import cn.molokymc.prideplus.viamcp.gui.AsyncVersionSlider;
-import cn.molokymc.prideplus.viamcp.loader.MCPBackwardsLoader;
-import cn.molokymc.prideplus.viamcp.loader.MCPRewindLoader;
-import cn.molokymc.prideplus.viamcp.loader.MCPViaLoader;
-import cn.molokymc.prideplus.viamcp.platform.MCPViaInjector;
-import cn.molokymc.prideplus.viamcp.platform.MCPViaPlatform;
-import cn.molokymc.prideplus.viamcp.utils.JLoggerToLog4j;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.Session;
+import net.raphimc.vialegacy.protocols.release.protocol1_8to1_7_6_10.providers.GameProfileFetcher;
+import cn.molokymc.prideplus.viamcp.common.platform.VFPlatform;
+import cn.molokymc.prideplus.viamcp.provider.ViaMCPGameProfileFetcher;
 
 import java.io.File;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.logging.Logger;
+import java.util.function.Supplier;
 
-public class ViaMCP
-{
-    public final static int PROTOCOL_VERSION = 47;
-    @Getter
-    private static final ViaMCP instance = new ViaMCP();
+public class ViaMCP implements VFPlatform {
+    
+    public static final ViaMCP PLATFORM = new ViaMCP();
 
-    @Getter
-    private final Logger jLogger = new JLoggerToLog4j(LogManager.getLogger("ViaMCP"));
-    private final CompletableFuture<Void> INIT_FUTURE = new CompletableFuture<>();
-
-    private ExecutorService ASYNC_EXEC;
-    private EventLoop EVENT_LOOP;
-
-    @Setter
-    @Getter
-    private File file;
-    @Setter
-    @Getter
-    private int version;
-    @Setter
-    @Getter
-    private String lastServer;
-
-    /**
-     * Version Slider that works Asynchronously with the Version GUI
-     * Please initialize this before usage, with initAsyncSlider() or initAsyncSlider(x, y, width (min. 110), height)
-     */
-    public AsyncVersionSlider asyncSlider;
-
-    public void start()
-    {
-        ThreadFactory factory = new ThreadFactoryBuilder().setDaemon(true).setNameFormat("ViaMCP-%d").build();
-        ASYNC_EXEC = Executors.newFixedThreadPool(8, factory);
-
-        EVENT_LOOP = new LocalEventLoopGroup(1, factory).next();
-        EVENT_LOOP.submit(INIT_FUTURE::join);
-
-        setVersion(PROTOCOL_VERSION);
-        this.file = new File("ViaMCP");
-        if (this.file.mkdir())
-        {
-            this.getJLogger().info("Creating ViaMCP Folder");
-        }
-
-        Via.init(ViaManagerImpl.builder().injector(new MCPViaInjector()).loader(new MCPViaLoader()).platform(new MCPViaPlatform(file)).build());
-
-        MappingDataLoader.enableMappingsCache();
-        ((ViaManagerImpl) Via.getManager()).init();
-
-        new MCPBackwardsLoader(file);
-        new MCPRewindLoader(file);
-
-        INIT_FUTURE.complete(null);
+    @Override
+    public int getGameVersion() {
+        return 47;
     }
 
-    public void initAsyncSlider()
-    {
-        this.initAsyncSlider(5, 5, 110, 20);
+    @Override
+    public Supplier<Boolean> isSingleplayer() {
+        return () -> Minecraft.getMinecraft().isSingleplayer();
     }
 
-    public void initAsyncSlider(int x, int y, int width, int height)
-    {
-        asyncSlider = new AsyncVersionSlider(-1, x, y, Math.max(width, 110), height);
+    @Override
+    public File getLeadingDirectory() {
+        return Minecraft.getMinecraft().mcDataDir;
     }
 
-    public ExecutorService getAsyncExecutor()
-    {
-        return ASYNC_EXEC;
+    @Override
+    public void joinServer(String serverId) throws Throwable {
+        final Session session = Minecraft.getMinecraft().getSession();
+
+        Minecraft.getMinecraft().getSessionService().joinServer(session.getProfile(), session.getToken(), serverId);
     }
 
-    public EventLoop getEventLoop()
-    {
-        return EVENT_LOOP;
+    @Override
+    public GameProfileFetcher getGameProfileFetcher() {
+        return new ViaMCPGameProfileFetcher();
     }
-
+    
 }

@@ -1,6 +1,8 @@
 package cn.molokymc.prideplus.module.impl.combat;
 
 import cn.molokymc.prideplus.viamcp.ViaMCP;
+import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
+import com.viaversion.viarewind.protocol.protocol1_8to1_9.Protocol1_8To1_9;
 import com.viaversion.viaversion.api.Via;
 import com.viaversion.viaversion.api.protocol.packet.PacketWrapper;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
@@ -28,8 +30,6 @@ import cn.molokymc.prideplus.utils.player.RotationUtils;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
 import cn.molokymc.prideplus.utils.server.PacketUtils;
 import cn.molokymc.prideplus.utils.time.TimerUtil;
-import de.gerrygames.viarewind.protocol.protocol1_8to1_9.Protocol1_8TO1_9;
-import de.gerrygames.viarewind.utils.PacketUtil;
 import lombok.SneakyThrows;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -136,7 +136,7 @@ public final class KillAura extends Module {
         }
     }
     private void attackEntity(final Entity target) {
-        if (ViaMCP.getInstance().getVersion() <= ProtocolVersion.v1_8.getVersion()) {
+        if (ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8)) {
             mc.thePlayer.swingItem();
             mc.playerController.attackEntity(mc.thePlayer, mc.objectMouseOver.entityHit);
         } else {
@@ -178,7 +178,7 @@ public final class KillAura extends Module {
                             PacketUtils.sendPacketNoEvent(new C08PacketPlayerBlockPlacement(new BlockPos(-1, -1, -1), 255, mc.thePlayer.inventory.getCurrentItem(), 0.0F, 0.0F, 0.0F));
                             PacketWrapper useItem = PacketWrapper.create(29, null, Via.getManager().getConnectionManager().getConnections().iterator().next());
                             useItem.write(Type.VAR_INT, 1);
-                            PacketUtil.sendToServer(useItem, Protocol1_8TO1_9.class, true, true);
+                            useItem.sendToServer(Protocol1_8To1_9.class, true);
                             wasBlocking = true;
                         }
                         break;
@@ -189,12 +189,12 @@ public final class KillAura extends Module {
                             PacketWrapper use_0 = PacketWrapper.create(29, null,
                                     Via.getManager().getConnectionManager().getConnections().iterator().next());
                             use_0.write(Type.VAR_INT, 0);
-                            PacketUtil.sendToServer(use_0, Protocol1_8TO1_9.class, true, true);
+                            use_0.sendToServer(Protocol1_8To1_9.class, true);
 
                             PacketWrapper use_1 = PacketWrapper.create(29, null,
                                     Via.getManager().getConnectionManager().getConnections().iterator().next());
                             use_1.write(Type.VAR_INT, 1);
-                            PacketUtil.sendToServer(use_1, Protocol1_8TO1_9.class, true, true);
+                            use_1.sendToServer(Protocol1_8To1_9.class, true);
                             mc.gameSettings.keyBindUseItem.pressed = true;
                             wasBlocking = true;
                         }
@@ -243,7 +243,7 @@ public final class KillAura extends Module {
 
                     if (!attackEvent.isCancelled()) {
                         //AttackOrder.sendFixedAttack(mc.thePlayer, entityLivingBase);
-                        if (ViaMCP.getInstance().getVersion() <= ProtocolVersion.v1_8.getVersion()) {
+                        if (ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8)) {
                             mc.thePlayer.swingItem();
                             mc.playerController.attackEntity(mc.thePlayer, mc.objectMouseOver.entityHit);
                         } else {

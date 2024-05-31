@@ -1,11 +1,13 @@
 package net.minecraft.entity.player;
 
+import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import cn.molokymc.prideplus.Client;
 import cn.molokymc.prideplus.event.impl.player.KeepSprintEvent;
 import cn.molokymc.prideplus.viamcp.ViaMCP;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockDirectional;
@@ -1504,8 +1506,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
      */
     public void jump() {
         super.jump();
-        float f = ViaMCP.getInstance().getVersion() <= 47 ? 0.8F : 0.2F;
-        float f2 = ViaMCP.getInstance().getVersion() <= 47 ? 0.2F : 0.05F;
+        float f = ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8) ? 0.8F : 0.2F;
+        float f2 = ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8) ? 0.2F : 0.05F;
         this.triggerAchievement(StatList.jumpStat);
 
         if (this.isSprinting()) {

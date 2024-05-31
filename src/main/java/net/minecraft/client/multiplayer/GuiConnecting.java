@@ -1,5 +1,9 @@
 package net.minecraft.client.multiplayer;
 
+import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
+import cn.molokymc.prideplus.viamcp.common.gui.ExtendedServerData;
+import cn.molokymc.prideplus.viamcp.common.platform.VersionTracker;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiDisconnected;
@@ -53,8 +57,15 @@ public class GuiConnecting extends GuiScreen {
                     if (GuiConnecting.this.cancel) {
                         return;
                     }
+                    // ViaForgeMCP
+                    final InetAddress address = InetAddress.getByName(ip);
+                    ProtocolVersion version = ((ExtendedServerData) Minecraft.getMinecraft().getCurrentServerData()).getVersion();
+                    if (version == null) {
+                        version = ViaMCPCommon.getManager().getTargetVersion();
+                    }
+                    VersionTracker.storeServerProtocolVersion(address, version);
 
-                    inetaddress = InetAddress.getByName(ip);
+                    inetaddress = address; // ViaForgeMCP
                     GuiConnecting.this.networkManager = NetworkManager.createNetworkManagerAndConnect(inetaddress, port, GuiConnecting.this.mc2.gameSettings.isUsingNativeTransport());
                     GuiConnecting.this.networkManager.setNetHandler(new NetHandlerLoginClient(GuiConnecting.this.networkManager, GuiConnecting.this.mc2, GuiConnecting.this.previousGuiScreen));
                     GuiConnecting.this.networkManager.sendPacket(new C00Handshake(47, ip, port, EnumConnectionState.LOGIN));

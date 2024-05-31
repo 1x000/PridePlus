@@ -1,6 +1,7 @@
 package net.minecraft.client;
 
 import cn.molokymc.prideplus.viamcp.ViaMCP;
+import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
@@ -1296,11 +1297,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
             Client.INSTANCE.getEventProtocol().handleEvent(e);
 
-            if (this.objectMouseOver != null && this.objectMouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.ENTITY) {
+            // ViaForgeMCP
+            if (ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8))
                 this.thePlayer.swingItem();
-            }
-//            this.thePlayer.swingItem();
-            //AttackOrder.sendConditionalSwing(this.objectMouseOver);
 
             if (this.objectMouseOver == null) {
                 logger.error("Null returned as 'hitResult', this shouldn't happen!");
@@ -1311,15 +1310,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             } else {
                 switch (this.objectMouseOver.typeOfHit) {
                     case ENTITY:
-//                        this.playerController.attackEntity(this.thePlayer, this.objectMouseOver.entityHit);
-                        if (ViaMCP.getInstance().getVersion() <= ProtocolVersion.v1_8.getVersion()) {
-                            this.thePlayer.swingItem();
-                            this.playerController.attackEntity(this.thePlayer, this.objectMouseOver.entityHit);
-                        } else {
-                            this.playerController.attackEntity(this.thePlayer, this.objectMouseOver.entityHit);
-                            this.thePlayer.swingItem();
-                        }
-                        //AttackOrder.sendFixedAttack(this.thePlayer, this.objectMouseOver.entityHit);
+                        this.playerController.attackEntity(this.thePlayer, this.objectMouseOver.entityHit);
                         break;
 
                     case BLOCK:
@@ -1337,6 +1328,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                         }
                 }
             }
+
+            // ViaForgeMCP
+            if (ViaMCPCommon.getManager().getTargetVersion().newerThan(ProtocolVersion.v1_8))
+                this.thePlayer.swingItem();
         }
     }
 

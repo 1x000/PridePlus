@@ -1,6 +1,8 @@
 package net.minecraft.network.play.client;
 
 import java.io.IOException;
+
+import cn.molokymc.prideplus.viamcp.versionfix.VersionFixer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
@@ -44,9 +46,9 @@ public class C08PacketPlayerBlockPlacement implements Packet<INetHandlerPlayServ
         this.position = buf.readBlockPos();
         this.placedBlockDirection = buf.readUnsignedByte();
         this.stack = buf.readItemStackFromBuffer();
-        this.facingX = (float)buf.readUnsignedByte() / 16.0F;
-        this.facingY = (float)buf.readUnsignedByte() / 16.0F;
-        this.facingZ = (float)buf.readUnsignedByte() / 16.0F;
+        this.facingX = (float)buf.readUnsignedByte() / VersionFixer.c08PacketFix(16.0F);
+        this.facingY = (float)buf.readUnsignedByte() / VersionFixer.c08PacketFix(16.0F);
+        this.facingZ = (float)buf.readUnsignedByte() / VersionFixer.c08PacketFix(16.0F);
     }
 
     /**
@@ -57,9 +59,9 @@ public class C08PacketPlayerBlockPlacement implements Packet<INetHandlerPlayServ
         buf.writeBlockPos(this.position);
         buf.writeByte(this.placedBlockDirection);
         buf.writeItemStackToBuffer(this.stack);
-        buf.writeByte((int)(this.facingX * 16.0F));
-        buf.writeByte((int)(this.facingY * 16.0F));
-        buf.writeByte((int)(this.facingZ * 16.0F));
+        buf.writeByte((int)(this.facingX * VersionFixer.c08PacketFix(16.0F)));
+        buf.writeByte((int)(this.facingY * VersionFixer.c08PacketFix(16.0F)));
+        buf.writeByte((int)(this.facingZ * VersionFixer.c08PacketFix(16.0F)));
     }
 
     /**

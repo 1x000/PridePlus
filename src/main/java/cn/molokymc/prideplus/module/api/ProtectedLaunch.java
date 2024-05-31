@@ -169,19 +169,6 @@ public class ProtectedLaunch {
         DragManager.loadDragData();
 
         Client.INSTANCE.setAltManager(new GuiAltManager());
-
-        try {
-            delete(Minecraft.getMinecraft().mcDataDir + "/ViaMCP");
-
-            ViaMCP.getInstance().start();
-            ViaMCP.getInstance().initAsyncSlider();
-
-            // In case you want a version slider like in the Minecraft options, you can use this code here, please choose one of those:
-            // For top left aligned slider
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
 

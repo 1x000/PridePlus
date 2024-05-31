@@ -1,9 +1,12 @@
 package net.minecraft.client.gui;
 
+import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
+import cn.molokymc.prideplus.viamcp.common.platform.ViaMCPConfig;
+import cn.molokymc.prideplus.viamcp.gui.GuiProtocolSelector;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import cn.molokymc.prideplus.utils.server.ServerUtils;
-import cn.molokymc.prideplus.viamcp.gui.AsyncVersionSlider;
+import com.viaversion.viaversion.util.Pair;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
@@ -91,7 +94,13 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         this.buttonList.add(new GuiButton(8, this.width / 2 + 4, this.height - 28, 70, 20, I18n.format("selectServer.refresh")));
         this.buttonList.add(new GuiButton(0, this.width / 2 + 4 + 76, this.height - 28, 75, 20, I18n.format("gui.cancel")));
 //        this.buttonList.add(new GuiButton(1337, this.width - 104, 5, 100, 20, "Protocol Switcher"));
-        this.buttonList.add(new AsyncVersionSlider(1337,  this.width - 114, 5, 110, 20));
+        // ViaForgeMCP
+        final ViaMCPConfig config = ViaMCPCommon.getManager().getConfig();
+        if (config.isShowMultiplayerButton()) {
+            final Pair<Integer, Integer> pos = config.getViaForgeButtonPosition().getPosition(this.width, this.height);
+
+            buttonList.add(new GuiButton(1_000_000_000, pos.key(), pos.value(), 100, 20, "ViaMCP"));
+        }
         this.selectServer(this.serverListSelector.func_148193_k());
     }
 
@@ -161,6 +170,13 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
                 this.mc2.displayGuiScreen(this.parentScreen);
             } else if (button.id == 8) {
                 this.refreshServerList();
+            }
+        }
+
+        // ViaForgeMCP
+        if (ViaMCPCommon.getManager().getConfig().isShowMultiplayerButton()) {
+            if (button.id == 1_000_000_000) {
+                mc.displayGuiScreen(new GuiProtocolSelector(this));
             }
         }
     }

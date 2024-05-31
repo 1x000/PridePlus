@@ -1,10 +1,12 @@
 package net.minecraft.client.multiplayer;
 
+import cn.molokymc.prideplus.viamcp.common.gui.ExtendedServerData;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 
-public class ServerData
+public class ServerData implements ExtendedServerData
 {
     public String serverName;
     public String serverIP;
@@ -35,6 +37,9 @@ public class ServerData
     /** True if the server is a LAN server */
     private boolean lanServer;
 
+    // ViaForgeMCP
+    private ProtocolVersion viaMCPVersion;
+
     public ServerData(String name, String ip, boolean isLan)
     {
         this.serverName = name;
@@ -48,6 +53,12 @@ public class ServerData
     public NBTTagCompound getNBTCompound()
     {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
+
+        // ViaForgeMCP
+        if (viaMCPVersion != null) {
+            nbttagcompound.setString("viaMCPVersion", viaMCPVersion.getName());
+        }
+
         nbttagcompound.setString("name", this.serverName);
         nbttagcompound.setString("ip", this.serverIP);
 
@@ -106,6 +117,11 @@ public class ServerData
             serverdata.setResourceMode(ServerData.ServerResourceMode.PROMPT);
         }
 
+        // ViaForgeMCP
+        if (nbtCompound.hasKey("viaMCPVersion")) {
+            serverdata.setVersion(ProtocolVersion.getClosest(nbtCompound.getString("viaMCPVersion")));
+        }
+
         return serverdata;
     }
 
@@ -132,11 +148,26 @@ public class ServerData
 
     public void copyFrom(ServerData serverDataIn)
     {
+        // ViaForgeMCP
+        if (serverDataIn instanceof ExtendedServerData) {
+            viaMCPVersion = serverDataIn.getVersion();
+        }
+
         this.serverIP = serverDataIn.serverIP;
         this.serverName = serverDataIn.serverName;
         this.setResourceMode(serverDataIn.getResourceMode());
         this.serverIcon = serverDataIn.serverIcon;
         this.lanServer = serverDataIn.lanServer;
+    }
+
+    @Override
+    public ProtocolVersion getVersion() {
+        return viaMCPVersion;
+    }
+
+    @Override
+    public void setVersion(ProtocolVersion version) {
+        viaMCPVersion = version;
     }
 
     public static enum ServerResourceMode

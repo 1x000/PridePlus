@@ -1,5 +1,6 @@
 package net.minecraft.entity;
 
+import cn.molokymc.prideplus.viamcp.versionfix.VersionFixer;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Maps;
@@ -1751,7 +1752,7 @@ public abstract class EntityLivingBase extends Entity {
             this.motionY *= 0.98D;
             this.motionZ *= 0.98D;
         }
-        double minMotion = ViaMCP.getInstance().getVersion() <= 47 ? 0.005D : 0.003D;
+        double minMotion = VersionFixer.movementFix(0.005D);
 
         if (Math.abs(this.motionX) < minMotion) {
             this.motionX = 0.0D;

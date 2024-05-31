@@ -1,10 +1,14 @@
 package net.minecraft.client.network;
 
+import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
+import cn.molokymc.prideplus.viamcp.common.gui.ExtendedServerData;
+import cn.molokymc.prideplus.viamcp.common.platform.VersionTracker;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -42,9 +46,23 @@ public class OldServerPinger
     private static final Logger logger = LogManager.getLogger();
     private final List<NetworkManager> pingDestinations = Collections.<NetworkManager>synchronizedList(Lists.<NetworkManager>newArrayList());
 
+    // ViaForgeMCP
+    private ServerData serverData;
+
     public void ping(final ServerData server) throws UnknownHostException
     {
+        serverData = server;
+
         ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
+
+        // ViaForgeMCP
+        ProtocolVersion version = ((ExtendedServerData) serverData).getVersion();
+        if (version == null) {
+            version = ViaMCPCommon.getManager().getTargetVersion();
+        }
+        VersionTracker.storeServerProtocolVersion(InetAddress.getByName(serveraddress.getIP()), version);
+        serverData = null;
+
         final NetworkManager networkmanager = NetworkManager.createNetworkManagerAndConnect(InetAddress.getByName(serveraddress.getIP()), serveraddress.getPort(), false);
         this.pingDestinations.add(networkmanager);
         server.serverMOTD = "Pinging...";

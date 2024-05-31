@@ -1,5 +1,7 @@
 package net.minecraft.client.gui;
 
+import cn.molokymc.prideplus.viamcp.ViaMCP;
+import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import com.google.common.collect.Lists;
 import cn.molokymc.prideplus.Client;
 import cn.molokymc.prideplus.ui.mainmenu.CustomMainMenu;
@@ -246,6 +248,9 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
             this.M.a(this.width, this.height);
             this.M.initGui();
         }
+
+        // ViaForgeMCP
+        ViaMCPCommon.init(ViaMCP.PLATFORM);
     }
 
     /**

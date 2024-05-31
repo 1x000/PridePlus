@@ -7,6 +7,7 @@ import cn.molokymc.prideplus.event.impl.player.StepConfirmEvent;
 import cn.molokymc.prideplus.event.impl.player.Vector3d;
 import cn.molokymc.prideplus.module.impl.movement.Flight;
 import cn.molokymc.prideplus.viamcp.ViaMCP;
+import cn.molokymc.prideplus.viamcp.versionfix.VersionFixer;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -1894,8 +1895,8 @@ public abstract class Entity implements ICommandSender {
     }
 
     public float getCollisionBorderSize() {
-        return ViaMCP.getInstance().getVersion() <= 47 ? 0.1F : 0.0F;
-
+        // ViaForgeMCP
+        return VersionFixer.entityBorderFix(0.1F);
     }
 
     /**
