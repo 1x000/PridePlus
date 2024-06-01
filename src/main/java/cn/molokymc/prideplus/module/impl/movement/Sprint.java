@@ -61,6 +61,7 @@ public class Sprint extends Module {
 
     @Override
     public void onDisable() {
+        if (mc.thePlayer == null) return;
         mc.thePlayer.setSprinting(false);
         mc.gameSettings.keyBindSprint.pressed = false;
         super.onDisable();

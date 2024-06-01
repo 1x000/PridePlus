@@ -228,7 +228,11 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable
      */
     public void update()
     {
-        this.sndManager.updateAllSounds();
+        try {
+            this.sndManager.updateAllSounds();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void resumeSounds()
