@@ -15,7 +15,7 @@ public class DragManager {
     public static HashMap<String, Dragging> draggables = new HashMap<>();
 
     private static final File DRAG_DATA = new File(Pride.DIRECTORY, "Drag.json");
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().setLenient().create();
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 
     public static void saveDragData() {
         if (!DRAG_DATA.exists()) {

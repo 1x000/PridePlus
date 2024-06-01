@@ -17,7 +17,9 @@ import cn.molokymc.prideplus.module.impl.player.*;
 import cn.molokymc.prideplus.module.impl.render.*;
 import cn.molokymc.prideplus.module.impl.render.killeffects.KillEffects;
 import cn.molokymc.prideplus.scripting.api.ScriptManager;
-import cn.molokymc.prideplus.ui.altmanager.GuiAltManager;
+import cn.molokymc.prideplus.ui.alt.AltManager;
+import cn.molokymc.prideplus.ui.alt.GuiAltManager;
+import cn.molokymc.prideplus.ui.mainmenu.CustomMainMenu;
 import cn.molokymc.prideplus.utils.movementfix.BadPacketsComponent;
 import cn.molokymc.prideplus.utils.movementfix.FallDistanceComponent;
 import cn.molokymc.prideplus.utils.movementfix.Rise.RotationComponent;
@@ -30,6 +32,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ForceUnicodeChat;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -171,7 +174,13 @@ public class ProtectedLaunch {
 
         DragManager.loadDragData();
 
-        Pride.INSTANCE.setAltManager(new GuiAltManager());
+        try {
+            AltManager.Instance.readAlt();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Pride.INSTANCE.setAltManager(new GuiAltManager(new CustomMainMenu()));
     }
 
 

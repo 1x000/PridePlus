@@ -9,8 +9,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import org.lwjgl.compatibility.util.glu.GLU;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.glu.GLU;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -56,7 +56,7 @@ public class ActiveRenderInfo
     {
         GlStateManager.getFloat(2982, MODELVIEW);
         GlStateManager.getFloat(2983, PROJECTION);
-        GL11.glGetInteger(GL11.GL_VIEWPORT, VIEWPORT);
+        GL11.glGetIntegerv(GL11.GL_VIEWPORT, VIEWPORT);
         float f = (float)((VIEWPORT.get(0) + VIEWPORT.get(2)) / 2);
         float f1 = (float)((VIEWPORT.get(1) + VIEWPORT.get(3)) / 2);
         GLU.gluUnProject(f, f1, 0.0F, MODELVIEW, PROJECTION, VIEWPORT, OBJECTCOORDS);

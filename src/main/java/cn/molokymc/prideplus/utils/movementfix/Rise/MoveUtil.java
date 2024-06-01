@@ -9,7 +9,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
-import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.compatibility.util.vector.Vector2f;
 
 import java.util.Arrays;
 

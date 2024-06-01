@@ -6,7 +6,7 @@ import cn.molokymc.prideplus.event.impl.player.SyncCurrentItemEvent;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 
-import static cn.molokymc.prideplus.ui.altmanager.helpers.Alt.mc;
+import static cn.molokymc.prideplus.utils.Utils.mc;
 
 public final class SlotComponent extends ListenerAdapter {
 

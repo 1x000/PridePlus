@@ -12,9 +12,9 @@ import cn.molokymc.prideplus.event.impl.game.WorldEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
 
-import jdk.nashorn.api.scripting.JSObject;
 import lombok.Getter;
 import lombok.Setter;
+import org.openjdk.nashorn.api.scripting.JSObject;
 
 import java.io.File;
 import java.util.HashMap;
@@ -28,7 +28,7 @@ public class ScriptModule extends Module {
     @Setter
     private boolean reloadable = true;
 
-    public ScriptModule(String name,String cname, String description, HashMap<String, JSObject> events, String author, File file) {
+    public ScriptModule(String name, String cname, String description, HashMap<String, JSObject> events, String author, File file) {
         super(name, cname,Category.SCRIPTS, description);
         eventMap = events;
         this.file = file;

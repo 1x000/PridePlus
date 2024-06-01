@@ -18,6 +18,7 @@ import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.network.play.server.S32PacketConfirmTransaction;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public final class Timer extends Module {
@@ -53,7 +54,6 @@ public final class Timer extends Module {
 
     @Override
     public void onTickEvent(TickEvent e) {
-        System.out.println(1);
         this.setSuffix(timerSpeed.getValue().toString());
 
         if (mods.is("Normal")) {
@@ -111,7 +111,8 @@ public final class Timer extends Module {
                 this.setState(false);
             }
             int timer;
-            ChatUtil.print(String.valueOf(transactions.size()));
+            // ChatUtil.print(String.valueOf(transactions.size()));
+            mc.fontRendererObj.drawCenteredStringWithShadow(String.valueOf(transactions.size()), (float) event.sr.getScaledWidth() / 2, (float) event.sr.getScaledHeight() / 2 + 20, Color.WHITE.getRGB());
             if (!Keyboard.isKeyDown(mc.gameSettings.keyBindForward.getKeyCode())) {
                 timer = 500;
             } else {

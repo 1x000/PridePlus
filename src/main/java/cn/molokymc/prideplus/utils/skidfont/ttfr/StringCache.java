@@ -815,8 +815,8 @@ public class StringCache {
                 key = new Key();
 
                 /* Make a copy of the original String to avoid creating a strong reference to it */
-                key.str = new String(str);
-                entry.keyRef = new WeakReference(key);
+                key.str = str;
+                entry.keyRef = new WeakReference<>(key);
                 stringCache.put(key, entry);
             }
         }
@@ -968,7 +968,7 @@ public class StringCache {
                 /* Reorder contiguous runs of text into their display order from left to right */
                 for (int index = 0; index < runCount; index++) {
                     levels[index] = (byte) bidi.getRunLevel(index);
-                    ranges[index] = new Integer(index);
+                    ranges[index] = index;
                 }
                 Bidi.reorderVisually(levels, 0, ranges, 0, runCount);
 

@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.render.mobends.util;
 
-import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.compatibility.util.vector.Vector3f;
 
 public class GUtil {
 	public static float max(float argNum, float argMax){

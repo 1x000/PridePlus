@@ -32,6 +32,10 @@ public class AnimationUtil {
         return animation + dif;
     }
 
+    public static double easing(double now,double target,double speed) {
+        return Math.abs(target - now) * speed;
+    }
+
     public static float moveUDSmooth(final float current, final float end) {
         return moveUD(current, end);
     }

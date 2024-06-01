@@ -183,7 +183,11 @@ public class CustomMainMenu extends GuiScreen {
     public void drawChangelog() {
         FontManager.edit13.drawString("Changelog", 1.5, 1, Colors.getColor(255, 255, 255, 200));
         String[] Changelog = {
-                "[+]第一次推送",
+                "[+]升级到Java21",
+                "[+]升级到LWJGL3",
+                "[~]替换了AltManager",
+                "[~]修复了Scaffold",
+                "[-]移除了原Stable的无用Event",
         };
         int i = 0;
         for (String s : Changelog) {

@@ -28,7 +28,7 @@ implements Utils {
             ++i;
         }
         weightBuffer.rewind();
-        GL20.glUniform1((int)gaussianBlur.getUniform("weights"), (FloatBuffer)weightBuffer);
+        GL20.glUniform1fv(gaussianBlur.getUniform("weights"), weightBuffer);
     }
 
     public static void startBlur() {

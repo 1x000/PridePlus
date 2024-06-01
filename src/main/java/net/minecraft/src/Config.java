@@ -29,8 +29,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.LWJGLException;
-import org.lwjgl.Sys;
-import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.compatibility.Sys;
+import org.lwjgl.compatibility.display.Display;
+import org.lwjgl.compatibility.display.PixelFormat;
+import org.lwjgl.compatibility.opengl.GLContext;
 import org.lwjgl.opengl.*;
 
 import javax.imageio.ImageIO;
@@ -45,6 +47,8 @@ import java.util.List;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.lwjgl.compatibility.display.DisplayMode;
 
 public class Config
 {
@@ -1991,7 +1995,7 @@ public class Config
                 }
 
                 updateFramebufferSize();
-                Display.setFullscreen(true);
+                Display.toggleFullScreen();
                 minecraft.gameSettings.updateVSync();
                 GlStateManager.enableTexture2D();
             }

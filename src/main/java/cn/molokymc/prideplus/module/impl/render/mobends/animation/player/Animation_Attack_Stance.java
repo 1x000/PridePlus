@@ -5,7 +5,7 @@ import cn.molokymc.prideplus.module.impl.render.mobends.client.model.entity.Mode
 import cn.molokymc.prideplus.module.impl.render.mobends.data.Data_Player;
 import net.minecraft.entity.player.EntityPlayer;
 
-import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.compatibility.util.vector.Vector3f;
 
 public class Animation_Attack_Stance {
 	public static void animate(EntityPlayer player, ModelBendsPlayer model, Data_Player data){

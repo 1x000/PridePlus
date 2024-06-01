@@ -1,5 +1,6 @@
 package net.minecraft.client.gui;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.IChatComponent;
 
 public class ChatLine
@@ -13,11 +14,15 @@ public class ChatLine
      */
     private final int chatLineID;
 
+    public double animationX;
+
     public ChatLine(int p_i45000_1_, IChatComponent p_i45000_2_, int p_i45000_3_)
     {
         this.lineString = p_i45000_2_;
         this.updateCounterCreated = p_i45000_1_;
         this.chatLineID = p_i45000_3_;
+
+        animationX = -Minecraft.getMinecraft().fontRendererObj.getStringWidth(p_i45000_2_.getFormattedText());
     }
 
     public IChatComponent getChatComponent()

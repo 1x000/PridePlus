@@ -21,7 +21,7 @@ import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.compatibility.util.vector.Vector3f;
 
 public class ModelBendsPlayer extends ModelPlayer {
     public ModelRendererBends bipedRightForeArm;

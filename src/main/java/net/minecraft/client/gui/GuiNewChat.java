@@ -2,6 +2,8 @@ package net.minecraft.client.gui;
 
 import cn.molokymc.prideplus.module.impl.render.HUDMod;
 
+import cn.molokymc.prideplus.utils.animations.AnimationUtil;
+import cn.molokymc.prideplus.utils.render.RenderUtil;
 import com.google.common.collect.Lists;
 import cn.molokymc.prideplus.utils.skidfont.FontManager;
 import cn.molokymc.prideplus.utils.render.ColorUtil;
@@ -30,190 +32,107 @@ public class GuiNewChat
     public static int chatPos = 17;
     private int scrollPos;
     private boolean isScrolled;
-    private double n;
-    private double o;
-    private double h;
 
     public GuiNewChat(Minecraft mcIn) {
         this.mc = mcIn;
     }
 
-    public void renderChatBox() {
-        ScaledResolution sr = new ScaledResolution(this.mc);
-        int updateCounter = this.mc.ingameGUI.getUpdateCounter();
-        if (this.drawnChatLines.size() <= 0) {
-            return;
-        }
-        FontDrawer fr = FontManager.edit15;
-        if (this.mc.gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN) {
-            int i = this.getLineCount();
-            boolean flag = false;
-            int j = 0;
-            int k = this.drawnChatLines.size();
-            float f = this.mc.gameSettings.chatOpacity * 0.9f + 0.1f;
-            if (k > 0) {
-                if (this.getChatOpen()) {
-                    flag = true;
-                }
-                float f1 = this.getChatScale();
-                int l = MathHelper.ceiling_float_int((float)this.getChatWidth() / f1);
-                GlStateManager.pushMatrix();
-                GlStateManager.translate(2.0f, (float)(sr.getScaledHeight() - 48) + ((float)chatPos - 16.0f * GuiChat.openingAnimation.getOutput().floatValue()), 0.0f);
-                GlStateManager.scale(f1, f1, 1.0f);
-                double f3 = 0.0;
-                double f4 = 0.0;
-                double f5 = 0.0;
-                for (int i1 = 0; i1 + this.scrollPos < this.drawnChatLines.size() && i1 < i; ++i1) {
-                    ChatLine chatline = this.drawnChatLines.get(i1 + this.scrollPos);
-                    if (chatline == null || updateCounter - chatline.getUpdatedCounter() >= 200 && !flag) continue;
-                    double d0 = (double)(updateCounter - chatline.getUpdatedCounter()) / 200.0;
-                    d0 = 1.0 - d0;
-                    d0 *= 10.0;
-                    d0 = MathHelper.clamp_double(d0, 0.0, 1.0);
-                    d0 *= d0;
-                    int l1 = (int)(255.0 * d0);
-                    if (flag) {
-                        l1 = 255;
-                    }
-                    l1 = (int)((float)l1 * f);
-                    ++j;
-                    if (l1 <= 3) continue;
-                    boolean i2 = false;
-                    int j2 = -i1 * 9;
-                    f3 += 9.0;
-                    f4 = l + 4;
-                    f5 = (double)j2 - 9.0;
-                }
-                ScaledResolution scaledResolution = new ScaledResolution(this.mc);
-                this.o = f4;
-                this.n = f3 / (double)f1;
-                this.h = (double)scaledResolution.getScaledHeight() + f5 * (double)f1 - 33.0;
-                j = 0;
-                for (int i1 = 0; i1 + this.scrollPos < this.drawnChatLines.size() && i1 < i; ++i1) {
-                    int j1;
-                    ChatLine chatline = this.drawnChatLines.get(i1 + this.scrollPos);
-                    if (chatline == null || (j1 = updateCounter - chatline.getUpdatedCounter()) >= 200 && !flag) continue;
-                    double d0 = (double)j1 / 200.0;
-                    d0 = 1.0 - d0;
-                    d0 *= 10.0;
-                    d0 = MathHelper.clamp_double(d0, 0.0, 1.0);
-                    d0 *= d0;
-                    int l1 = (int)(255.0 * d0);
-                    if (flag) {
-                        l1 = 255;
-                    }
-                    l1 = (int)((float)l1 * f);
-                    ++j;
-                    if (l1 <= 3) continue;
-                    int i2 = 0;
-                    int j2 = -i1 * 9;
-                    GuiNewChat.drawRect(i2, j2 - 9, i2 + l + 4, j2, ColorUtil.applyOpacity(Color.BLACK, Math.max(1.0f, (float)l1 / 127.5f) - 1.0f).getRGB());
-                    String string = chatline.getChatComponent().getFormattedText();
-                }
-                if (flag) {
-                    int k2 = fr.getHeight();
-                    GlStateManager.translate(-3.0f, 0.0f, 0.0f);
-                    int l2 = k * k2 + k;
-                    int i3 = j * k2 + j;
-                    int j3 = this.scrollPos * i3 / k;
-                    int k1 = i3 * i3 / l2;
-                    if (l2 != i3) {
-                        int k3 = j3 > 0 ? 170 : 96;
-                        int l3 = this.isScrolled ? 0xCC3333 : 0x3333AA;
-                        GuiNewChat.drawRect(0.0, -j3, 2.0, -j3 - k1, l3 + (k3 << 24));
-                        GuiNewChat.drawRect(2.0, -j3, 1.0, -j3 - k1, 0xCCCCCC + (k3 << 24));
-                    }
-                }
-                GlStateManager.popMatrix();
-            }
-        }
-    }
-
     public void drawChat(int updateCounter) {
-        FontDrawer fr = FontManager.edit15;
-        if (this.mc.gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN) {
+        if (this.mc.gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN)
+        {
             int i = this.getLineCount();
             boolean flag = false;
             int j = 0;
             int k = this.drawnChatLines.size();
-            float f = this.mc.gameSettings.chatOpacity * 0.9f + 0.1f;
-            if (k > 0) {
-                if (this.getChatOpen()) {
+            float f = this.mc.gameSettings.chatOpacity * 0.9F + 0.1F;
+
+            if (k > 0)
+            {
+                if (this.getChatOpen())
+                {
                     flag = true;
                 }
+
                 float f1 = this.getChatScale();
                 int l = MathHelper.ceiling_float_int((float)this.getChatWidth() / f1);
                 GlStateManager.pushMatrix();
-                GlStateManager.translate(2.0f, (float)chatPos - 16.0f * GuiChat.openingAnimation.getOutput().floatValue(), 0.0f);
-                GlStateManager.scale(f1, f1, 1.0f);
-                double f3 = 0.0;
-                double f4 = 0.0;
-                double f5 = 0.0;
-                for (int i1 = 0; i1 + this.scrollPos < this.drawnChatLines.size() && i1 < i; ++i1) {
-                    ChatLine chatline = this.drawnChatLines.get(i1 + this.scrollPos);
-                    if (chatline == null || updateCounter - chatline.getUpdatedCounter() >= 200 && !flag) continue;
-                    double d0 = (double)(updateCounter - chatline.getUpdatedCounter()) / 200.0;
-                    d0 = 1.0 - d0;
-                    d0 *= 10.0;
-                    d0 = MathHelper.clamp_double(d0, 0.0, 1.0);
-                    d0 *= d0;
-                    int l1 = (int)(255.0 * d0);
-                    if (flag) {
-                        l1 = 255;
+                GlStateManager.translate(2.0F, 20.0F, 0.0F);
+                GlStateManager.scale(f1, f1, 1.0F);
+
+                for (int i1 = 0; i1 + this.scrollPos < this.drawnChatLines.size() && i1 < i; ++i1)
+                {
+                    ChatLine chatline = (ChatLine)this.drawnChatLines.get(i1 + this.scrollPos);
+
+                    if (chatline != null)
+                    {
+                        int j1 = updateCounter - chatline.getUpdatedCounter();
+
+                        if (j1 < 200 || flag)
+                        {
+                            double d0 = (double)j1 / 200.0D;
+                            d0 = 1.0D - d0;
+                            d0 = d0 * 10.0D;
+                            d0 = MathHelper.clamp_double(d0, 0.0D, 1.0D);
+                            d0 = d0 * d0;
+                            int l1 = (int)(255.0D * d0);
+
+                            if (flag)
+                            {
+                                l1 = 255;
+                            }
+
+                            l1 = (int)((float)l1 * f);
+                            ++j;
+
+                            if (l1 > 3)
+                            {
+                                int i2 = 0;
+                                int j2 = -i1 * 9;
+
+                                if (j1 >= 180) {
+                                    float fontWidth = -(l) - 6;
+                                    chatline.animationX = AnimationUtil.getAnimationState((float) chatline.animationX, fontWidth, (float) Math.max(40, AnimationUtil.easing(chatline.animationX, fontWidth, 10)));
+                                } else {
+                                    chatline.animationX = AnimationUtil.getAnimationState((float) chatline.animationX, 0, (float) Math.max(40, AnimationUtil.easing(chatline.animationX, 0, 10)));
+                                }
+
+                                if (!flag) {
+                                    i2 = (int) chatline.animationX;
+                                }
+
+                                drawRect(i2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
+                                String s = chatline.getChatComponent().getFormattedText();
+                                GlStateManager.enableBlend();
+                                FontManager.rubik16.drawStringWithShadow(s,i2,j2 - 8, 16777215 + (l1 << 24));
+                                //this.mc.fontRenderer.drawStringWithShadow(s, (float)i2, (float)(j2 - 8), 16777215 + (l1 << 24));
+                                GlStateManager.disableAlpha();
+                                GlStateManager.disableBlend();
+                            }
+                        }
                     }
-                    l1 = (int)((float)l1 * f);
-                    ++j;
-                    if (l1 <= 3) continue;
-                    boolean i2 = false;
-                    int j2 = -i1 * 9;
-                    f3 += 9.0;
-                    f4 = l + 4;
-                    f5 = (double)j2 - 9.0;
                 }
-                ScaledResolution scaledResolution = new ScaledResolution(this.mc);
-                this.o = f4;
-                this.n = f3 / (double)f1;
-                this.h = (double)scaledResolution.getScaledHeight() + f5 * (double)f1 - 33.0;
-                j = 0;
-                for (int i1 = 0; i1 + this.scrollPos < this.drawnChatLines.size() && i1 < i; ++i1) {
-                    int j1;
-                    ChatLine chatline = this.drawnChatLines.get(i1 + this.scrollPos);
-                    if (chatline == null || (j1 = updateCounter - chatline.getUpdatedCounter()) >= 200 && !flag) continue;
-                    double d0 = (double)j1 / 200.0;
-                    d0 = 1.0 - d0;
-                    d0 *= 10.0;
-                    d0 = MathHelper.clamp_double(d0, 0.0, 1.0);
-                    d0 *= d0;
-                    int l1 = (int)(255.0 * d0);
-                    if (flag) {
-                        l1 = 255;
-                    }
-                    l1 = (int)((float)l1 * f);
-                    ++j;
-                    if (l1 <= 3) continue;
-                    int i2 = 0;
-                    int j2 = -i1 * 9;
-                    GLUtil.startBlend();
-                    GuiNewChat.drawRect(i2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
-                    String s = chatline.getChatComponent().getFormattedText();
-                    GLUtil.startBlend();
-                    fr.drawStringWithShadow(s, (float)i2, (float)j2 - (HUDMod.customFont.isEnabled() ? 7.5f : 7.5f), 0xFFFFFF + (l1 << 24));
-                    GLUtil.endBlend();
-                }
-                if (flag) {
-                    int k2 = fr.getHeight();
-                    GlStateManager.translate(-3.0f, 0.0f, 0.0f);
+
+                if (flag)
+                {
+                    int k2/* = this.mc.fontRendererObj.FONT_HEIGHT*/;
+
+                    k2 = FontManager.rubik16.getHeight();
+
+                    GlStateManager.translate(-3.0F, 0.0F, 0.0F);
                     int l2 = k * k2 + k;
                     int i3 = j * k2 + j;
                     int j3 = this.scrollPos * i3 / k;
                     int k1 = i3 * i3 / l2;
-                    if (l2 != i3) {
+
+                    if (l2 != i3)
+                    {
                         int k3 = j3 > 0 ? 170 : 96;
-                        int l3 = this.isScrolled ? 0xCC3333 : 0x3333AA;
-                        GuiNewChat.drawRect(0.0, -j3, 2.0, -j3 - k1, l3 + (k3 << 24));
-                        GuiNewChat.drawRect(2.0, -j3, 1.0, -j3 - k1, 0xCCCCCC + (k3 << 24));
+                        int l3 = this.isScrolled ? 13382451 : 3355562;
+                        drawRect(0, -j3, 2, -j3 - k1, l3 + (k3 << 24));
+                        drawRect(2, -j3, 1, -j3 - k1, 13421772 + (k3 << 24));
                     }
                 }
+
                 GlStateManager.popMatrix();
             }
         }

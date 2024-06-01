@@ -27,8 +27,8 @@
   },
   "id": "PridePlus",
   "javaVersion": {
-    "component": "jre-legacy",
-    "majorVersion": 8
+    "component": "java-runtime-delta",
+    "majorVersion": 21
   },
   "libraries": [
     {
@@ -340,11 +340,13 @@
     {
       "downloads": {
         "artifact": {
-          "path": "com/google/code/gson/gson/2.10.1/gson-2.10.1.jar",
-          "url": "https://libraries.minecraft.net/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar"
+          "path": "com/google/code/gson/gson/2.2.4/gson-2.2.4.jar",
+          "sha1": "a60a5e993c98c864010053cb901b7eab25306568",
+          "size": 190432,
+          "url": "https://libraries.minecraft.net/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"
         }
       },
-      "name": "com.google.code.gson:gson:2.10.1"
+      "name": "com.google.code.gson:gson:2.2.4"
     },
     {
       "downloads": {
@@ -753,7 +755,7 @@
   },
   "mainClass": "net.minecraft.client.main.Main",
   "minecraftArguments": "--username ${auth_player_name} --version ${version_name} --gameDir ${game_directory} --assetsDir ${assets_root} --assetIndex ${assets_index_name} --uuid ${auth_uuid} --accessToken ${auth_access_token} --userProperties ${user_properties} --userType ${user_type}",
-  "minimumLauncherVersion": 14,
+  "minimumLauncherVersion": 21,
   "releaseTime": "2024-05-26T14:24:39+12:00",
   "time": "2015-12-03T14:24:39+12:00",
   "type": "release",

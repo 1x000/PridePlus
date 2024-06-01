@@ -6,7 +6,7 @@ import cn.molokymc.prideplus.event.impl.player.*;
 import cn.molokymc.prideplus.utils.math.Vector2f;
 import cn.molokymc.prideplus.utils.movementfix.MovementFix;
 
-import static cn.molokymc.prideplus.ui.altmanager.helpers.Alt.mc;
+import static cn.molokymc.prideplus.utils.Utils.mc;
 
 public final class RotationComponent extends ListenerAdapter {
     private static boolean active, smoothed;

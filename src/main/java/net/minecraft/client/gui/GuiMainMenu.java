@@ -22,9 +22,9 @@ import net.optifine.CustomPanoramaProperties;
 import org.apache.commons.io.Charsets;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.compatibility.opengl.GLContext;
+import org.lwjgl.compatibility.util.glu.Project;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GLContext;
-import org.lwjgl.util.glu.Project;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -16,7 +16,7 @@ import cn.molokymc.prideplus.utils.math.*;
 
 import java.util.Random;
 
-import static cn.molokymc.prideplus.ui.altmanager.helpers.Alt.mc;
+import static cn.molokymc.prideplus.utils.Utils.mc;
 
 @UtilityClass
 
@@ -206,12 +206,8 @@ public class RotationRise {
     }
 
     public static Vector2f applySensitivityPatch(final Vector2f rotation) {
-        final org.lwjgl.util.vector.Vector2f previousRotation = mc.thePlayer.getPreviousRotation();
-        final float mouseSensitivity = (float) (mc.gameSettings.mouseSensitivity * (1 + Math.random() / 10000000) * 0.6F + 0.2F);
-        final double multiplier = mouseSensitivity * mouseSensitivity * mouseSensitivity * 8.0F * 0.15D;
-        final float yaw = previousRotation.x + (float) (Math.round((rotation.x - previousRotation.x) / multiplier) * multiplier);
-        final float pitch = previousRotation.y + (float) (Math.round((rotation.y - previousRotation.y) / multiplier) * multiplier);
-        return new Vector2f(yaw, MathHelper.clamp_float(pitch, -90, 90));
+        final Vector2f previousRotation = mc.thePlayer.getPreviousRotation();
+        return applySensitivityPatch(rotation, previousRotation);
     }
     public Vector2f calculate(final Vector3d from, final Vector3d to) {
         final Vector3d diff = to.subtract(from);

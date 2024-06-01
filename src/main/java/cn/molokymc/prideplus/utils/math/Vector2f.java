@@ -1,8 +1,8 @@
 package cn.molokymc.prideplus.utils.math;
 
-import org.lwjgl.util.vector.ReadableVector2f;
-import org.lwjgl.util.vector.Vector;
-import org.lwjgl.util.vector.WritableVector2f;
+import org.lwjgl.compatibility.util.vector.ReadableVector2f;
+import org.lwjgl.compatibility.util.vector.Vector;
+import org.lwjgl.compatibility.util.vector.WritableVector2f;
 
 import java.io.Serializable;
 import java.nio.FloatBuffer;

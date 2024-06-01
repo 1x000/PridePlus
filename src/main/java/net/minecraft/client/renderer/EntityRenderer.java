@@ -68,13 +68,13 @@ import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.compatibility.display.Display;
+import org.lwjgl.compatibility.opengl.GLContext;
+import org.lwjgl.compatibility.util.glu.Project;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import org.lwjgl.opengl.GLContext;
-import org.lwjgl.util.glu.Project;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;
@@ -1974,7 +1974,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.fogStandard = false;
         Entity entity = this.mc.getRenderViewEntity();
 
-        GL11.glFog(GL11.GL_FOG_COLOR, this.setFogColorBuffer(this.fogColorRed, this.fogColorGreen, this.fogColorBlue));
+        GL11.glFogfv(GL11.GL_FOG_COLOR, this.setFogColorBuffer(this.fogColorRed, this.fogColorGreen, this.fogColorBlue));
         GL11.glNormal3f(0.0F, -1.0F, 0.0F);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         Block block = ActiveRenderInfo.getBlockAtEntityViewpoint(this.mc.theWorld, entity, partialTicks);

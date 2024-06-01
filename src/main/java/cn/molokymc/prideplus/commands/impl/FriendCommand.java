@@ -3,10 +3,7 @@ package cn.molokymc.prideplus.commands.impl;
 import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.commands.Command;
 import cn.molokymc.prideplus.utils.player.ChatUtil;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -96,7 +93,12 @@ public class FriendCommand extends Command {
     private static String serialize() {
         JsonObject obj = new JsonObject();
         JsonArray arr = new JsonArray();
-        friends.forEach(arr::add);
+        JsonParser parser = new JsonParser();
+        for (String friend : friends) {
+            JsonElement element = parser.parse(friend);
+            arr.add(element);
+        }
+        //friends.forEach(arr::add);
         obj.add("friends", arr);
         return gson.toJson(obj);
     }

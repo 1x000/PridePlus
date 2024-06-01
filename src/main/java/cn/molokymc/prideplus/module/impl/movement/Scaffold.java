@@ -20,10 +20,7 @@ import cn.molokymc.prideplus.utils.misc.MathUtils;
 import cn.molokymc.prideplus.utils.movementfix.MovementFix;
 import cn.molokymc.prideplus.utils.movementfix.Rise.RotationComponent;
 import cn.molokymc.prideplus.utils.objects.PlaceRotation;
-import cn.molokymc.prideplus.utils.player.BlockUtils;
-import cn.molokymc.prideplus.utils.player.MovementUtils;
-import cn.molokymc.prideplus.utils.player.RotationUtils;
-import cn.molokymc.prideplus.utils.player.ScaffoldUtils;
+import cn.molokymc.prideplus.utils.player.*;
 import cn.molokymc.prideplus.utils.render.ColorUtil;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
 import cn.molokymc.prideplus.utils.render.RoundedUtil;
@@ -69,12 +66,9 @@ public class Scaffold extends Module {
     private ScaffoldUtils.BlockCache blockCache;
     private float y;
     private float speed;
-    private final MouseFilter pitchMouseFilter = new MouseFilter();
     private final TimerUtil delayTimer = new TimerUtil();
     private final TimerUtil timerUtil = new TimerUtil();
     public static double keepYCoord;
-    private boolean shouldSendPacket;
-    private boolean shouldTower;
     private boolean firstJump;
     private boolean pre;
     private int jumpTimer;
@@ -86,7 +80,6 @@ public class Scaffold extends Module {
     float yaw = 0.0F;
     boolean setFastFall = false;
     public static double moveTicks = 0.0;
-    int towerTick = 0;
     int ticks = 0;
 
     boolean canPlace = false;
@@ -140,8 +133,8 @@ public class Scaffold extends Module {
             mc.timer.timerSpeed = this.timer.getValue().floatValue();
         }
 
-        if (jump) {
-            keepYCoord = mc.thePlayer.posY - 1.0;
+        if (mc.thePlayer.onGround) {
+            keepYCoord = Math.floor(mc.thePlayer.posY - 1.0);
         }
 
         if (mode.is("Telly")) {
@@ -273,9 +266,6 @@ public class Scaffold extends Module {
             RotationUtils.setVisualRotations(e);
         }
 
-        if (mc.thePlayer.onGround) {
-            keepYCoord = Math.floor(mc.thePlayer.posY - 1.0);
-        }
         switch (towerMode.getMode()) {
             case "Watchdog":
                 if (ticks == 1) {
@@ -376,7 +366,7 @@ public class Scaffold extends Module {
 
         mc.timer.timerSpeed = 1.0F;
         mc.gameSettings.keyBindSneak.pressed = false;
-        mc.gameSettings.keyBindJump.pressed = false;
+        mc.gameSettings.keyBindJump.pressed = Keyboard.isKeyDown(mc.gameSettings.keyBindJump.getKeyCode());
         super.onDisable();
     }
 

@@ -8,11 +8,11 @@ import cn.molokymc.prideplus.scripting.api.bindings.*;
 import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.misc.FileUtils;
 import cn.molokymc.prideplus.utils.objects.Dragging;
-import jdk.nashorn.api.scripting.JSObject;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.gui.GuiChat;
+import org.openjdk.nashorn.api.scripting.JSObject;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import store.intent.intentguard.annotation.Exclude;
 import store.intent.intentguard.annotation.Strategy;
 

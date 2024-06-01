@@ -8,7 +8,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.shader.Framebuffer;
-import org.lwjgl.opengl.Display;
+import org.lwjgl.compatibility.display.Display;
 
 
 import java.awt.*;

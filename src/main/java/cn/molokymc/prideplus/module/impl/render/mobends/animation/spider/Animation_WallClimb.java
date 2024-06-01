@@ -5,7 +5,7 @@ import cn.molokymc.prideplus.module.impl.render.mobends.client.model.ModelRender
 import cn.molokymc.prideplus.module.impl.render.mobends.client.model.entity.ModelBendsSpider;
 import cn.molokymc.prideplus.module.impl.render.mobends.data.Data_Spider;
 import cn.molokymc.prideplus.module.impl.render.mobends.data.EntityData;
-import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.compatibility.util.vector.Vector3f;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.EntityLivingBase;

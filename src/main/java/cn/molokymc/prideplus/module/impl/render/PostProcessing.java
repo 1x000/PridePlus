@@ -57,10 +57,10 @@ public class PostProcessing
             Pride.INSTANCE.getSideGui().drawForEffects(bloom);
             Pride.INSTANCE.getSearchBar().drawEffects();
         }
-        RenderUtil.resetColor();
-        PostProcessing.mc.ingameGUI.getChatGUI().renderChatBox();
-        RenderUtil.resetColor();
-        PostProcessing.mc.ingameGUI.renderScoreboardBlur(sr);
+        //RenderUtil.resetColor();
+        //PostProcessing.mc.ingameGUI.getChatGUI().renderChatBox();
+        //RenderUtil.resetColor();
+        //PostProcessing.mc.ingameGUI.renderScoreboardBlur(sr);
         RenderUtil.resetColor();
         NotificationsMod notificationsMod = Pride.INSTANCE.getModuleCollection().getModule(NotificationsMod.class);
         if (notificationsMod.isEnabled()) {

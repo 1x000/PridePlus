@@ -174,7 +174,7 @@ public class CustomItemProperties
 
                 if (j >= 0)
                 {
-                    set.add(new Integer(j));
+                    set.add(j);
                 }
                 else
                 {
@@ -200,7 +200,7 @@ public class CustomItemProperties
                                         continue label45;
                                     }
 
-                                    set.add(new Integer(k1));
+                                    set.add(k1);
                                     ++k1;
                                 }
                             }
@@ -223,7 +223,7 @@ public class CustomItemProperties
                         }
                         else
                         {
-                            set.add(new Integer(i2));
+                            set.add(i2);
                         }
                     }
                 }

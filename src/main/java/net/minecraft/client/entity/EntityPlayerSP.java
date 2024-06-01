@@ -9,6 +9,7 @@ import cn.molokymc.prideplus.module.impl.movement.Sprint;
 import cn.molokymc.prideplus.ui.notifications.NotificationManager;
 import cn.molokymc.prideplus.ui.notifications.NotificationType;
 
+import cn.molokymc.prideplus.utils.math.Vector2f;
 import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.client.Minecraft;
@@ -36,7 +37,6 @@ import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.*;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
-import org.lwjgl.util.vector.Vector2f;
 
 
 public class EntityPlayerSP extends AbstractClientPlayer {

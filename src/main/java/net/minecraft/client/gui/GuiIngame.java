@@ -8,14 +8,12 @@ import cn.molokymc.prideplus.module.impl.render.ScoreboardMod;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import cn.molokymc.prideplus.event.impl.render.PreRenderEvent;
-import cn.molokymc.prideplus.utils.objects.GradientColorWheel;
 import cn.molokymc.prideplus.utils.render.ColorUtil;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
 import cn.molokymc.prideplus.event.impl.render.Render2DEvent;
 import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.font.AbstractFontRenderer;
 import cn.molokymc.prideplus.utils.render.GLUtil;
-import cn.molokymc.prideplus.utils.render.RoundedUtil;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -46,8 +44,6 @@ import net.minecraft.src.Config;
 import net.minecraft.util.*;
 import net.minecraft.world.border.WorldBorder;
 import net.optifine.CustomColors;
-import org.lwjgl.opengl.GL11;
-import cn.molokymc.prideplus.utils.skidfont.FontDrawer;
 
 import java.awt.*;
 import java.util.*;
@@ -542,181 +538,58 @@ public class GuiIngame extends Gui implements Utils {
     }
 
 
-    public void renderScoreboardBlur(ScaledResolution scaledRes) {
-        Scoreboard scoreboardOBJ = this.mc.theWorld.getScoreboard();
-        ScoreObjective scoreobjective = null;
-        ScorePlayerTeam scoreplayerteamObj = scoreboardOBJ.getPlayersTeam(this.mc.thePlayer.getName());
-        if (scoreplayerteamObj != null) {
-            int i1 = scoreplayerteamObj.getChatFormat().getColorIndex();
-            if (i1 >= 0) {
-                scoreobjective = scoreboardOBJ.getObjectiveInDisplaySlot(3 + i1);
-            }
-        }
-
-        ScoreObjective objective = scoreobjective != null ? scoreobjective : scoreboardOBJ.getObjectiveInDisplaySlot(1);
-        if (objective != null && Pride.INSTANCE.isEnabled(ScoreboardMod.class)) {
-            Scoreboard scoreboard = objective.getScoreboard();
-            Collection<Score> collection = scoreboard.getSortedScores(objective);
-            List<Score> list = Lists.newArrayList(Iterables.filter(collection, (p_apply_1_) -> {
-                return p_apply_1_.getPlayerName() != null && !p_apply_1_.getPlayerName().startsWith("#");
-            }));;
-            if (list.size() > 15) {
-                collection = Lists.newArrayList(Iterables.skip(list, collection.size() - 15));
-            }
-
-            float i = this.getScoreboardFontRenderer().getStringWidth(objective.getDisplayName());
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83c\udf89", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83c\udf81", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83d\udc79", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83c\udfc0", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("⚽", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83c\udf6d", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83c\udf20", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83d\udc7e", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83d\udc0d", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83d\udd2e", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83d\udc7d", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83d\udca3", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83c\udf6b", ""));
-            objective.setDisplayName(objective.getDisplayName().replace("\ud83c\udf82", ""));
-
-            String s;
-            for(Iterator var10 = collection.iterator(); var10.hasNext(); i = Math.max(i, this.getScoreboardFontRenderer().getStringWidth(s))) {
-                Score score = (Score)var10.next();
-                ScorePlayerTeam scoreplayerteam = scoreboard.getPlayersTeam(score.getPlayerName());
-                s = ScorePlayerTeam.formatPlayerName(scoreplayerteam, score.getPlayerName()) + ": " + EnumChatFormatting.RED + score.getScorePoints();
-                s = s.replace("\ud83c\udf89", "");
-                s = s.replace("\ud83c\udf81", "");
-                s = s.replace("\ud83d\udc79", "");
-                s = s.replace("\ud83c\udfc0", "");
-                s = s.replace("⚽", "");
-                s = s.replace("\ud83c\udf6d", "");
-                s = s.replace("\ud83c\udf20", "");
-                s = s.replace("\ud83d\udc7e", "");
-                s = s.replace("\ud83d\udc0d", "");
-                s = s.replace("\ud83d\udd2e", "");
-                s = s.replace("\ud83d\udc7d", "");
-                s = s.replace("\ud83d\udca3", "");
-                s = s.replace("\ud83c\udf6b", "");
-                s = s.replace("\ud83c\udf82", "");
-            }
-
-            int i1 = collection.size() * this.getScoreboardFontRenderer().getHeight();
-            int j1 = scaledRes.getScaledHeight() / 2 + i1 / 3 + ScoreboardMod.yOffset.getValue().intValue();
-            int k1 = 3;
-            float l1 = (float)scaledRes.getScaledWidth() - i - 20.0f;
-            int j = 0;
-            GradientColorWheel colorWheel = new GradientColorWheel();
-             {
-                RoundedUtil.drawGradientRound(l1 - 0.6f, (float)(j1 - j * this.getScoreboardFontRenderer().getHeight()) - 0.9f - (float)(this.getScoreboardFontRenderer().getHeight() + 1) - (float)(collection.size() * this.getScoreboardFontRenderer().getHeight()), (float)(scaledRes.getScaledWidth() - 3 + 2) - (l1 - 1.0F), (float)(collection.size() * this.getScoreboardFontRenderer().getHeight() + this.getScoreboardFontRenderer().getHeight() - 10.5f), 1, colorWheel.getColor1(), colorWheel.getColor4(), colorWheel.getColor2(), colorWheel.getColor3());
-                RoundedUtil.drawGradientRound(l1 - 0.6f, (float)(j1 - j * this.getScoreboardFontRenderer().getHeight()) - 1f - (float)(this.getScoreboardFontRenderer().getHeight() + 1) - (float)(collection.size() * this.getScoreboardFontRenderer().getHeight()), (float)(scaledRes.getScaledWidth() - 3 + 2) - (l1 - 1.0F), (float)(collection.size() * this.getScoreboardFontRenderer().getHeight() + this.getScoreboardFontRenderer().getHeight() - 10.5f), 1, colorWheel.getColor1(), colorWheel.getColor4(), colorWheel.getColor2(), colorWheel.getColor3());
-            }
-
-            Iterator var16 = collection.iterator();
-
-            while(var16.hasNext()) {
-                Score score1 = (Score)var16.next();
-                ++j;
-                ScorePlayerTeam scoreplayerteam1 = scoreboard.getPlayersTeam(score1.getPlayerName());
-                ScorePlayerTeam.formatPlayerName(scoreplayerteam1, score1.getPlayerName());
-                int var10000 = j1 - j * this.getScoreboardFontRenderer().getHeight();
-                int l = scaledRes.getScaledWidth() - k1 + 2;
-                if (j == collection.size()) {
-                    String var22 = objective.getDisplayName();
-                }
-            }
-        }
-
-    }
-
     public void renderScoreboard(ScoreObjective objective, ScaledResolution scaledRes) {
+        final int FONT_HEIGHT = FontManager.rubik16.getHeight() + 2;
         Scoreboard scoreboard = objective.getScoreboard();
         Collection<Score> collection = scoreboard.getSortedScores(objective);
-        List<Score> list = Lists.newArrayList(Iterables.filter(collection, (p_apply_1_) -> {
-            return p_apply_1_.getPlayerName() != null && !p_apply_1_.getPlayerName().startsWith("#");
-        }));
-        if (list.size() > 15) {
+        List<Score> list = Lists.newArrayList(Iterables.filter(collection, p_apply_1_ -> p_apply_1_.getPlayerName() != null && !p_apply_1_.getPlayerName().startsWith("#")));
+
+        if (list.size() > 15)
+        {
             collection = Lists.newArrayList(Iterables.skip(list, collection.size() - 15));
         }
-
-        float i = this.getScoreboardFontRenderer().getStringWidth(objective.getDisplayName());
-
-        String s;
-        for(Iterator var7 = collection.iterator(); var7.hasNext(); i = Math.max(i, this.getScoreboardFontRenderer().getStringWidth(s))) {
-            Score score = (Score)var7.next();
-            ScorePlayerTeam scoreplayerteam = scoreboard.getPlayersTeam(score.getPlayerName());
-            s = ScorePlayerTeam.formatPlayerName(scoreplayerteam, score.getPlayerName()) + ": " + EnumChatFormatting.RED + score.getScorePoints();
-            s = s.replace("\ud83c\udf89", "");
-            s = s.replace("\ud83c\udf81", "");
-            s = s.replace("\ud83d\udc79", "");
-            s = s.replace("\ud83c\udfc0", "");
-            s = s.replace("⚽", "");
-            s = s.replace("\ud83c\udf6d", "");
-            s = s.replace("\ud83c\udf20", "");
-            s = s.replace("\ud83d\udc7e", "");
-            s = s.replace("\ud83d\udc0d", "");
-            s = s.replace("\ud83d\udd2e", "");
-            s = s.replace("\ud83d\udc7d", "");
-            s = s.replace("\ud83d\udca3", "");
-            s = s.replace("\ud83c\udf6b", "");
-            s = s.replace("\ud83c\udf82", "");
-        }
-
-        int i1 = collection.size() * this.getScoreboardFontRenderer().getHeight();
-        int j1 = scaledRes.getScaledHeight() / 2 + i1 / 3 + ScoreboardMod.yOffset.getValue().intValue();
-        float l1 = (float)scaledRes.getScaledWidth() - i - 20.0f;
-        int j = 0;
+        else
         {
-            RoundedUtil.drawRound(l1 - 0.6f, (float)(j1 - j * this.getScoreboardFontRenderer().getHeight()) - 1.5f - (float)(this.getScoreboardFontRenderer().getHeight() + 0.5f) - (float)(collection.size() * this.getScoreboardFontRenderer().getHeight()), (float)(scaledRes.getScaledWidth() - 3 + 2) - (l1 - 2.0F), (float)(collection.size() * this.getScoreboardFontRenderer().getHeight() + this.getScoreboardFontRenderer().getHeight() - 10.5f + 1), 1, new Color(0, 0, 0, 128));
-            GL11.glEnable(3089);
-            RenderUtil.scissor_((double)(l1 - 0.6f), (double)((float)(j1 - j * this.getScoreboardFontRenderer().getHeight()) - 1f - (float)(this.getScoreboardFontRenderer().getHeight() + 1) - (float)(collection.size() * this.getScoreboardFontRenderer().getHeight()) - 1.5F), (double)((float)(scaledRes.getScaledWidth() - 3 + 2) - (l1 - 2.0F)), 10);
-            RoundedUtil.drawRound(l1 - 0.6f, (float)(j1 - j * this.getScoreboardFontRenderer().getHeight()) - 1f - (float)(this.getScoreboardFontRenderer().getHeight() + 1) - (float)(collection.size() * this.getScoreboardFontRenderer().getHeight()) - 1.5F, (float)(scaledRes.getScaledWidth() - 3 + 2) - (l1 - 2.0F), 10, 1, new Color(0, 0, 0, 105));
-            GL11.glDisable(3089);
+            collection = list;
         }
 
-        Iterator var12 = collection.iterator();
+        int i = FontManager.rubik16.getStringWidth(objective.getDisplayName());
 
-        while(var12.hasNext()) {
-            Score score1 = (Score)var12.next();
+        for (Score score : collection)
+        {
+            ScorePlayerTeam scoreplayerteam = scoreboard.getPlayersTeam(score.getPlayerName());
+            String s = ScorePlayerTeam.formatPlayerName(scoreplayerteam, score.getPlayerName()) + ": " + EnumChatFormatting.RED + score.getScorePoints();
+            i = Math.max(i, FontManager.rubik16.getStringWidth(s));
+        }
+
+        int i1 = collection.size() * FONT_HEIGHT;
+        int j1 = scaledRes.getScaledHeight() / 2 + i1 / 3;
+        int k1 = 3;
+        int l1 = scaledRes.getScaledWidth() - i - k1;
+        int j = 0;
+
+        for (Score score1 : collection)
+        {
             ++j;
             ScorePlayerTeam scoreplayerteam1 = scoreboard.getPlayersTeam(score1.getPlayerName());
             String s1 = ScorePlayerTeam.formatPlayerName(scoreplayerteam1, score1.getPlayerName());
-            int k = j1 - j * this.getScoreboardFontRenderer().getHeight();
-            int l = scaledRes.getScaledWidth() - 3 + 2;
-            GLUtil.startBlend();
-            s1 = s1.replace("\ud83c\udf89", "");
-            s1 = s1.replace("\ud83c\udf81", "");
-            s1 = s1.replace("\ud83d\udc79", "");
-            s1 = s1.replace("\ud83c\udfc0", "");
-            s1 = s1.replace("⚽", "");
-            s1 = s1.replace("\ud83c\udf6d", "");
-            s1 = s1.replace("\ud83c\udf20", "");
-            s1 = s1.replace("\ud83d\udc7e", "");
-            s1 = s1.replace("\ud83d\udc0d", "");
-            s1 = s1.replace("\ud83d\udd2e", "");
-            s1 = s1.replace("\ud83d\udc7d", "");
-            s1 = s1.replace("\ud83d\udca3", "");
-            s1 = s1.replace("\ud83c\udf6b", "");
-            s1 = s1.replace("\ud83c\udf82", "");
-            this.getScoreboardFontRenderer().drawString(s1, l1, (float)(k -5.5f), -1, ScoreboardMod.textShadow.isEnabled());
-            if (j == collection.size()) {
+            String s2 = EnumChatFormatting.RED + "" + score1.getScorePoints();
+            int k = j1 - j * FONT_HEIGHT;
+
+            int l = scaledRes.getScaledWidth() - k1 + 2;
+            drawRect(l1 - 2, k, l, k + FONT_HEIGHT, 1342177280);
+
+            FontManager.rubik16.drawString(s1,l1,k,16777215);
+
+            // FontManager.default16.drawString(s2,l - FontManager.default16.getStringWidth(s2) + 8,k,16777215);
+
+            if (j == collection.size())
+            {
                 String s3 = objective.getDisplayName();
-                GLUtil.startBlend();
-                s3 = s3.replace("\ud83c\udf89", "");
-                s3 = s3.replace("\ud83c\udf81", "");
-                s3 = s3.replace("\ud83d\udc79", "");
-                s3 = s3.replace("\ud83c\udfc0", "");
-                s3 = s3.replace("⚽", "");
-                s3 = s3.replace("\ud83c\udf6d", "");
-                s3 = s3.replace("\ud83c\udf20", "");
-                s3 = s3.replace("\ud83d\udc7e", "");
-                s3 = s3.replace("\ud83d\udc0d", "");
-                s3 = s3.replace("\ud83d\udd2e", "");
-                s3 = s3.replace("\ud83d\udc7d", "");
-                s3 = s3.replace("\ud83d\udca3", "");
-                s3 = s3.replace("\ud83c\udf6b", "");
-                s3 = s3.replace("\ud83c\udf82", "");
-                this.getScoreboardFontRenderer().drawString(s3, l1 + i / 2.5f - this.getScoreboardFontRenderer().getStringWidth(s3) / 13, (float)k - ((float)this.getScoreboardFontRenderer().getHeight() + 1F), -1, ScoreboardMod.textShadow.isEnabled());
+                drawRect(l1 - 2, k - FONT_HEIGHT - 1, l, k - 1, 1610612736);
+                drawRect(l1 - 2, k - 1, l, k, 1342177280);
+
+                FontManager.rubik16.drawString(s3, l1 + i / 2.0 - FontManager.rubik16.getStringWidth(s3) / 2.0, k - FONT_HEIGHT, 16777215);
             }
         }
 
@@ -1178,10 +1051,6 @@ public class GuiIngame extends Gui implements Utils {
 
     public AbstractFontRenderer getFontRenderer() {
         return this.mc.fontRendererObj;
-    }
-
-    public FontDrawer getScoreboardFontRenderer() {
-        return FontManager.edit14;
     }
 
     public GuiSpectator getSpectatorGui() {

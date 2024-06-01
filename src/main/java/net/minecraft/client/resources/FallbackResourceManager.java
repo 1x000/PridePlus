@@ -116,7 +116,7 @@ public class FallbackResourceManager implements IResourceManager
             this.isClosed = true;
         }
 
-        protected void finalize() throws Throwable
+/*        protected void finalize() throws Throwable
         {
             if (!this.isClosed)
             {
@@ -124,7 +124,7 @@ public class FallbackResourceManager implements IResourceManager
             }
 
             super.finalize();
-        }
+        }*/
 
         public int read() throws IOException
         {

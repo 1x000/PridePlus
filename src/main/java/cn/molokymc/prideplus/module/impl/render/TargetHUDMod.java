@@ -24,7 +24,7 @@ import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import org.lwjgl.util.vector.Vector4f;
+import org.lwjgl.compatibility.util.vector.Vector4f;
 
 public class TargetHUDMod extends Module {
 

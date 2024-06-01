@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -232,42 +233,34 @@ public class SoundManager
 
         Iterator<Entry<String, ISound>> iterator = this.playingSounds.entrySet().iterator();
 
-        while (iterator.hasNext())
-        {
-            Entry<String, ISound> entry = (Entry)iterator.next();
-            String s1 = (String)entry.getKey();
-            ISound isound = (ISound)entry.getValue();
+        while (iterator.hasNext()) {
+            Entry<String, ISound> entry = iterator.next();
+            String s1 = entry.getKey();
+            ISound isound = entry.getValue();
 
-            if (!this.sndSystem.playing(s1))
-            {
-                int i = ((Integer)this.playingSoundsStopTime.get(s1)).intValue();
+            if (!this.sndSystem.playing(s1)) {
+                int i = this.playingSoundsStopTime.get(s1);
 
-                if (i <= this.playTime)
-                {
+                if (i <= this.playTime) {
                     int j = isound.getRepeatDelay();
 
-                    if (isound.canRepeat() && j > 0)
-                    {
-                        this.delayedSounds.put(isound, Integer.valueOf(this.playTime + j));
+                    if (isound.canRepeat() && j > 0) {
+                        this.delayedSounds.put(isound, this.playTime + j);
                     }
 
                     iterator.remove();
-                    logger.debug(LOG_MARKER, "Removed channel {} because it\'s not playing anymore", new Object[] {s1});
+                    logger.debug(LOG_MARKER, "Removed channel {} because it\'s not playing anymore", new Object[]{s1});
                     this.sndSystem.removeSource(s1);
                     this.playingSoundsStopTime.remove(s1);
                     this.playingSoundPoolEntries.remove(isound);
 
-                    try
-                    {
+                    try {
                         this.categorySounds.remove(this.sndHandler.getSound(isound.getSoundLocation()).getSoundCategory(), s1);
-                    }
-                    catch (RuntimeException var8)
-                    {
+                    } catch (RuntimeException var8) {
                         ;
                     }
 
-                    if (isound instanceof ITickableSound)
-                    {
+                    if (isound instanceof ITickableSound) {
                         this.tickableSounds.remove(isound);
                     }
                 }
@@ -278,11 +271,11 @@ public class SoundManager
 
         while (iterator1.hasNext())
         {
-            Entry<ISound, Integer> entry1 = (Entry)iterator1.next();
+            Entry<ISound, Integer> entry1 = iterator1.next();
 
-            if (this.playTime >= ((Integer)entry1.getValue()).intValue())
+            if (this.playTime >= entry1.getValue())
             {
-                ISound isound1 = (ISound)entry1.getKey();
+                ISound isound1 = entry1.getKey();
 
                 if (isound1 instanceof ITickableSound)
                 {

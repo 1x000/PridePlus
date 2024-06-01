@@ -891,6 +891,15 @@ public class WorldRenderer {
         }
     }
 
+    public void startDrawing(int mode) {
+        if (this.isDrawing) {
+            throw new IllegalStateException("Already building!");
+        }
+        this.isDrawing = true;
+        this.reset();
+        this.drawMode = mode;
+    }
+
     public boolean isColorDisabled() {
         return this.noColor;
     }

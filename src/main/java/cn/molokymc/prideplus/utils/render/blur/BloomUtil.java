@@ -57,7 +57,7 @@ implements Utils {
         gaussianBloom.setUniformf("radius", radius);
         gaussianBloom.setUniformf("texelSize", 1.0f / (float)BloomUtil.mc.displayWidth, 1.0f / (float)BloomUtil.mc.displayHeight);
         gaussianBloom.setUniformf("direction", directionX, directionY);
-        GL20.glUniform1((int)gaussianBloom.getUniform("weights"), (FloatBuffer)weights);
+        GL20.glUniform1fv(gaussianBloom.getUniform("weights"), weights);
     }
 }
 

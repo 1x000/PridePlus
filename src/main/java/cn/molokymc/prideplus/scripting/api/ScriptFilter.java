@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.scripting.api;
 
-import jdk.nashorn.api.scripting.ClassFilter;
+import org.openjdk.nashorn.api.scripting.ClassFilter;
 
 public class ScriptFilter implements ClassFilter {
 

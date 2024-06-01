@@ -11,7 +11,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.optifine.util.TextureUtils;
-import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.compatibility.util.vector.Vector2f;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,6 +1,5 @@
 package cn.molokymc.prideplus.utils.server.ban;
 
-import cn.molokymc.prideplus.ui.altmanager.helpers.Alt;
 import cn.molokymc.prideplus.ui.notifications.NotificationManager;
 import cn.molokymc.prideplus.ui.notifications.NotificationType;
 import net.minecraft.util.ChatComponentText;
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class BanUtils {
 
-    public static void processDisconnect(Alt alt, IChatComponent message) {
+/*    public static void processDisconnect(Alt alt, IChatComponent message) {
         List<IChatComponent> siblings = message.getSiblings();
         if (siblings.size() > 1 && siblings.get(0) instanceof ChatComponentText) {
             String firstLine = siblings.get(0).getUnformattedText().trim();
@@ -38,6 +37,6 @@ public class BanUtils {
             alt.hypixelBan = new HypixelBan(reason, duration);
             NotificationManager.post(NotificationType.INFO, "Ban Tracker", "Alt marked as banned for " + (duration == null ? "PERMANENT" : duration), 5);
         }
-    }
+    }*/
 
 }

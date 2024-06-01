@@ -5,7 +5,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
-import static cn.molokymc.prideplus.ui.altmanager.helpers.Alt.mc;
+import static cn.molokymc.prideplus.utils.Utils.mc;
 
 public class RotationsUtil {
     public static Vec3 getNearestPointBB(final Vec3 eye, final AxisAlignedBB box) {

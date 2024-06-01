@@ -106,11 +106,11 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable
         return set;
     }
 
-    protected void finalize() throws Throwable
+/*    protected void finalize() throws Throwable
     {
         this.close();
         super.finalize();
-    }
+    }*/
 
     public void close() throws IOException
     {

@@ -20,7 +20,7 @@ import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.compatibility.util.vector.Vector3f;
 
 public class MoBendsMod extends Module {
     private final BooleanSetting zombieAnimation = new BooleanSetting("Zombie Animation", true);

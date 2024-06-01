@@ -7,7 +7,7 @@ import cn.molokymc.prideplus.module.impl.render.mobends.util.GUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSword;
 
-import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.compatibility.util.vector.Vector3f;
 
 public class Animation_Attack_Combo1 {
 	public static void animate(EntityPlayer player, ModelBendsPlayer model, Data_Player data){

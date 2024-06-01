@@ -8,7 +8,7 @@ import cn.molokymc.prideplus.module.impl.render.mobends.data.EntityData;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.EntityLivingBase;
 
-import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.compatibility.util.vector.Vector3f;
 
 
 public class Animation_Stand extends Animation {

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static cn.molokymc.prideplus.ui.altmanager.helpers.Alt.mc;
+import static cn.molokymc.prideplus.utils.Utils.mc;
 
 public final class PlayerUtil
 {

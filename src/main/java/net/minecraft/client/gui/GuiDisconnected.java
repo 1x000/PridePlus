@@ -2,7 +2,6 @@ package net.minecraft.client.gui;
 
 import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.NotificationsMod;
-import cn.molokymc.prideplus.ui.altmanager.helpers.Alt;
 import cn.molokymc.prideplus.ui.mainmenu.CustomMainMenu;
 import cn.molokymc.prideplus.utils.server.ServerUtils;
 import cn.molokymc.prideplus.utils.server.ban.BanUtils;
@@ -24,10 +23,10 @@ public class GuiDisconnected extends GuiScreen {
         this.parentScreen = screen;
         this.reason = I18n.format(reasonLocalizationKey);
         this.message = chatComp;
-        Alt activeAlt = Pride.INSTANCE.getAltManager().currentSessionAlt;
-        if (activeAlt != null) {
+        //Alt activeAlt = Pride.INSTANCE.getAltManager().currentSessionAlt;
+/*        if (activeAlt != null) {
             BanUtils.processDisconnect(activeAlt, chatComp);
-        }
+        }*/
     }
 
     /**

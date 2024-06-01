@@ -9,9 +9,9 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.util.glu.GLU;
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
+import org.lwjgl.compatibility.util.glu.GLU;
+import org.lwjgl.compatibility.util.vector.Vector3f;
+import org.lwjgl.compatibility.util.vector.Vector4f;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -33,9 +33,9 @@ public class ESPUtil implements Utils {
     }
 
     public static Vector3f projectOn2D(float x, float y, float z, int scaleFactor) {
-        glGetFloat(GL_MODELVIEW_MATRIX, floatBuffer1);
-        glGetFloat(GL_PROJECTION_MATRIX, floatBuffer2);
-        glGetInteger(GL_VIEWPORT, intBuffer);
+        glGetFloatv(GL_MODELVIEW_MATRIX, floatBuffer1);
+        glGetFloatv(GL_PROJECTION_MATRIX, floatBuffer2);
+        glGetIntegerv(GL_VIEWPORT, intBuffer);
         if (GLU.gluProject(x, y, z, floatBuffer1, floatBuffer2, intBuffer, windPos)) {
             return new Vector3f(windPos.get(0) / scaleFactor, (mc.displayHeight - windPos.get(1)) / scaleFactor, windPos.get(2));
         }

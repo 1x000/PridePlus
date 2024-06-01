@@ -28,10 +28,10 @@ import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.util.AxisAlignedBB;
+import org.lwjgl.compatibility.opengl.GLContext;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL33;
-import org.lwjgl.opengl.GLContext;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

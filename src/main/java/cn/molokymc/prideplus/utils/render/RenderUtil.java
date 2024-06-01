@@ -323,6 +323,41 @@ public class RenderUtil implements Utils {
         GL11.glVertex2f(x, y);
         GL11.glEnd();
     }
+
+    public static void drawRect(double left, double top, double right, double bottom, int color) {
+        double var5;
+        if (left < right) {
+            var5 = left;
+            left = right;
+            right = var5;
+        }
+        if (top < bottom) {
+            var5 = top;
+            top = bottom;
+            bottom = var5;
+        }
+        float var11 = (float) (color >> 24 & 255) / 255.0f;
+        float var6 = (float) (color >> 16 & 255) / 255.0f;
+        float var7 = (float) (color >> 8 & 255) / 255.0f;
+        float var8 = (float) (color & 255) / 255.0f;
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+        GlStateManager.enableBlend();
+        GlStateManager.disableTexture2D();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GlStateManager.color(var6, var7, var8, var11);
+        worldRenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldRenderer.pos(left, bottom, 0.0).endVertex();
+        worldRenderer.pos(right, bottom, 0.0).endVertex();
+        worldRenderer.pos(right, top, 0.0).endVertex();
+        worldRenderer.pos(left, top, 0.0).endVertex();
+        tessellator.draw();
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        resetColor();
+    }
+
     public static void drawNewRect(double x, double y, double x1, double y1, double size , float color1, float color2 , float color3) {
         cn.molokymc.prideplus.utils.render.RenderUtil.rectangleBordered(x, y, x1 + size, y1 + size, 0.5d, ColorUtils.getColor(90), ColorUtils.getColor(0));
         cn.molokymc.prideplus.utils.render.RenderUtil.rectangleBordered(x + 1.0f, y + 1.0f, (x1 + size - 1.0f), y1 + size - 1.0f, 1.0, ColorUtils.getColor(90),
@@ -954,4 +989,16 @@ public class RenderUtil implements Utils {
         drawGradientRect(left + width, bottom - width, right - width, bottom, borderStartColor, borderEndColor);
     }
 
+
+    public static int getRGB(int r, int g, int b) {
+        return getRGB(r,g,b,255);
+    }
+
+    @SuppressWarnings("PointlessBitwiseExpression")
+    public static int getRGB(int r, int g, int b, int a) {
+        return ((a & 0xFF) << 24) |
+                ((r & 0xFF) << 16) |
+                ((g & 0xFF) << 8)  |
+                ((b & 0xFF) << 0);
+    }
 }

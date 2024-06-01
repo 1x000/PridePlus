@@ -10,7 +10,6 @@ import cn.molokymc.prideplus.utils.render.ColorUtil;
 import cn.molokymc.prideplus.utils.render.GradientUtil;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
 import cn.molokymc.prideplus.utils.render.RoundedUtil;
-import jdk.nashorn.api.scripting.JSObject;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -19,6 +18,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
+import org.openjdk.nashorn.api.scripting.JSObject;
 import store.intent.intentguard.annotation.Exclude;
 import store.intent.intentguard.annotation.Strategy;
 

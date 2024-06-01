@@ -1,6 +1,6 @@
 package cn.molokymc.prideplus.module.impl.render.mobends.util;
 
-import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.compatibility.util.vector.Vector3f;
 
 public class SmoothVector3f {
 	public Vector3f vOld = new Vector3f(0,0,0);

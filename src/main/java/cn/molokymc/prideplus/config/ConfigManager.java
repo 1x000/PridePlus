@@ -176,8 +176,9 @@ public class ConfigManager {
                                     if (setting instanceof ColorSetting) {
                                         ColorSetting colorSetting = (ColorSetting) setting;
                                         //If it is rainbow
-                                        if (JsonParser.parseString(cfgSetting.value.toString()).isJsonObject()) {
-                                            JsonObject colorObject = JsonParser.parseString(cfgSetting.value.toString()).getAsJsonObject();
+                                        JsonParser parser = new JsonParser();
+                                        if (parser.parse(cfgSetting.value.toString()).isJsonObject()) {
+                                            JsonObject colorObject = parser.parse(cfgSetting.value.toString()).getAsJsonObject();
                                             colorSetting.setRainbow(true);
                                             float saturation = colorObject.get("saturation").getAsFloat();
                                             int speed = colorObject.get("speed").getAsInt();

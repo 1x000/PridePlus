@@ -7,7 +7,7 @@ import cn.molokymc.prideplus.event.EventProtocol;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.ModuleCollection;
 import cn.molokymc.prideplus.scripting.api.ScriptManager;
-import cn.molokymc.prideplus.ui.altmanager.GuiAltManager;
+import cn.molokymc.prideplus.ui.alt.GuiAltManager;
 import cn.molokymc.prideplus.ui.searchbar.SearchBar;
 import cn.molokymc.prideplus.ui.sidegui.SideGUI;
 import cn.molokymc.prideplus.utils.Utils;

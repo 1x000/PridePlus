@@ -10,7 +10,7 @@ import net.minecraft.client.Minecraft;
 
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.compatibility.util.vector.Vector3f;
 
 public class SwordTrail {
 

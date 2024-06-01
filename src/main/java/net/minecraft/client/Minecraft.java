@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import cn.molokymc.prideplus.ui.alt.AltManager;
 import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -100,12 +101,15 @@ import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.LWJGLException;
-import org.lwjgl.Sys;
+import org.lwjgl.compatibility.OpenGLException;
+import org.lwjgl.compatibility.Sys;
+import org.lwjgl.compatibility.display.Display;
+import org.lwjgl.compatibility.display.PixelFormat;
+import org.lwjgl.compatibility.opengl.GLContext;
+import org.lwjgl.compatibility.util.glu.GLU;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.*;
-import org.lwjgl.util.glu.GLU;
 import store.intent.intentguard.annotation.Native;
 
 import javax.imageio.ImageIO;
@@ -127,6 +131,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import cn.molokymc.prideplus.ui.SplashScreen;
+
+import org.lwjgl.compatibility.display.DisplayMode;
 
 public class Minecraft implements IThreadListener, IPlayerUsage {
     private static final Logger logger = LogManager.getLogger();
@@ -438,7 +444,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             this.displayHeight = this.gameSettings.overrideHeight;
         }
 
-        logger.info("LWJGL Version: " + Sys.getVersion());
+        logger.info("LWJGL Version: {}", Sys.getVersion());
         this.setWindowIcon();
         this.setInitialDisplayMode();
         this.createDisplay();
@@ -543,12 +549,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             this.toggleFullscreen();
         }
 
-        try {
-            Display.setVSyncEnabled(this.gameSettings.enableVsync);
-        } catch (OpenGLException var2) {
-            this.gameSettings.enableVsync = false;
-            this.gameSettings.saveOptions();
-        }
+        Display.setVSyncEnabled(this.gameSettings.enableVsync);
 
         this.renderGlobal.makeEntityOutlineShader();
     }
@@ -587,7 +588,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
     private void setInitialDisplayMode() throws LWJGLException {
         if (this.fullscreen) {
-            Display.setFullscreen(true);
+            Display.toggleFullScreen();
             DisplayMode displaymode = Display.getDisplayMode();
             this.displayWidth = Math.max(1, displaymode.getWidth());
             this.displayHeight = Math.max(1, displaymode.getHeight());
@@ -873,6 +874,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     public void shutdownMinecraftApplet() {
         try {
             logger.info("Stopping!");
+
+            try {
+                AltManager.Instance.saveAlt();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             try {
                 this.loadWorld(null);
@@ -1392,11 +1399,14 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      * Toggles fullscreen mode.
      */
     public void toggleFullscreen() {
-        if (fullscreen()) return;
+        //if (fullscreen()) return;
 
         try {
             this.fullscreen = !this.fullscreen;
             this.gameSettings.fullScreen = this.fullscreen;
+
+            Display.toggleFullScreen();
+            Display.setVSyncEnabled(this.gameSettings.enableVsync);
 
             if (this.fullscreen) {
                 this.updateDisplayMode();
@@ -1420,16 +1430,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             } else {
                 this.updateFramebufferSize();
             }
-
-            Display.setFullscreen(this.fullscreen);
-            Display.setVSyncEnabled(this.gameSettings.enableVsync);
             this.updateDisplay();
         } catch (Exception exception) {
             logger.error("Couldn't toggle fullscreen", exception);
         }
     }
 
-    private boolean fullscreen() {
+/*    private boolean fullscreen() {
         if (Util.getOSType() != Util.EnumOS.WINDOWS) {
             return false;
         }
@@ -1471,18 +1478,18 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             logger.error("Couldn't toggle fullscreen", exception);
         }
         return false;
-    }
+    }*/
 
-    private void displayCommon() {
+/*    private void displayCommon() {
         Display.setResizable(false);
         Display.setResizable(true);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) ((dimension.getWidth() - Display.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - Display.getHeight()) / 2);
         Display.setLocation(x, y);
-    }
+    }*/
 
-    private void fix(boolean fullscreen) {
+/*    private void fix(boolean fullscreen) {
         try {
             if (fullscreen) {
                 System.setProperty("org.lwjgl.opengl.Window.undecorated", "true");
@@ -1499,7 +1506,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         } catch (LWJGLException exception) {
             logger.error("Failed to update screen type", exception);
         }
-    }
+    }*/
 
     /**
      * Called to resize the current screen.
@@ -2372,7 +2379,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         playerSnooper.addStatToSnooper("opengl_vendor", GL11.glGetString(GL11.GL_VENDOR));
         playerSnooper.addStatToSnooper("client_brand", ClientBrandRetriever.getClientModName());
         playerSnooper.addStatToSnooper("launched_version", this.launchedVersion);
-        ContextCapabilities contextcapabilities = GLContext.getCapabilities();
+        GLCapabilities contextcapabilities = GLContext.getCapabilities();
         playerSnooper.addStatToSnooper("gl_caps[ARB_arrays_of_arrays]", contextcapabilities.GL_ARB_arrays_of_arrays);
         playerSnooper.addStatToSnooper("gl_caps[ARB_base_instance]", contextcapabilities.GL_ARB_base_instance);
         playerSnooper.addStatToSnooper("gl_caps[ARB_blend_func_extended]", contextcapabilities.GL_ARB_blend_func_extended);
@@ -2445,10 +2452,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         playerSnooper.addStatToSnooper("gl_caps[EXT_geometry_shader4]", contextcapabilities.GL_EXT_geometry_shader4);
         playerSnooper.addStatToSnooper("gl_caps[EXT_gpu_program_parameters]", contextcapabilities.GL_EXT_gpu_program_parameters);
         playerSnooper.addStatToSnooper("gl_caps[EXT_gpu_shader4]", contextcapabilities.GL_EXT_gpu_shader4);
-        playerSnooper.addStatToSnooper("gl_caps[EXT_multi_draw_arrays]", contextcapabilities.GL_EXT_multi_draw_arrays);
         playerSnooper.addStatToSnooper("gl_caps[EXT_packed_depth_stencil]", contextcapabilities.GL_EXT_packed_depth_stencil);
-        playerSnooper.addStatToSnooper("gl_caps[EXT_paletted_texture]", contextcapabilities.GL_EXT_paletted_texture);
-        playerSnooper.addStatToSnooper("gl_caps[EXT_rescale_normal]", contextcapabilities.GL_EXT_rescale_normal);
         playerSnooper.addStatToSnooper("gl_caps[EXT_separate_shader_objects]", contextcapabilities.GL_EXT_separate_shader_objects);
         playerSnooper.addStatToSnooper("gl_caps[EXT_shader_image_load_store]", contextcapabilities.GL_EXT_shader_image_load_store);
         playerSnooper.addStatToSnooper("gl_caps[EXT_shadow_funcs]", contextcapabilities.GL_EXT_shadow_funcs);
@@ -2456,14 +2460,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         playerSnooper.addStatToSnooper("gl_caps[EXT_stencil_clear_tag]", contextcapabilities.GL_EXT_stencil_clear_tag);
         playerSnooper.addStatToSnooper("gl_caps[EXT_stencil_two_side]", contextcapabilities.GL_EXT_stencil_two_side);
         playerSnooper.addStatToSnooper("gl_caps[EXT_stencil_wrap]", contextcapabilities.GL_EXT_stencil_wrap);
-        playerSnooper.addStatToSnooper("gl_caps[EXT_texture_3d]", contextcapabilities.GL_EXT_texture_3d);
         playerSnooper.addStatToSnooper("gl_caps[EXT_texture_array]", contextcapabilities.GL_EXT_texture_array);
         playerSnooper.addStatToSnooper("gl_caps[EXT_texture_buffer_object]", contextcapabilities.GL_EXT_texture_buffer_object);
         playerSnooper.addStatToSnooper("gl_caps[EXT_texture_integer]", contextcapabilities.GL_EXT_texture_integer);
-        playerSnooper.addStatToSnooper("gl_caps[EXT_texture_lod_bias]", contextcapabilities.GL_EXT_texture_lod_bias);
         playerSnooper.addStatToSnooper("gl_caps[EXT_texture_sRGB]", contextcapabilities.GL_EXT_texture_sRGB);
-        playerSnooper.addStatToSnooper("gl_caps[EXT_vertex_shader]", contextcapabilities.GL_EXT_vertex_shader);
-        playerSnooper.addStatToSnooper("gl_caps[EXT_vertex_weighting]", contextcapabilities.GL_EXT_vertex_weighting);
         playerSnooper.addStatToSnooper("gl_caps[gl_max_vertex_uniforms]", GL11.glGetInteger(GL20.GL_MAX_VERTEX_UNIFORM_COMPONENTS));
         GL11.glGetError();
         playerSnooper.addStatToSnooper("gl_caps[gl_max_fragment_uniforms]", GL11.glGetInteger(GL20.GL_MAX_FRAGMENT_UNIFORM_COMPONENTS));

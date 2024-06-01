@@ -10,7 +10,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.Display;
+import org.lwjgl.compatibility.display.Display;
+
 import java.awt.*;
 
 import static cn.molokymc.prideplus.utils.render.RenderUtil.drawCircle;
