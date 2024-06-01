@@ -29,7 +29,6 @@ import cn.molokymc.prideplus.utils.render.RenderUtil;
 import cn.molokymc.prideplus.utils.server.PacketUtils;
 import cn.molokymc.prideplus.utils.time.TimerUtil;
 import de.gerrygames.viarewind.protocol.protocol1_8to1_9.Protocol1_8TO1_9;
-import de.gerrygames.viarewind.utils.PacketUtil;
 import lombok.SneakyThrows;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -64,11 +63,11 @@ public final class KillAura extends Module {
     private final TimerUtil attackTimer = new TimerUtil();
     private final TimerUtil switchTimer = new TimerUtil();
     private final MultipleBoolSetting targetsSetting = new MultipleBoolSetting("Targets",
-             new BooleanSetting("Players", true),
-             new BooleanSetting("Animals", false),
-             new BooleanSetting("Mobs", false),
-             new BooleanSetting("Invisibles", false),
-             new BooleanSetting("Villagers", false));
+            new BooleanSetting("Players", true),
+            new BooleanSetting("Animals", false),
+            new BooleanSetting("Mobs", false),
+            new BooleanSetting("Invisibles", false),
+            new BooleanSetting("Villagers", false));
     private final ModeSetting mode = new ModeSetting("Mode", "Single", "Single", "Switch", "Multi");
     private final NumberSetting switchDelay = new NumberSetting("Switch Delay", 50.0, 500.0, 1.0, 1.0);
     private final NumberSetting maxTargetAmount = new NumberSetting("Max Target Amount", 3.0, 50.0, 2.0, 1.0);
@@ -86,17 +85,17 @@ public final class KillAura extends Module {
     private final ModeSetting sortMode = new ModeSetting("Sort Mode", "Range","Range", "Hurt Time", "Health", "Armor");
     private final BooleanSetting whileUsingBreaker = new BooleanSetting("While using breaker", false);
     private final MultipleBoolSetting addons = new MultipleBoolSetting("Addons",
-             new BooleanSetting("Keep Sprint", true),
-             new BooleanSetting("Through Walls", true),
-             new BooleanSetting("Allow Scaffold", false),
-             new BooleanSetting("Movement Fix", false),
-             new BooleanSetting("Ray Cast", false));
+            new BooleanSetting("Keep Sprint", true),
+            new BooleanSetting("Through Walls", true),
+            new BooleanSetting("Allow Scaffold", false),
+            new BooleanSetting("Movement Fix", false),
+            new BooleanSetting("Ray Cast", false));
     private final MultipleBoolSetting auraESP = new MultipleBoolSetting("Target ESP",
-             new BooleanSetting("Circle", true),
-             new BooleanSetting("Icarus", false),
-             new BooleanSetting("Tracer", false),
-             new BooleanSetting("Box", true),
-             new BooleanSetting("Custom Color", false));
+            new BooleanSetting("Circle", true),
+            new BooleanSetting("Icarus", false),
+            new BooleanSetting("Tracer", false),
+            new BooleanSetting("Box", true),
+            new BooleanSetting("Custom Color", false));
     private final ColorSetting customColor;
     private EntityLivingBase auraESPTarget;
     private final Animation auraESPAnim;
@@ -152,9 +151,7 @@ public final class KillAura extends Module {
         targets.clear();
         blocking = false;
         attacking = false;
-        if (wasBlocking) {
-            PacketUtils.sendPacketNoEvent(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
-        }
+        stopBlocking();
 
         wasBlocking = false;
         super.onDisable();
@@ -170,6 +167,7 @@ public final class KillAura extends Module {
         sortTargets();
         if (target == null) {
             yaw = mc.thePlayer.rotationYaw;
+            stopBlocking();
         }
         if (event.isPost()) {
             if (blocking) {
@@ -184,18 +182,18 @@ public final class KillAura extends Module {
                         }
                         break;
                     case "Grim":
-                        if (event.isPre()) {
+                        if (event.isPost()) {
                             mc.playerController.sendUseItem(mc.thePlayer, mc.theWorld, mc.thePlayer.getHeldItem());
 
                             PacketWrapper use_0 = PacketWrapper.create(29, null,
                                     Via.getManager().getConnectionManager().getConnections().iterator().next());
                             use_0.write(Type.VAR_INT, 0);
-                            PacketUtil.sendToServer(use_0, Protocol1_8TO1_9.class, true, true);
+                            PacketUtils.sendToServer(use_0, Protocol1_8TO1_9.class, true, true);
 
                             PacketWrapper use_1 = PacketWrapper.create(29, null,
                                     Via.getManager().getConnectionManager().getConnections().iterator().next());
                             use_1.write(Type.VAR_INT, 1);
-                            PacketUtil.sendToServer(use_1, Protocol1_8TO1_9.class, true, true);
+                            PacketUtils.sendToServer(use_1, Protocol1_8TO1_9.class, true, true);
                             mc.gameSettings.keyBindUseItem.pressed = true;
                             wasBlocking = true;
                         }
@@ -203,10 +201,8 @@ public final class KillAura extends Module {
                     case "Fake":
                         break;
                 }
-            } else if (wasBlocking && autoblockMode.is("Grim") && KillAura.target == null) {
-                mc.gameSettings.keyBindUseItem.pressed = false;
-                wasBlocking = false;
             }
+            stopBlocking();
         }
         attacking = !targets.isEmpty() && (addons.getSetting("Allow Scaffold").isEnabled() || !Pride.INSTANCE.isEnabled(Scaffold.class));
         blocking = autoblock.isEnabled() && attacking && InventoryUtils.isHoldingSword();
@@ -264,7 +260,13 @@ public final class KillAura extends Module {
             KillAura.target = null;
         }
     }
-
+    private void stopBlocking(){
+        if (!blocking && autoblockMode.is("Grim") && KillAura.target == null) {
+            PacketUtils.sendPacketNoEvent(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
+            mc.gameSettings.keyBindUseItem.pressed = false;
+            wasBlocking = false;
+        }
+    }
     private void sortTargets() {
         targets.clear();
         Iterator var1 = mc.theWorld.getLoadedEntityList().iterator();
