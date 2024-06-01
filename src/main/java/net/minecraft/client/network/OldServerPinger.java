@@ -1,8 +1,5 @@
 package net.minecraft.client.network;
 
-import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
-import cn.molokymc.prideplus.viamcp.common.gui.ExtendedServerData;
-import cn.molokymc.prideplus.viamcp.common.platform.VersionTracker;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
@@ -46,22 +43,9 @@ public class OldServerPinger
     private static final Logger logger = LogManager.getLogger();
     private final List<NetworkManager> pingDestinations = Collections.<NetworkManager>synchronizedList(Lists.<NetworkManager>newArrayList());
 
-    // ViaForgeMCP
-    private ServerData serverData;
-
     public void ping(final ServerData server) throws UnknownHostException
     {
-        serverData = server;
-
         ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
-
-        // ViaForgeMCP
-        ProtocolVersion version = ((ExtendedServerData) serverData).getVersion();
-        if (version == null) {
-            version = ViaMCPCommon.getManager().getTargetVersion();
-        }
-        VersionTracker.storeServerProtocolVersion(InetAddress.getByName(serveraddress.getIP()), version);
-        serverData = null;
 
         final NetworkManager networkmanager = NetworkManager.createNetworkManagerAndConnect(InetAddress.getByName(serveraddress.getIP()), serveraddress.getPort(), false);
         this.pingDestinations.add(networkmanager);

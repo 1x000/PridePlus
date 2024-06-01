@@ -1,7 +1,5 @@
 package net.minecraft.client.network;
 
-import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
-import cn.molokymc.prideplus.viamcp.common.protocoltranslator.netty.VFNetworkManager;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
@@ -24,8 +22,6 @@ import net.minecraft.network.login.server.S03PacketEnableCompression;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.CryptManager;
 import net.minecraft.util.IChatComponent;
-import net.raphimc.vialegacy.api.LegacyProtocolVersion;
-import net.raphimc.vialegacy.protocols.release.protocol1_7_2_5to1_6_4.storage.ProtocolMetadataStorage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -50,16 +46,6 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient
 
     // ViaForgeMCP
     public void onlyJoinServerIfPremium(MinecraftSessionService instance, GameProfile profile, String authenticationToken, String serverId) throws AuthenticationException {
-        final VFNetworkManager mixinNetworkManager = (VFNetworkManager) networkManager;
-        if (mixinNetworkManager.getTrackedVersion().olderThanOrEqualTo(LegacyProtocolVersion.r1_6_4)) {
-            final UserConnection user = networkManager.channel.attr(ViaMCPCommon.LOCAL_VIA_USER).get();
-            if (user != null && user.has(ProtocolMetadataStorage.class) && !user.get(ProtocolMetadataStorage.class).authenticate) {
-                // We are in the 1.7 -> 1.6 protocol, so we need to skip the joinServer call
-                // if the server is in offline mode, due the packet changes <-> networking changes
-                // Minecraft's networking code is bad for us.
-                return;
-            }
-        }
         instance.joinServer(profile, authenticationToken, serverId);
     }
 

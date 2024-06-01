@@ -1,7 +1,6 @@
 package cn.molokymc.prideplus.module.impl.combat;
 
-import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
-import com.viaversion.viarewind.protocol.protocol1_8to1_9.Protocol1_8To1_9;
+import cn.molokymc.prideplus.viamcp.ViaMCP;
 import com.viaversion.viaversion.api.Via;
 import com.viaversion.viaversion.api.protocol.packet.PacketWrapper;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
@@ -29,6 +28,8 @@ import cn.molokymc.prideplus.utils.player.RotationUtils;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
 import cn.molokymc.prideplus.utils.server.PacketUtils;
 import cn.molokymc.prideplus.utils.time.TimerUtil;
+import de.gerrygames.viarewind.protocol.protocol1_8to1_9.Protocol1_8TO1_9;
+import de.gerrygames.viarewind.utils.PacketUtil;
 import lombok.SneakyThrows;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -44,7 +45,6 @@ import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.raphimc.vialegacy.api.util.PacketUtil;
 
 
 import java.awt.*;
@@ -137,7 +137,7 @@ public final class KillAura extends Module {
         }
     }
     private void attackEntity(final Entity target) {
-        if (ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8)) {
+        if (ViaMCP.getInstance().getVersion() <= 47) {
             mc.thePlayer.swingItem();
             mc.getNetHandler().addToSendQueue(new C02PacketUseEntity(target, C02PacketUseEntity.Action.ATTACK));
         } else {
@@ -179,7 +179,7 @@ public final class KillAura extends Module {
                             PacketUtils.sendPacketNoEvent(new C08PacketPlayerBlockPlacement(new BlockPos(-1, -1, -1), 255, mc.thePlayer.inventory.getCurrentItem(), 0.0F, 0.0F, 0.0F));
                             PacketWrapper useItem = PacketWrapper.create(29, null, Via.getManager().getConnectionManager().getConnections().iterator().next());
                             useItem.write(Type.VAR_INT, 1);
-                            useItem.sendToServer(Protocol1_8To1_9.class, true);
+                            useItem.sendToServer(Protocol1_8TO1_9.class, true);
                             wasBlocking = true;
                         }
                         break;
@@ -190,12 +190,12 @@ public final class KillAura extends Module {
                             PacketWrapper use_0 = PacketWrapper.create(29, null,
                                     Via.getManager().getConnectionManager().getConnections().iterator().next());
                             use_0.write(Type.VAR_INT, 0);
-                            PacketUtils.sendToServer(use_0, Protocol1_8To1_9.class, true, true);
+                            PacketUtil.sendToServer(use_0, Protocol1_8TO1_9.class, true, true);
 
                             PacketWrapper use_1 = PacketWrapper.create(29, null,
                                     Via.getManager().getConnectionManager().getConnections().iterator().next());
                             use_1.write(Type.VAR_INT, 1);
-                            PacketUtils.sendToServer(use_1, Protocol1_8To1_9.class, true, true);
+                            PacketUtil.sendToServer(use_1, Protocol1_8TO1_9.class, true, true);
                             mc.gameSettings.keyBindUseItem.pressed = true;
                             wasBlocking = true;
                         }
@@ -244,7 +244,7 @@ public final class KillAura extends Module {
 
                     if (!attackEvent.isCancelled()) {
                         //AttackOrder.sendFixedAttack(mc.thePlayer, entityLivingBase);
-                        if (ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8)) {
+                        if (ViaMCP.getInstance().getVersion() <= 47) {
                             mc.thePlayer.swingItem();
                             mc.getNetHandler().addToSendQueue(new C02PacketUseEntity(target, C02PacketUseEntity.Action.ATTACK));
                         } else {

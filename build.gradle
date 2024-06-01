@@ -19,6 +19,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.32'
     implementation fileTree(dir: 'libs', include: '*.jar')
     implementation fileTree(dir: 'libs/other', include: '*.jar')
+    implementation fileTree(dir: 'libs/via', include: '*.jar')
 }
 
 jar.dependsOn(shadowJar)

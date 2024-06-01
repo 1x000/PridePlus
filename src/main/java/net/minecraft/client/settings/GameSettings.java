@@ -608,7 +608,8 @@ public class GameSettings
 
             if (this.mc.isFullScreen() != this.fullScreen)
             {
-                this.mc.toggleFullscreen();
+                if (Keyboard.isKeyDown(mc.gameSettings.keyBindFullscreen.getKeyCode()))
+                    this.mc.toggleFullscreen();
             }
         }
 

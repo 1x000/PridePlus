@@ -24,6 +24,7 @@ import cn.molokymc.prideplus.ui.sidegui.SideGUI;
 import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.client.ReleaseType;
 import cn.molokymc.prideplus.utils.misc.DiscordRPC;
+import cn.molokymc.prideplus.utils.misc.FileUtils;
 import cn.molokymc.prideplus.utils.movementfix.BadPacketsComponent;
 import cn.molokymc.prideplus.utils.movementfix.FallDistanceComponent;
 import cn.molokymc.prideplus.utils.movementfix.Rise.RotationComponent;
@@ -33,7 +34,8 @@ import cn.molokymc.prideplus.utils.objects.Dragging;
 import cn.molokymc.prideplus.utils.render.Theme;
 import cn.molokymc.prideplus.utils.server.PingerUtils;
 import cn.molokymc.prideplus.viamcp.ViaMCP;
-import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
+import com.viaversion.viaversion.api.Via;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
@@ -43,7 +45,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
@@ -79,9 +80,16 @@ public class Pride implements Utils {
     public static boolean updateGuiScale;
     public static int prevGuiScale;
 
+    public static void deleteVia() {
+        FileUtils.delete(Minecraft.getMinecraft().mcDataDir + "/ViaMCP");
+    }
+
     public static void start() {
-        // ViaForgeMCP
-        ViaMCPCommon.init(ViaMCP.PLATFORM);
+        deleteVia();
+
+        ViaMCP.getInstance().start();
+        ViaMCP.getInstance().initAsyncSlider();
+        ViaMCP.getInstance().setVersion(ProtocolVersion.v1_12_2.getVersion());
 
         // Setup Intent API access
       //  Client.INSTANCE.setIntentAccount(GetUserInfo.loginFailure);

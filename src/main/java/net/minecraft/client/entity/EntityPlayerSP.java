@@ -10,8 +10,7 @@ import cn.molokymc.prideplus.ui.notifications.NotificationManager;
 import cn.molokymc.prideplus.ui.notifications.NotificationType;
 
 import cn.molokymc.prideplus.utils.math.Vector2f;
-import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
-import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import cn.molokymc.prideplus.viamcp.ViaMCP;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -197,7 +196,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
     // ViaForgeMCP
     public void emulateIdlePacket(NetHandlerPlayClient instance, Packet<?> p_addToSendQueue_1_) {
-        if (ViaMCPCommon.getManager().getTargetVersion().newerThan(ProtocolVersion.v1_8)) {
+        if (ViaMCP.getInstance().getVersion() > 47) {
             // <= 1.8 spams the idle packet instead of only sending it when the ground state changes
             if (this.prevOnGround == this.onGround) {
                 return;

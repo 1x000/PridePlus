@@ -46,4 +46,20 @@ public class FileUtils {
         return stringBuilder.toString();
     }
 
+    public static void delete(String folderPath) {
+        File folder = new File(folderPath);
+        if (folder.exists()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        delete(file.getAbsolutePath());
+                    } else {
+                        file.delete();
+                    }
+                }
+            }
+            folder.delete();
+        }
+    }
 }

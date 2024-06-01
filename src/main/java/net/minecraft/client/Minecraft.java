@@ -1,6 +1,6 @@
 package net.minecraft.client;
 
-import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
+import cn.molokymc.prideplus.viamcp.ViaMCP;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
@@ -24,6 +24,8 @@ import cn.molokymc.prideplus.ui.clickguis.dropdown.DropdownClickGUI;
 import cn.molokymc.prideplus.ui.mainmenu.GuiStart;
 import cn.molokymc.prideplus.utils.font.FontUtil;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
+import com.viaversion.viaversion.ViaManagerImpl;
+import com.viaversion.viaversion.api.Via;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -871,6 +873,16 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         try {
             logger.info("Stopping!");
 
+            Pride.deleteVia();
+            try {
+                ((ViaManagerImpl) Via.getManager()).destroy();
+                ViaMCP.getInstance().getAsyncExecutor().shutdown();
+                ViaMCP.getInstance().getEventLoop().shutdownGracefully();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Pride.deleteVia();
+
             try {
                 this.loadWorld(null);
             } catch (Throwable ignored) {
@@ -1292,9 +1304,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
             Pride.INSTANCE.getEventProtocol().handleEvent(e);
 
-            // ViaForgeMCP
-            if (ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8))
+            if (ViaMCP.getInstance().getVersion() <= 47) {
                 this.thePlayer.swingItem();
+            }
 
             if (this.objectMouseOver == null) {
                 logger.error("Null returned as 'hitResult', this shouldn't happen!");
@@ -1322,11 +1334,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                             this.leftClickCounter = 10;
                         }
                 }
+                if (ViaMCP.getInstance().getVersion() > 47) {
+                    this.thePlayer.swingItem();
+                }
             }
-
-            // ViaForgeMCP
-            if (ViaMCPCommon.getManager().getTargetVersion().newerThan(ProtocolVersion.v1_8))
-                this.thePlayer.swingItem();
         }
     }
 

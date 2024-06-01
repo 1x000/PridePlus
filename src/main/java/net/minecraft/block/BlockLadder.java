@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import cn.molokymc.prideplus.viamcp.ViaMCP;
 import cn.molokymc.prideplus.viamcp.versionfix.VersionFixer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;

@@ -2,15 +2,19 @@ package net.minecraft.network;
 
 import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.exploit.Disabler;
-import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
-import cn.molokymc.prideplus.viamcp.common.platform.VersionTracker;
-import cn.molokymc.prideplus.viamcp.common.protocoltranslator.netty.VFNetworkManager;
+import cn.molokymc.prideplus.viamcp.ViaMCP;
+import cn.molokymc.prideplus.viamcp.handler.CommonTransformer;
+import cn.molokymc.prideplus.viamcp.handler.MCPDecodeHandler;
+import cn.molokymc.prideplus.viamcp.handler.MCPEncodeHandler;
+import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import cn.molokymc.prideplus.event.impl.network.PacketReceiveEvent;
 import cn.molokymc.prideplus.event.impl.network.PacketSendEvent;
+import com.viaversion.viaversion.connection.UserConnectionImpl;
+import com.viaversion.viaversion.protocol.ProtocolPipelineImpl;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.epoll.Epoll;
@@ -20,6 +24,7 @@ import io.netty.channel.local.LocalChannel;
 import io.netty.channel.local.LocalEventLoopGroup;
 import io.netty.channel.local.LocalServerChannel;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.TimeoutException;
@@ -30,8 +35,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.util.*;
-import net.raphimc.vialegacy.api.LegacyProtocolVersion;
-import net.raphimc.vialoader.netty.VLLegacyPipeline;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
@@ -46,7 +49,7 @@ import java.net.SocketAddress;
 import java.util.Queue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class NetworkManager extends SimpleChannelInboundHandler<Packet> implements VFNetworkManager {
+public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     private static final Logger logger = LogManager.getLogger();
     public static final Marker logMarkerNetwork = MarkerManager.getMarker("NETWORK");
     public static final Marker logMarkerPackets = MarkerManager.getMarker("NETWORK_PACKETS", logMarkerNetwork);
@@ -343,10 +346,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> implemen
             lazyloadbase = CLIENT_NIO_EVENTLOOP;
         }
 
-        // ViaForgeMCP
-        final VFNetworkManager mixinNetworkManager = networkmanager;
-        mixinNetworkManager.setTrackedVersion(VersionTracker.getServerProtocolVersion(address));
-
         new Bootstrap().group((EventLoopGroup)lazyloadbase.getValue()).handler(new ChannelInitializer<Channel>() {
             protected void initChannel(Channel p_initChannel_1_) throws Exception {
                 try {
@@ -355,8 +354,12 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> implemen
                 }
 
                 p_initChannel_1_.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(EnumPacketDirection.CLIENTBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(EnumPacketDirection.SERVERBOUND)).addLast("packet_handler", networkmanager);
-                // ViaForgeMCP
-                ViaMCPCommon.getManager().inject(p_initChannel_1_, networkmanager);
+
+                if (p_initChannel_1_ instanceof SocketChannel && ViaMCP.getInstance().getVersion() != 47) {
+                    UserConnection user = new UserConnectionImpl(p_initChannel_1_, true);
+                    new ProtocolPipelineImpl(user);
+                    p_initChannel_1_.pipeline().addBefore("encoder", CommonTransformer.HANDLER_ENCODER_NAME, new MCPEncodeHandler(user)).addBefore("decoder", CommonTransformer.HANDLER_DECODER_NAME, new MCPDecodeHandler(user));
+                }
 
             }
         }).channel(oclass).connect(address, serverPort).syncUninterruptibly();
@@ -381,22 +384,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> implemen
      * Adds an encoder+decoder to the channel pipeline. The parameter is the secret key used for encrypted communication
      */
     public void enableEncryption(SecretKey key) {
-        // ViaForgeMCP
-        if (targetVersion != null && targetVersion.olderThanOrEqualTo(LegacyProtocolVersion.r1_6_4)) {
-            // Minecraft's encryption code is bad for us, we need to reorder the pipeline
-
-            // Minecraft 1.6.4 supports tile encryption which means the server can only enable one side of the encryption
-            // So we only enable the encryption side and later enable the decryption side if the 1.7 -> 1.6 protocol
-            // tells us to do, therefore we need to store the cipher instance.
-            this.decryptionCipher = CryptManager.createNetCipherInstance(2, key);
-
-            // Enabling the encryption side
-            this.isEncrypted = true;
-            this.channel.pipeline().addBefore(VLLegacyPipeline.VIALEGACY_PRE_NETTY_LENGTH_REMOVER_NAME, "encrypt", new NettyEncryptingEncoder(CryptManager.createNetCipherInstance(1, key)));
-
-            return;
-        }
-
         this.isEncrypted = true;
         this.channel.pipeline().addBefore("splitter", "decrypt", new NettyEncryptingDecoder(CryptManager.createNetCipherInstance(2, key)));
         this.channel.pipeline().addBefore("prepender", "encrypt", new NettyEncryptingEncoder(CryptManager.createNetCipherInstance(1, key)));
@@ -460,9 +447,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> implemen
                 this.channel.pipeline().remove("compress");
             }
         }
-
-        // ViaForgeMCP
-        ViaMCPCommon.getManager().reorderCompression(channel);
     }
 
     public void checkDisconnected() {
@@ -489,21 +473,5 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> implemen
             this.packet = inPacket;
             this.futureListeners = inFutureListeners;
         }
-    }
-
-    @Override
-    public void setupPreNettyDecryption() {
-        // Enabling the decryption side for 1.6.4 if the 1.7 -> 1.6 protocol tells us to do
-        this.channel.pipeline().addBefore(VLLegacyPipeline.VIALEGACY_PRE_NETTY_LENGTH_REMOVER_NAME, "decrypt", new NettyEncryptingDecoder(this.decryptionCipher));
-    }
-
-    @Override
-    public ProtocolVersion getTrackedVersion() {
-        return targetVersion;
-    }
-
-    @Override
-    public void setTrackedVersion(ProtocolVersion version) {
-        targetVersion = version;
     }
 }
