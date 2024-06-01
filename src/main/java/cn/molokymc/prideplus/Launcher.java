@@ -1,6 +1,5 @@
-package cn.molokymc.prideplus.module.api;
+package cn.molokymc.prideplus;
 
-import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.commands.CommandHandler;
 import cn.molokymc.prideplus.commands.impl.*;
 import cn.molokymc.prideplus.config.ConfigManager;
@@ -36,7 +35,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class ProtectedLaunch {
+public class Launcher {
 
     private static final HashMap<Object, Module> modules = new HashMap<>();
 

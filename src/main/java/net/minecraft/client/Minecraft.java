@@ -21,7 +21,7 @@ import cn.molokymc.prideplus.event.impl.player.BlockPlaceableEvent;
 import cn.molokymc.prideplus.event.impl.player.ClickEvent;
 import cn.molokymc.prideplus.event.impl.player.ClickEventRight;
 import cn.molokymc.prideplus.module.impl.render.ClickGUIMod;
-import cn.molokymc.prideplus.module.api.ProtectedLaunch;
+import cn.molokymc.prideplus.Launcher;
 import cn.molokymc.prideplus.ui.clickguis.dropdown.DropdownClickGUI;
 import cn.molokymc.prideplus.ui.mainmenu.GuiStart;
 import cn.molokymc.prideplus.utils.font.FontUtil;
@@ -101,7 +101,6 @@ import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.LWJGLException;
-import org.lwjgl.compatibility.OpenGLException;
 import org.lwjgl.compatibility.Sys;
 import org.lwjgl.compatibility.display.Display;
 import org.lwjgl.compatibility.display.PixelFormat;
@@ -113,7 +112,6 @@ import org.lwjgl.opengl.*;
 import store.intent.intentguard.annotation.Native;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -530,7 +528,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.ingameGUI = new GuiIngame(this);
 
         SplashScreen.setProgress(8,"Client");
-        ProtectedLaunch.start();
+        Launcher.start();
 
         SplashScreen.continueCount(false);
         SplashScreen.setProgress(9,"BackGround");
