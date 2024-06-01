@@ -21,7 +21,6 @@ import cn.molokymc.prideplus.event.impl.player.BlockPlaceableEvent;
 import cn.molokymc.prideplus.event.impl.player.ClickEvent;
 import cn.molokymc.prideplus.event.impl.player.ClickEventRight;
 import cn.molokymc.prideplus.module.impl.render.ClickGUIMod;
-import cn.molokymc.prideplus.Launcher;
 import cn.molokymc.prideplus.ui.clickguis.dropdown.DropdownClickGUI;
 import cn.molokymc.prideplus.ui.mainmenu.GuiStart;
 import cn.molokymc.prideplus.utils.font.FontUtil;
@@ -528,7 +527,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.ingameGUI = new GuiIngame(this);
 
         SplashScreen.setProgress(8,"Client");
-        Launcher.start();
+        Pride.start();
 
         SplashScreen.continueCount(false);
         SplashScreen.setProgress(9,"BackGround");
