@@ -39,9 +39,9 @@ public class VersionFixer {
 
     public static double movementFix(double value) {
         if (ViaMCP.getInstance().getVersion() <= 47) {
-            return 0.003D;
-        } else {
             return value;
+        } else {
+            return 0.003D;
         }
     }
 }
