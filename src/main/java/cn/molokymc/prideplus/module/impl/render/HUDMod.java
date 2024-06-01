@@ -43,7 +43,7 @@ import static cn.molokymc.prideplus.utils.skidfont.FontManager.rubik20;
 public class HUDMod extends Module {
 
     private final StringSetting clientName = new StringSetting("Client Name");
-    private final ModeSetting watermarkMode = new ModeSetting("Watermark Mode", "Stable", "Stable","StableNew","Exhi", "Novoline","cutecat","Rise","GameSense", "Minecraft", "None");
+    private final ModeSetting watermarkMode = new ModeSetting("Watermark Mode", "Naven", "Naven","Stable","StableNew","Exhi", "Novoline","cutecat","Rise","GameSense", "Minecraft", "None");
     @Getter
     public static final ModeSetting capeMode = new ModeSetting("Cape Mode", "Mtf", "Drak","Light", "Mtf");
     public static final ColorSetting color1 = new ColorSetting("Color 1", new Color(0x7878FF));
@@ -191,6 +191,21 @@ public class HUDMod extends Module {
         String finalName = get(name);
 
         switch (watermarkMode.getMode()) {
+            case "Naven":
+                RenderUtil.resetColor();
+                LocalTime currentTime1 = LocalTime.now();
+                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("HH:mm");
+                String formattedTime1 = currentTime1.format(formatter1);
+                String string11 = Pride.NAME + " §7| §f " + HUDMod.mc.thePlayer.getName() + " §7| §f" + Minecraft.getDebugFPS() + " §7| §f" + PingerUtils.getPing() + " Ping §7| §f" + formattedTime1;
+                float width111 = FontManager.normal_bold_14.getStringWidth(string11);
+                RoundedUtil.drawRound(8.0f,8.0f,width111 + 8f,16.0f,6,new Color(0,0,0,141));
+                RenderUtil.scissorStart(8.0f, 7.0f, width111 + 8.0f, 5);
+                RoundedUtil.drawRound(8.0f,8.0f,width111 + 8f,16.0f,6,new Color(160, 42,  42, 100));
+                RenderUtil.scissorEnd();
+                RenderUtil.resetColor();
+                FontManager.normal_bold_14.drawString(string11, 12f, 28 - FontManager.normal_bold_14.getHeight(), -1);
+                RenderUtil.resetColor();
+                break;
             case "StableNew":
                 String sb = name + " | "+ Pride.INSTANCE.getVersion()+" | " + Minecraft.getDebugFPS() + "FPS";
                 float sb1 = FontManager.edit17.getStringWidth(sb);
@@ -280,7 +295,7 @@ public class HUDMod extends Module {
             case "cutecat":
                 RoundedUtil.drawRound(8f,8f,68f,68f,0f,new Color(0,0,0,240));
                 //GlowUtils.drawGlow(7f,7f,70f,70f,10,new Color(0,0,0,140));
-                RenderUtil.drawImage(new ResourceLocation("Pride/cat.jpg"),7f,7f,70f,70f);
+                RenderUtil.drawImage(new ResourceLocation(Pride.NAME + "/cat.jpg"),7f,7f,70f,70f);
                 break;
             case "Normal":
                 String client2 = name.toUpperCase();

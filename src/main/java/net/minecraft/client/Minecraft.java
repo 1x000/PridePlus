@@ -1,6 +1,5 @@
 package net.minecraft.client;
 
-import cn.molokymc.prideplus.ui.alt.AltManager;
 import cn.molokymc.prideplus.viamcp.common.ViaMCPCommon;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -327,7 +326,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     /**
      * Set to true to keep the game loop running. Set to false by shutdown() to allow the game loop to exit cleanly.
      */
-    volatile boolean running = true;
+    public volatile boolean running = true;
 
     /**
      * String that shows the debug information
@@ -871,12 +870,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     public void shutdownMinecraftApplet() {
         try {
             logger.info("Stopping!");
-
-            try {
-                AltManager.Instance.saveAlt();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
             try {
                 this.loadWorld(null);

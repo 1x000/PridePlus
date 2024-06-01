@@ -27,9 +27,7 @@ import cn.molokymc.prideplus.utils.render.RoundedUtil;
 import cn.molokymc.prideplus.utils.server.PacketUtils;
 import cn.molokymc.prideplus.utils.time.TimerUtil;
 import java.awt.Color;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockAir;
-import net.minecraft.block.BlockLiquid;
+
 import net.minecraft.client.gui.IFontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -65,15 +63,10 @@ public class Scaffold extends Module {
     public static final BooleanSetting safewalk = new BooleanSetting("Safewalk", false);
     private ScaffoldUtils.BlockCache blockCache;
     private float y;
-    private float speed;
     private final TimerUtil delayTimer = new TimerUtil();
     private final TimerUtil timerUtil = new TimerUtil();
     public static double keepYCoord;
-    private boolean firstJump;
-    private boolean pre;
-    private int jumpTimer;
     private int slot;
-    private int prevSlot;
     boolean onGround = false;
     private float[] cachedRots = new float[2];
     private final Animation anim = new EaseBackIn(250, 1.0,(float)1.0);
@@ -97,6 +90,7 @@ public class Scaffold extends Module {
             event.cancel();
         }
     }
+
     @Override
     public void onTickEvent(TickEvent event) {
         if (!mc.gameSettings.keyBindJump.isKeyDown() && MovementUtils.isMoving() && !mc.thePlayer.onGround && sprintMode.is("Watchdog")) {
@@ -121,13 +115,7 @@ public class Scaffold extends Module {
             mc.thePlayer.jump();
         }
 
-        boolean jump;
-
-        if (mode.is("Telly")) {
-            jump = Keyboard.isKeyDown(mc.gameSettings.keyBindJump.getKeyCode());
-        } else {
-            jump = mc.gameSettings.keyBindJump.isKeyDown();
-        }
+        boolean jump = mode.is("Telly") ? Keyboard.isKeyDown(mc.gameSettings.keyBindJump.getKeyCode()) : mc.gameSettings.keyBindJump.isKeyDown();
 
         if (!jump) {
             mc.timer.timerSpeed = this.timer.getValue().floatValue();
@@ -175,13 +163,11 @@ public class Scaffold extends Module {
 
         if (this.rotations.isEnabled()) {
             float[] rotations = new float[]{0.0F, 0.0F};
-            float prevYaw;
             float f;
             switch (this.rotationMode.getMode()) {
                 case "Watchdog":
                     rotations = new float[]{MovementUtils.getMoveYaw(e.getYaw()) - 360.0F, this.y};
                     if (mc.thePlayer.onGround && !MovementUtils.isMoving()) {
-                        prevYaw = this.cachedRots[0];
 
                         if (this.blockCache != null && (mc.thePlayer.ticksExisted % 2 == 0 || mc.theWorld.getBlockState(new BlockPos(e.getX(), getYLevel(), e.getZ())).getBlock() == Blocks.air)) {
                             this.cachedRots = RotationUtils.getRotations(this.blockCache.getPosition(), this.blockCache.getFacing());
@@ -195,7 +181,6 @@ public class Scaffold extends Module {
                     }
                     break;
                 case "NCP":
-                    prevYaw = this.cachedRots[0];
 
                     if (this.blockCache != null && (mc.thePlayer.ticksExisted % 3 == 0 || mc.theWorld.getBlockState(new BlockPos(e.getX(), getYLevel(), e.getZ())).getBlock() == Blocks.air)) {
                         this.cachedRots = RotationUtils.getRotations(this.blockCache.getPosition(), this.blockCache.getFacing());
@@ -214,8 +199,6 @@ public class Scaffold extends Module {
                     RotationComponent.setRotations(new Vector2f(mc.thePlayer.rotationYaw, 90f), 180, MovementFix.NORMAL);
                     break;
                 case "Telly":
-                    prevYaw = this.cachedRots[0];
-
                     if (this.blockCache != null && (mc.thePlayer.ticksExisted % 3 == 0 || mc.theWorld.getBlockState(new BlockPos(e.getX(), getYLevel(), e.getZ())).getBlock() == Blocks.air)) {
                         Vector2f vecRotation = RotationUtils.calculate(new Vector3d(blockCache.getPosition().getX(), blockCache.getPosition().getY(), blockCache.getPosition().getZ()), blockCache.getFacing());
                         this.cachedRots = new float[]{vecRotation.x, vecRotation.y};
@@ -285,8 +268,6 @@ public class Scaffold extends Module {
                 }
         }
         if (mc.gameSettings.keyBindJump.isKeyDown()) {
-            double centerX = Math.floor(e.getX()) + 0.5;
-            double centerZ = Math.floor(e.getZ()) + 0.5;
             switch (towerMode.getMode()) {
                 case "Vanilla":
                     mc.thePlayer.motionY = 0.41999998688697815;
@@ -296,22 +277,12 @@ public class Scaffold extends Module {
                         if (mc.thePlayer.onGround) {
                             mc.thePlayer.motionY = 0.42;
                         } else if (mc.thePlayer.motionY < 0.23) {
-                            mc.thePlayer.setPosition(mc.thePlayer.posX, (double)((int)mc.thePlayer.posY), mc.thePlayer.posZ);
+                            mc.thePlayer.setPosition(mc.thePlayer.posX, ((int)mc.thePlayer.posY), mc.thePlayer.posZ);
                             mc.thePlayer.motionY = 0.42;
                         }
                     }
             }
         }
-
-        if (mc.thePlayer.ticksExisted % 4 == 0) {
-            this.pre = true;
-        }
-        this.pre = false;
-    }
-
-    public static boolean isAirOrLiquid(BlockPos pos) {
-        Block block = mc.theWorld.getBlockState(pos).getBlock();
-        return block instanceof BlockAir || block instanceof BlockLiquid;
     }
 
     @Override
@@ -340,7 +311,6 @@ public class Scaffold extends Module {
             }
 
             if (this.delayTimer.hasTimeElapsed(delay.getValue() * 1000.0)) {
-                this.firstJump = false;
                 if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld, mc.thePlayer.inventory.getStackInSlot(this.slot), this.blockCache.getPosition(), this.blockCache.getFacing(), ScaffoldUtils.getHypixelVec3(this.blockCache))) {
                     this.y = MathUtils.getRandomInRange(79.5F, 83.5F);
                     PacketUtils.sendPacket(new C0APacketAnimation());
@@ -373,17 +343,13 @@ public class Scaffold extends Module {
     @Override
     public void onEnable() {
         if (mc.thePlayer != null) {
-            this.prevSlot = mc.thePlayer.inventory.currentItem;
             this.slot = mc.thePlayer.inventory.currentItem;
             if (mc.thePlayer.isSprinting() && !sprintMode.is("None") && !sprintMode.is("Vanilla") && !sprintMode.is("Legit")) {
                 PacketUtils.sendPacketNoEvent(new C0BPacketEntityAction(mc.thePlayer, Action.STOP_SPRINTING));
             }
         }
 
-        this.firstJump = true;
-        this.speed = 1.1F;
         this.timerUtil.reset();
-        this.jumpTimer = 0;
         this.y = 80.0F;
         super.onEnable();
     }
@@ -396,7 +362,6 @@ public class Scaffold extends Module {
         String countStr = String.valueOf(count);
         IFontRenderer fr = mc.fontRendererObj;
         ScaledResolution sr = new ScaledResolution(mc);
-        int color;
         float x, y;
         String str = countStr + " block" + (count != 1 ? "s" : "");
         float output = anim.getOutput().floatValue();

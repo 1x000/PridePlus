@@ -1,5 +1,6 @@
 package cn.molokymc.prideplus.config;
 
+import cn.molokymc.prideplus.Pride;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 
@@ -13,6 +14,6 @@ public class LocalConfig {
 
     public LocalConfig(String name) {
         this.name = name;
-        this.file = new File(Minecraft.getMinecraft().mcDataDir + "/PridePlus/Configs/" + name + ".gay");
+        this.file = new File(Minecraft.getMinecraft().mcDataDir + "/" + Pride.NAME + "/Configs/" + name + ".gay");
     }
 }

@@ -1,5 +1,6 @@
 package cn.molokymc.prideplus.ui.clickguis.compact.impl;
 
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.settings.Setting;
 import cn.molokymc.prideplus.module.settings.impl.*;
@@ -331,14 +332,14 @@ public class SettingComponents implements Screen {
                     GlStateManager.color(1, 1, 1, 1);
                     GL11.glEnable(GL11.GL_BLEND);
                     RenderUtil.color(textColor);
-                    mc.getTextureManager().bindTexture(new ResourceLocation("Pride/colorpicker2.png"));
+                    mc.getTextureManager().bindTexture(new ResourceLocation(Pride.NAME + "/colorpicker2.png"));
                     Gui.drawModalRectWithCustomSizedTexture(pickerX, pickerY, 0, 0, 4, 4, 4, 4);
 
 
                     GlStateManager.color(1, 1, 1, 1);
                     // Hue bar
                     RenderUtil.color(textColor);
-                    mc.getTextureManager().bindTexture(new ResourceLocation("Pride/hue2.png"));
+                    mc.getTextureManager().bindTexture(new ResourceLocation(Pride.NAME + "/hue2.png"));
                     Gui.drawModalRectWithCustomSizedTexture(gradientX + gradientWidth + 5, gradientY, 0, 0, 5, gradientHeight, 5, gradientHeight);
 
                     GlStateManager.color(1, 1, 1, 1);

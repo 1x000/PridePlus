@@ -152,7 +152,7 @@ public class CompactClickgui extends GuiScreen {
 
         GlStateManager.color(1, 1, 1, 1);
         GL11.glEnable(GL11.GL_BLEND);
-        Utils.mc.getTextureManager().bindTexture(new ResourceLocation("Pride/modernlogo.png"));
+        Utils.mc.getTextureManager().bindTexture(new ResourceLocation(Pride.NAME + "/modernlogo.png"));
         Gui.drawModalRectWithCustomSizedTexture(x + 5, y + 5, 0, 0, 20.5f, 20.5f, 20.5f, 20.5f);
 
         FontUtil.tenacityBoldFont22.drawString(Pride.NAME, x + 33, y + 7, -1);

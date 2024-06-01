@@ -38,11 +38,13 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.raphimc.vialegacy.api.util.PacketUtil;
 
 
 import java.awt.*;
@@ -137,9 +139,9 @@ public final class KillAura extends Module {
     private void attackEntity(final Entity target) {
         if (ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8)) {
             mc.thePlayer.swingItem();
-            mc.playerController.attackEntity(mc.thePlayer, target);
+            mc.getNetHandler().addToSendQueue(new C02PacketUseEntity(target, C02PacketUseEntity.Action.ATTACK));
         } else {
-            mc.playerController.attackEntity(mc.thePlayer, target);
+            mc.getNetHandler().addToSendQueue(new C02PacketUseEntity(target, C02PacketUseEntity.Action.ATTACK));
             mc.thePlayer.swingItem();
         }
         //AttackOrder.sendFixedAttack((EntityPlayer) KillAura.mc.thePlayer, target);
@@ -188,12 +190,12 @@ public final class KillAura extends Module {
                             PacketWrapper use_0 = PacketWrapper.create(29, null,
                                     Via.getManager().getConnectionManager().getConnections().iterator().next());
                             use_0.write(Type.VAR_INT, 0);
-                            use_0.sendToServer(Protocol1_8To1_9.class, true);
+                            PacketUtils.sendToServer(use_0, Protocol1_8To1_9.class, true, true);
 
                             PacketWrapper use_1 = PacketWrapper.create(29, null,
                                     Via.getManager().getConnectionManager().getConnections().iterator().next());
                             use_1.write(Type.VAR_INT, 1);
-                            use_1.sendToServer(Protocol1_8To1_9.class, true);
+                            PacketUtils.sendToServer(use_1, Protocol1_8To1_9.class, true, true);
                             mc.gameSettings.keyBindUseItem.pressed = true;
                             wasBlocking = true;
                         }
@@ -244,9 +246,9 @@ public final class KillAura extends Module {
                         //AttackOrder.sendFixedAttack(mc.thePlayer, entityLivingBase);
                         if (ViaMCPCommon.getManager().getTargetVersion().olderThanOrEqualTo(ProtocolVersion.v1_8)) {
                             mc.thePlayer.swingItem();
-                            mc.playerController.attackEntity(mc.thePlayer, entityLivingBase);
+                            mc.getNetHandler().addToSendQueue(new C02PacketUseEntity(target, C02PacketUseEntity.Action.ATTACK));
                         } else {
-                            mc.playerController.attackEntity(mc.thePlayer, entityLivingBase);
+                            mc.getNetHandler().addToSendQueue(new C02PacketUseEntity(target, C02PacketUseEntity.Action.ATTACK));
                             mc.thePlayer.swingItem();
                         }
                     }

@@ -90,7 +90,7 @@ public class AutoHypixel extends Module {
                 "Your Health: " + MathUtil.DF_1.format(Utils.mc.thePlayer.getHealth()), 5.0f);
         if(music.isEnabled()){
             NotificationManager.post(NotificationType.INFO, "", "Now playing the music \"JiaYouYa\"");
-            SoundUtils.playSound(new ResourceLocation("Pride/sounds/victory.wav"), 1.2f);
+            SoundUtils.playSound(new ResourceLocation(Pride.NAME + "/sounds/victory.wav"), 1.2f);
         }
         //NotificationManager.post(NotificationType.INFO, "", "Respawn Check");
         (Pride.INSTANCE.getModuleCollection().getModule((Class)Manager.class)).setToggled(false);

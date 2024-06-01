@@ -539,7 +539,7 @@ public class GuiIngame extends Gui implements Utils {
 
 
     public void renderScoreboard(ScoreObjective objective, ScaledResolution scaledRes) {
-        final int FONT_HEIGHT = FontManager.rubik16.getHeight() + 2;
+        final int FONT_HEIGHT = FontManager.normal_bold_14.getHeight() + 2;
         Scoreboard scoreboard = objective.getScoreboard();
         Collection<Score> collection = scoreboard.getSortedScores(objective);
         List<Score> list = Lists.newArrayList(Iterables.filter(collection, p_apply_1_ -> p_apply_1_.getPlayerName() != null && !p_apply_1_.getPlayerName().startsWith("#")));
@@ -553,13 +553,13 @@ public class GuiIngame extends Gui implements Utils {
             collection = list;
         }
 
-        int i = FontManager.rubik16.getStringWidth(objective.getDisplayName());
+        int i = FontManager.normal_bold_14.getStringWidth(objective.getDisplayName());
 
         for (Score score : collection)
         {
             ScorePlayerTeam scoreplayerteam = scoreboard.getPlayersTeam(score.getPlayerName());
             String s = ScorePlayerTeam.formatPlayerName(scoreplayerteam, score.getPlayerName()) + ": " + EnumChatFormatting.RED + score.getScorePoints();
-            i = Math.max(i, FontManager.rubik16.getStringWidth(s));
+            i = Math.max(i, FontManager.normal_bold_14.getStringWidth(s));
         }
 
         int i1 = collection.size() * FONT_HEIGHT;
@@ -579,7 +579,7 @@ public class GuiIngame extends Gui implements Utils {
             int l = scaledRes.getScaledWidth() - k1 + 2;
             drawRect(l1 - 2, k, l, k + FONT_HEIGHT, 1342177280);
 
-            FontManager.rubik16.drawString(s1,l1,k,16777215);
+            FontManager.normal_bold_14.drawString(s1,l1,k,16777215);
 
             // FontManager.default16.drawString(s2,l - FontManager.default16.getStringWidth(s2) + 8,k,16777215);
 
@@ -589,7 +589,7 @@ public class GuiIngame extends Gui implements Utils {
                 drawRect(l1 - 2, k - FONT_HEIGHT - 1, l, k - 1, 1610612736);
                 drawRect(l1 - 2, k - 1, l, k, 1342177280);
 
-                FontManager.rubik16.drawString(s3, l1 + i / 2.0 - FontManager.rubik16.getStringWidth(s3) / 2.0, k - FONT_HEIGHT, 16777215);
+                FontManager.normal_bold_14.drawString(s3, l1 + i / 2.0 - FontManager.normal_bold_14.getStringWidth(s3) / 2.0, k - FONT_HEIGHT, 16777215);
             }
         }
 

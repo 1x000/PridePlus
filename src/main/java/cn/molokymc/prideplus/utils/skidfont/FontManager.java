@@ -1,5 +1,7 @@
 package cn.molokymc.prideplus.utils.skidfont;
 
+import cn.molokymc.prideplus.Pride;
+
 import java.awt.*;
 import java.io.InputStream;
 
@@ -38,7 +40,7 @@ public class FontManager {
     public static Font getFont(String name, int size) {
         Font font;
         try {
-            InputStream is = FontManager.class.getResourceAsStream("/assets/minecraft/Pride/font/" + name);
+            InputStream is = FontManager.class.getResourceAsStream("/assets/minecraft/" + Pride.NAME + "/font/" + name);
             font = Font.createFont(0, is);
             font = font.deriveFont(Font.PLAIN, size);
         } catch (Exception ex) {

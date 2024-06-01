@@ -1,5 +1,6 @@
 package cn.molokymc.prideplus.ui.clickguis.modern;
 
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.Module;
 import cn.molokymc.prideplus.module.impl.render.HUDMod;
 import cn.molokymc.prideplus.module.settings.Setting;
@@ -314,7 +315,7 @@ public class SettingsPanel extends Panel {
 
                 GL11.glEnable(GL11.GL_BLEND);
                 RenderUtil.color(-1);
-                mc.getTextureManager().bindTexture(new ResourceLocation("Pride/colorpicker2.png"));
+                mc.getTextureManager().bindTexture(new ResourceLocation(Pride.NAME + "/colorpicker2.png"));
                 Gui.drawModalRectWithCustomSizedTexture(pickerX, pickerY, 0, 0, 4, 4, 4, 4);
 
 
@@ -324,7 +325,7 @@ public class SettingsPanel extends Panel {
 
                 // Hue bar
                 RenderUtil.color(-1);
-                mc.getTextureManager().bindTexture(new ResourceLocation("Pride/hue.png"));
+                mc.getTextureManager().bindTexture(new ResourceLocation(Pride.NAME + "/hue.png"));
                 Gui.drawModalRectWithCustomSizedTexture(gradientX, gradientY + gradientHeight + 4.5f, 0, 0, gradientWidth + 10, 4, gradientWidth + 10, 4);
                 GlStateManager.color(1, 1, 1, 1);
 

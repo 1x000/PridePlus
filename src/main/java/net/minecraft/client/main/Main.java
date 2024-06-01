@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.properties.PropertyMap.Serializer;
-import an.Progress;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
@@ -24,8 +23,6 @@ import java.util.List;
 @MainClass
 public class Main {
     public static void main(String[] p_main_0_)  {
-        new Progress();
-
         System.setProperty("java.net.preferIPv4Stack", "true");
         OptionParser optionparser = new OptionParser();
         optionparser.allowsUnrecognizedOptions();
@@ -59,7 +56,7 @@ public class Main {
             System.out.println("Completely ignored arguments: " + list);
         }
 
-        String s = (String) optionset.valueOf(optionspec5);
+        String s = optionset.valueOf(optionspec5);
         Proxy proxy = Proxy.NO_PROXY;
 
         if (s != null) {
@@ -70,8 +67,8 @@ public class Main {
             }
         }
 
-        final String s1 = (String) optionset.valueOf(optionspec7);
-        final String s2 = (String) optionset.valueOf(optionspec8);
+        final String s1 = optionset.valueOf(optionspec7);
+        final String s2 = optionset.valueOf(optionspec8);
 
         if (!proxy.equals(Proxy.NO_PROXY) && isNullOrEmpty(s1) && isNullOrEmpty(s2)) {
             Authenticator.setDefault(new Authenticator() {

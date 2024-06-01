@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.entity.layers;
 
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.HUDMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -74,13 +75,13 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             switch (HUDMod.capeMode.getMode().toLowerCase()) {
                 case "mtf":
-                    capeMode = "Pride/Cape/c1.png";
+                    capeMode = Pride.NAME + "/Cape/c1.png";
                     break;
                 case "drak":
-                    capeMode = "Pride/drak.png";
+                    capeMode = Pride.NAME + "/drak.png";
                     break;
                 case "light":
-                    capeMode = "Pride/light.png";
+                    capeMode = Pride.NAME + "/light.png";
                     break;
             }
             ResourceLocation resourceLocation = new ResourceLocation(capeMode);

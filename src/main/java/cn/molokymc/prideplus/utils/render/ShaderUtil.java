@@ -1,5 +1,6 @@
 package cn.molokymc.prideplus.utils.render;
 
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.misc.FileUtils;
 import net.minecraft.client.gui.ScaledResolution;
@@ -91,7 +92,7 @@ public class ShaderUtil implements Utils {
         int fragmentShaderID = createShader(new ByteArrayInputStream(fragmentShadersrc.getBytes()), GL_FRAGMENT_SHADER);
         int vertexShaderID = 0;
         try {
-            vertexShaderID = createShader(mc.getResourceManager().getResource(new ResourceLocation("Pride/Shaders/vertex.vsh")).getInputStream(), GL_VERTEX_SHADER);
+            vertexShaderID = createShader(mc.getResourceManager().getResource(new ResourceLocation(Pride.NAME + "/Shaders/vertex.vsh")).getInputStream(), GL_VERTEX_SHADER);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -111,7 +112,7 @@ public class ShaderUtil implements Utils {
     }
 
     public ShaderUtil(String fragmentShaderLoc) {
-        this(fragmentShaderLoc, "Pride/Shaders/vertex.vsh");
+        this(fragmentShaderLoc, Pride.NAME + "/Shaders/vertex.vsh");
     }
 
 

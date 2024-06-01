@@ -1,5 +1,6 @@
 package cn.molokymc.prideplus.utils.font;
 
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.utils.Utils;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
@@ -93,17 +94,17 @@ public class FontUtil implements Utils {
 
         FontType(String fontName, String boldName, int... sizes) {
             System.out.printf(fontName);
-            this.location = new ResourceLocation("Pride/font/" + fontName + ".ttf");
+            this.location = new ResourceLocation(Pride.NAME + "/font/" + fontName + ".ttf");
 
 
-            this.boldLocation = new ResourceLocation("Pride/font/" + boldName + ".ttf");
+            this.boldLocation = new ResourceLocation(Pride.NAME + "/font/" + boldName + ".ttf");
 
             this.sizes = sizes;
         }
 
 
         FontType(String fontName, int... sizes) {
-            this.location = new ResourceLocation("Pride/font/" + fontName + ".ttf");
+            this.location = new ResourceLocation(Pride.NAME + "/font/" + fontName + ".ttf");
             this.boldLocation = null;
             this.sizes = sizes;
         }

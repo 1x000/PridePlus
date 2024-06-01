@@ -13,6 +13,10 @@ import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.player.BlockUtils;
 import cn.molokymc.prideplus.utils.player.MovementUtils;
 import cn.molokymc.prideplus.utils.server.PacketUtils;
+import com.viaversion.viarewind.protocol.protocol1_8to1_9.Protocol1_8To1_9;
+import com.viaversion.viaversion.api.Via;
+import com.viaversion.viaversion.api.protocol.packet.PacketWrapper;
+import com.viaversion.viaversion.api.type.Type;
 import io.netty.buffer.Unpooled;
 import net.minecraft.item.*;
 import net.minecraft.network.Packet;
@@ -96,7 +100,10 @@ public class NoSlowDown extends Module {
                     if (e.isPost()){
                         if (isBlocking()){
                             PacketUtils.sendPacketC0F();
-                            mc.playerController.sendUseItem(mc.thePlayer, mc.theWorld, mc.thePlayer.getHeldItem());
+                            PacketUtils.sendPacketNoEvent(new C08PacketPlayerBlockPlacement(mc.thePlayer.getHeldItem()));
+                            PacketWrapper useItem = PacketWrapper.create(29, null, Via.getManager().getConnectionManager().getConnections().iterator().next());
+                            useItem.write(Type.VAR_INT, 1);
+                            PacketUtils.sendToServer(useItem, Protocol1_8To1_9.class, true, true);
                         }
                     }
                 }

@@ -3,6 +3,9 @@ package cn.molokymc.prideplus.utils.server;
 import cn.molokymc.prideplus.module.impl.exploit.Disabler;
 import cn.molokymc.prideplus.utils.Utils;
 import cn.molokymc.prideplus.utils.client.MathUtil;
+import com.viaversion.viaversion.api.protocol.Protocol;
+import com.viaversion.viaversion.api.protocol.packet.PacketWrapper;
+import com.viaversion.viaversion.exception.CancelException;
 import net.minecraft.network.Packet;
 import net.minecraft.network.handshake.client.C00Handshake;
 import net.minecraft.network.login.client.C00PacketLoginStart;
@@ -32,6 +35,21 @@ public class PacketUtils implements Utils {
     public static void sendPacketC0F() {
         if (!Disabler.getGrimPost()) {
             sendPacket(new C0FPacketConfirmTransaction(MathUtil.getRandom(102, 1000024123), (short) MathUtil.getRandom(102, 1000024123), true));
+        }
+
+    }
+
+    public static void sendToServer(PacketWrapper packet, Class<? extends Protocol> packetProtocol, boolean skipCurrentPipeline, boolean currentThread) {
+        try {
+            if (currentThread) {
+                packet.sendToServer(packetProtocol, skipCurrentPipeline);
+            } else {
+                packet.scheduleSendToServer(packetProtocol, skipCurrentPipeline);
+            }
+        } catch (CancelException var5) {
+        } catch (Exception var6) {
+            Exception ex = var6;
+            ex.printStackTrace();
         }
 
     }

@@ -17,8 +17,7 @@ import cn.molokymc.prideplus.module.impl.player.*;
 import cn.molokymc.prideplus.module.impl.render.*;
 import cn.molokymc.prideplus.module.impl.render.killeffects.KillEffects;
 import cn.molokymc.prideplus.scripting.api.ScriptManager;
-import cn.molokymc.prideplus.ui.alt.AltManager;
-import cn.molokymc.prideplus.ui.alt.GuiAltManager;
+import cn.molokymc.prideplus.ui.altmanager.GuiAltManager;
 import cn.molokymc.prideplus.ui.mainmenu.CustomMainMenu;
 import cn.molokymc.prideplus.ui.searchbar.SearchBar;
 import cn.molokymc.prideplus.ui.sidegui.SideGUI;
@@ -62,7 +61,7 @@ public class Pride implements Utils {
     private static final HashMap<Object, Module> modules = new HashMap<>();
 
     public static final Logger LOGGER = LogManager.getLogger(NAME);
-    public static final File DIRECTORY = new File(mc.mcDataDir, "PridePlus");
+    public static final File DIRECTORY = new File(mc.mcDataDir, Pride.NAME);
     private final EventProtocol eventProtocol = new EventProtocol();
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final SideGUI sideGui = new SideGUI();
@@ -206,19 +205,13 @@ public class Pride implements Utils {
         INSTANCE.getEventProtocol().register(new RotationComponent());
         INSTANCE.setConfigManager(new ConfigManager());
         commandHandler.commands.addAll(Arrays.asList(new FriendCommand(), new CopyNameCommand(), new BindCommand(), new UnbindCommand(), new ScriptCommand(), new SettingCommand(), new HelpCommand(), new VClipCommand(), new ClearBindsCommand(), new ClearConfigCommand(), new LoadConfigCommand(),new ToggleCommand(), new LoadConfigCommand()));
-        ConfigManager.defaultConfig = new File(Minecraft.getMinecraft().mcDataDir + "/PridePlus/Config.json");
+        ConfigManager.defaultConfig = new File(Minecraft.getMinecraft().mcDataDir + "/" + Pride.NAME + "/Config.json");
         INSTANCE.getConfigManager().collectConfigs();
         if (ConfigManager.defaultConfig.exists()) {
             INSTANCE.getConfigManager().loadConfig(INSTANCE.getConfigManager().readConfigData(ConfigManager.defaultConfig.toPath()), true);
         }
 
         DragManager.loadDragData();
-
-        try {
-            AltManager.Instance.readAlt();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         INSTANCE.setAltManager(new GuiAltManager(new CustomMainMenu()));
     }

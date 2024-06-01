@@ -1,5 +1,6 @@
 package cn.molokymc.prideplus.ui.clickguis.dropdown.components.settings;
 
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.settings.impl.ColorSetting;
 import cn.molokymc.prideplus.module.settings.impl.NumberSetting;
 import cn.molokymc.prideplus.ui.clickguis.dropdown.components.SettingComponent;
@@ -184,13 +185,13 @@ public class ColorComponent extends SettingComponent<ColorSetting> {
             Color whiteColor = ColorUtil.applyOpacity(Color.BLACK, colorAlpha);
             RenderUtil.color(whiteColor.getRGB());
             GLUtil.startBlend();
-            RenderUtil.drawImage(new ResourceLocation("Pride/colorpicker2.png"), pickerX, pickerY, 4, 4);
+            RenderUtil.drawImage(new ResourceLocation(Pride.NAME + "/colorpicker2.png"), pickerX, pickerY, 4, 4);
             GLUtil.endBlend();
 
             float hueY = gradientY + gradientHeight + 5;
             float hueHeight = 4;
             RenderUtil.resetColor();
-            mc.getTextureManager().bindTexture(new ResourceLocation("Pride/hue.png"));
+            mc.getTextureManager().bindTexture(new ResourceLocation(Pride.NAME + "/hue.png"));
             RoundedUtil.drawRoundTextured(gradientX, hueY, gradientWidth, hueHeight, 1.5f, colorAlpha);
 
 

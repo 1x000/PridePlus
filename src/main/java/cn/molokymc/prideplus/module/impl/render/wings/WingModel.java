@@ -1,5 +1,6 @@
 package cn.molokymc.prideplus.module.impl.render.wings;
 
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.module.impl.render.CustomModel;
 import cn.molokymc.prideplus.utils.render.RenderUtil;
 import net.minecraft.client.Minecraft;
@@ -21,7 +22,7 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class WingModel extends ModelBase {
 
-    private final ResourceLocation location = new ResourceLocation("Pride/Models/wings.png");
+    private final ResourceLocation location = new ResourceLocation(Pride.NAME + "/Models/wings.png");
     private final ModelRenderer wingTip, wing;
 
     public WingModel() {

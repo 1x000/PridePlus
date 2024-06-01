@@ -1,5 +1,6 @@
 package cn.molokymc.prideplus.module.impl.render;
 
+import cn.molokymc.prideplus.Pride;
 import cn.molokymc.prideplus.event.impl.game.WorldEvent;
 import cn.molokymc.prideplus.module.Category;
 import cn.molokymc.prideplus.module.Module;
@@ -19,8 +20,8 @@ import java.util.Map;
  */
 public class CustomModel extends Module {
 
-    public static final ResourceLocation amongusModel = new ResourceLocation("Pride/Models/amogus.png");
-    public static final ResourceLocation rabbitModel = new ResourceLocation("Pride/Models/rabbit.png");
+    public static final ResourceLocation amongusModel = new ResourceLocation(Pride.NAME + "/Models/amogus.png");
+    public static final ResourceLocation rabbitModel = new ResourceLocation(Pride.NAME + "/Models/rabbit.png");
 
     public static boolean enabled = false;
 

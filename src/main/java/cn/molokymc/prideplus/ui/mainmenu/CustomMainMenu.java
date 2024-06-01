@@ -33,7 +33,7 @@ import java.util.List;
 
 public class CustomMainMenu extends GuiScreen {
 
-    private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[] {new ResourceLocation("Pride/background/panorama_0.png"), new ResourceLocation("Pride/background/panorama_1.png"), new ResourceLocation("Pride/background/panorama_2.png"), new ResourceLocation("Pride/background/panorama_3.png"), new ResourceLocation("Pride/background/panorama_4.png"), new ResourceLocation("Pride/background/panorama_5.png")};
+    private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[] {new ResourceLocation(Pride.NAME + "/background/panorama_0.png"), new ResourceLocation(Pride.NAME + "/background/panorama_1.png"), new ResourceLocation(Pride.NAME + "/background/panorama_2.png"), new ResourceLocation(Pride.NAME + "/background/panorama_3.png"), new ResourceLocation(Pride.NAME + "/background/panorama_4.png"), new ResourceLocation(Pride.NAME + "/background/panorama_5.png")};
 
     private ResourceLocation backgroundTexture;
     private int panoramaTimer;

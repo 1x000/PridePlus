@@ -200,7 +200,7 @@ public class ModernClickGui extends GuiScreen {
 
 
         GL11.glEnable(GL11.GL_BLEND);
-        Utils.mc.getTextureManager().bindTexture(new ResourceLocation("Pride/modernlogo.png"));
+        Utils.mc.getTextureManager().bindTexture(new ResourceLocation(Pride.NAME + "/modernlogo.png"));
         Gui.drawModalRectWithCustomSizedTexture((float) (x + 9 + (3 * expandedAnimation.getOutput().floatValue())), y + 6, 0, 0, 20.5f, 20.5f, 20.5f, 20.5f);
         GL11.glDisable(GL11.GL_BLEND);
 

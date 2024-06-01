@@ -22,7 +22,7 @@ public class Scroll {
 
     public void onScroll(int ms) {
         scroll = rawScroll - scrollAnimation.getOutput().floatValue();
-        rawScroll += Mouse.getDWheel() / 4f;
+        rawScroll += Mouse.getDWheel() * 8f;
         rawScroll = Math.max(Math.min(minScroll, rawScroll), -maxScroll);
         scrollAnimation = new SmoothStepAnimation(ms, rawScroll - scroll, Direction.BACKWARDS);
     }

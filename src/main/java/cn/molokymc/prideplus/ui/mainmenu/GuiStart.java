@@ -30,7 +30,7 @@ public class GuiStart extends GuiScreen {
         drawRect(0, 0, width, height,Color.BLACK.getRGB());
         //this.render(new ScaledResolution(mc));
         if(count==30){
-            SoundUtils.playSound(new ResourceLocation("Pride/sounds/login.wav"), 0.8f);
+            SoundUtils.playSound(new ResourceLocation(Pride.NAME + "/sounds/login.wav"), 0.8f);
         }
         if(count<=50){
             for (int i = 0; i < 2; ++i) {
